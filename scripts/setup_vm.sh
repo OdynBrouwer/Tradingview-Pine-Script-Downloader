@@ -27,9 +27,12 @@ fi
 echo "Creating virtualenv and installing python deps as $USER_NAME..."
 su - "$USER_NAME" -c "bash -lc 'cd \"$REPO_DIR\" && python3 -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip setuptools wheel && pip install -r requirements.txt'"
 
-# Install Playwright browsers (as the target user)
+# Install Playwright browsers (run as root to allow package installs)
 echo "Installing Playwright browsers (this can take a while)..."
-su - "$USER_NAME" -c "bash -lc 'cd \"$REPO_DIR\" && . .venv/bin/activate && python -m playwright install --with-deps --force'"
+# Run inside the venv as root so playwright can install system deps without prompting for password
+bash -lc "cd \"$REPO_DIR\" && . .venv/bin/activate && python -m playwright install --with-deps --force"
+# If you prefer to run as the target user (no root), uncomment the following line instead:
+# su - "$USER_NAME" -c "bash -lc 'cd \"$REPO_DIR\" && . .venv/bin/activate && python -m playwright install --with-deps --force'"
 
 echo "Setup complete. You can now run:"
 echo "  sudo -u $USER_NAME -i bash -lc 'cd $REPO_DIR && ./scripts/run_download.sh --url <URL> --max-pages 5'"

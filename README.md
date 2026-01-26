@@ -32,6 +32,38 @@ playwright install chromium
 python tv_pinescript_downloader.py --help
 ```
 
+### Development / Virtual Environment
+
+Follow these steps to create and activate a virtual environment and use it in VS Code.
+
+PowerShell:
+```powershell
+python -m venv .venv
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  # if needed (one-time per session)
+. .venv\\Scripts\\Activate.ps1
+```
+
+CMD:
+```
+.venv\\Scripts\\activate.bat
+```
+
+Git Bash / WSL:
+```
+source .venv/bin/activate
+```
+
+Install dependencies and Playwright browsers:
+```bash
+pip install -r requirements.txt
+python -m playwright install
+```
+
+VS Code
+- Open the workspace; `.vscode/settings.json` is configured to use `.venv`.
+- If not selected: Command Palette → `Python: Select Interpreter` → choose `.venv\\Scripts\\python.exe`.
+- The integrated terminal will auto-activate the venv; press F5 or use the Debug panel to run/debug (the provided `Python: Current File` launch configuration uses the integrated terminal).
+
 ## Usage
 
 ### Basic Usage
@@ -41,6 +73,56 @@ python tv_pinescript_downloader.py --help
 ```bash
 python tv_downloader_fixed.py --url "https://www.tradingview.com/scripts/luxalgo/"
 ```
+
+### Docker (run headless with Playwright browsers)
+
+A Docker image is provided for running the downloader in an isolated, reproducible container. The image is based on the official Playwright Python image and includes browser binaries.
+
+Build the image locally:
+
+```bash
+docker build -t tv-downloader:latest .
+```
+
+Run a single download (mount host output dir):
+
+```bash
+# Windows (PowerShell):
+docker run --rm -v "${PWD}:/app" -v "${PWD}/pinescript_downloads:/app/pinescript_downloads" tv-downloader:latest \
+  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads --max-pages 5
+
+# Linux/macOS:
+docker run --rm -v "$(pwd):/app" -v "$(pwd)/pinescript_downloads:/app/pinescript_downloads" tv-downloader:latest \
+  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads --max-pages 5
+```
+
+Or use docker-compose:
+
+```bash
+docker-compose build
+docker-compose run --rm downloader python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads --max-pages 5
+```
+
+Notes for Proxmox LXC: enable nesting and run Docker inside the container, or use a full VM for the most reliable Playwright/browser support.
+
+Verify browsers inside the container (quick health check):
+
+```bash
+# Run the small verification script inside the image
+# Windows (PowerShell):
+docker run --rm -v "${PWD}:/app" tv-downloader:latest python scripts/verify_playwright.py
+
+# Linux/macOS:
+docker run --rm -v "$(pwd):/app" tv-downloader:latest python scripts/verify_playwright.py
+```
+
+If the verification fails with permission errors related to installing browsers, rebuild the image locally (the official Playwright base image includes browsers, so rebuilding ensures binaries are present):
+
+```bash
+docker build -t tv-downloader:latest .
+```
+
+
 
 Download scripts from a specific page (e.g., LuxAlgo scripts):
 

@@ -127,6 +127,53 @@ docker run --rm -v "$(pwd)/pinescript_downloads:/app/pinescript_downloads" -v "/
 
 If neither `PINE_OUTPUT_DIR` is set nor `/mnt/pinescripts` exists, the downloader falls back to `./pinescript_downloads` (local folder in the repo).
 
+Systemd service / timer (VM non-Docker setup)
+
+If you prefer running the downloader directly in the VM (no Docker), you can install and enable a systemd unit and a daily timer. The repo includes `systemd/tv-downloader.service` and `systemd/tv-downloader.timer` and a small wrapper script `scripts/run_download.sh` that:
+- prefers `PINE_OUTPUT_DIR` or `/mnt/pinescripts` and falls back to `./pinescript_downloads`
+- activates `.venv` if present
+
+Example steps (run as root on the VM):
+
+```bash
+# Clone repo on VM
+git clone https://github.com/<your-username>/Tradingview-Pine-Script-Downloader.git
+cd Tradingview-Pine-Script-Downloader
+
+# Create user for running the job (optional, recommended)
+adduser --disabled-password --gecos '' tvdown
+usermod -aG docker tvdown  # if you use docker on VM; optional
+
+# Create virtualenv and install deps
+sudo -u tvdown -i bash -lc "python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && python -m playwright install"
+
+# Ensure your CIFS mount is available at /mnt/pinescripts (fstab entry, credentials file)
+# Example: create credentials file (owned by root):
+# echo 'username=MYUSER' > /root/.smbcreds_pinescripts
+# echo 'password=MYPASS' >> /root/.smbcreds_pinescripts
+# chmod 600 /root/.smbcreds_pinescripts
+
+# Copy systemd unit files to system location and set proper user/path
+cp systemd/tv-downloader.service /etc/systemd/system/
+cp systemd/tv-downloader.timer /etc/systemd/system/
+# Edit /etc/systemd/system/tv-downloader.service and replace <youruser> and paths with 'tvdown' or the account you want to use
+
+# Reload and enable timer
+systemctl daemon-reload
+systemctl enable --now tv-downloader.timer
+
+# Run once now (optional)
+systemctl start tv-downloader.service
+journalctl -u tv-downloader.service -b --no-pager
+```
+
+This runs the job once (or daily via the timer). You can also run the wrapper directly as the tvdown user:
+
+```bash
+sudo -u tvdown -i bash -lc "cd ~/Tradingview-Pine-Script-Downloader && ./scripts/run_download.sh --url 'https://www.tradingview.com/scripts/luxalgo/' --max-pages 3"
+```
+
+
 Verify browsers inside the container (quick health check):
 
 ```bash

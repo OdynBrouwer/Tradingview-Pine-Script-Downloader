@@ -1,0 +1,16 @@
+[Unit]
+Description=TradingView Pine Script Downloader (one-shot)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/<youruser>/Tradingview-Pine-Script-Downloader
+Environment=PINE_OUTPUT_DIR=/mnt/pinescripts
+Environment=DOWNLOAD_URL="https://www.tradingview.com/scripts/luxalgo/"
+ExecStart=/home/<youruser>/Tradingview-Pine-Script-Downloader/scripts/run_download.sh --url ${DOWNLOAD_URL}
+User=<youruser>
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

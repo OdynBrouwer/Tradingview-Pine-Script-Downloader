@@ -571,9 +571,29 @@ class EnhancedTVScraper:
                     result['error'] = 'not open-source'
                 return result
             
-            # Strategy 1: Try copy/clipboard button fallback first (some pages expose raw source via copy button)
+            # Strategy 1: Try copy/clipboard fallback first — but ensure Source Code tab is opened (if present)
             source_code = ''
             try:
+                # Try to click the Source code tab first to reveal code & copy icon
+                try:
+                    tab_selectors = ['[role="tab"]:has-text("Source code")','button:has-text("Source code")','div:has-text("Source code"):not(:has(*))','button:has-text("Source")']
+                    for s in tab_selectors:
+                        try:
+                            t = self.page.locator(s)
+                            if await t.count() > 0 and await t.first.is_visible():
+                                try:
+                                    await t.first.click()
+                                    await self.page.wait_for_timeout(600)
+                                    if getattr(self, 'debug_pages', False):
+                                        print(f"   [debug] Clicked Source code tab using selector: {s}")
+                                    break
+                                except Exception:
+                                    continue
+                        except Exception:
+                            continue
+                except Exception:
+                    pass
+
                 source_code = await self._try_copy_button_extraction()
                 if source_code and getattr(self, 'debug_pages', False):
                     print(f"   [debug] Extracted source via copy-button fallback for {script_url} (chars: {len(source_code)})")
@@ -811,7 +831,14 @@ class EnhancedTVScraper:
             return ''
 
     async def _try_copy_button_extraction(self) -> str:
-        """Try extracting source code from copy-to-clipboard buttons and nearby elements."""
+        """Try extracting source code from copy-to-clipboard buttons and nearby elements.
+
+        This attempts (in order):
+         - read common data-clipboard attributes
+         - scan nearby code/textarea elements
+         - attach a 'copy' event listener, click the copy button, and capture clipboard payload
+         - as fallback try navigator.clipboard.readText()
+        """
         try:
             return await self.page.evaluate(r'''() => {
                 function looksLikePine(t) {
@@ -842,6 +869,58 @@ class EnhancedTVScraper:
                     '.tv-copy'
                 ];
 
+                // Helper to attempt click + capture via copy event
+                async function tryClickAndCapture(b) {
+                    try {
+                        // install listener
+                        window.__copied_source__ = '';
+                        const handler = (e) => {
+                            try {
+                                const txt = (e.clipboardData && e.clipboardData.getData('text/plain')) || '';
+                                if (txt) window.__copied_source__ = txt;
+                            } catch(err) {}
+                        };
+                        document.addEventListener('copy', handler, {once: true});
+
+                        // monkeypatch navigator.clipboard.writeText to capture direct writes
+                        let origWrite = null;
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                origWrite = navigator.clipboard.writeText;
+                                navigator.clipboard.writeText = (s) => { window.__copied_source__ = (s || ''); return Promise.resolve(); };
+                            } else {
+                                navigator.clipboard = { writeText: (s) => { window.__copied_source__ = (s || ''); return Promise.resolve(); } };
+                            }
+                        } catch(e) {}
+
+                        try { b.click(); } catch(e) {}
+
+                        // wait briefly for copy to happen (up to 2s)
+                        const start = Date.now();
+                        while ((Date.now() - start) < 2000) {
+                            await new Promise(r => setTimeout(r, 150));
+                            if (window.__copied_source__) break;
+                        }
+
+                        // restore original writeText
+                        try { if (origWrite && navigator.clipboard) navigator.clipboard.writeText = origWrite; } catch(e) {}
+
+                        // remove handler if still present
+                        try { document.removeEventListener('copy', handler); } catch(e) {}
+
+                        if (window.__copied_source__ && looksLikePine(window.__copied_source__)) return window.__copied_source__;
+
+                        // Fallback: try navigator.clipboard.readText()
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.readText) {
+                                const cb = await navigator.clipboard.readText();
+                                if (cb && looksLikePine(cb)) return cb;
+                            }
+                        } catch(e) {}
+                    } catch(e) {}
+                    return '';
+                }
+
                 for (const sel of btnSelectors) {
                     try {
                         const b = document.querySelector(sel);
@@ -859,10 +938,11 @@ class EnhancedTVScraper:
                             if (looksLikePine(txt)) return txt;
                         }
 
-                        // Try to click and shortly wait for injected inputs/textareas
-                        try { b.click(); } catch(e) {}
+                        // Click and try to capture via copy event
+                        const captured = await tryClickAndCapture(b);
+                        if (captured && looksLikePine(captured)) return captured;
 
-                        // After clicking, look for temporary elements or inputs with content
+                        // After clicking also check any temporary inputs/textarea
                         const inputs = Array.from(document.querySelectorAll('textarea, input'));
                         for (const inp of inputs) {
                             const v = inp.value || inp.textContent || '';
@@ -870,8 +950,8 @@ class EnhancedTVScraper:
                         }
 
                         // Check selection
-                        const sel = (window.getSelection && window.getSelection().toString()) || '';
-                        if (looksLikePine(sel)) return sel;
+                        const seltxt = (window.getSelection && window.getSelection().toString()) || '';
+                        if (looksLikePine(seltxt)) return seltxt;
                     } catch(e) {}
                 }
 
@@ -879,6 +959,57 @@ class EnhancedTVScraper:
             }''') or ''
         except Exception:
             return ''
+
+    async def dump_copy_diagnostics(self, url: str):
+        """Visit a single script URL and print diagnostics for copy-button capture attempts."""
+        await self.setup()
+        try:
+            print(f"Diagnostics: visiting {url}")
+            await self.page.goto(url, wait_until='networkidle', timeout=60000)
+            await self.page.wait_for_timeout(800)
+            # try to open source tab so copy-button inside source becomes visible
+            try:
+                tab_selectors = ['[role="tab"]:has-text("Source code")','button:has-text("Source code")','div:has-text("Source code"):not(:has(*))','button:has-text("Source")']
+                for s in tab_selectors:
+                    try:
+                        t = self.page.locator(s)
+                        if await t.count() > 0 and await t.first.is_visible():
+                            try:
+                                await t.first.click()
+                                await self.page.wait_for_timeout(800)
+                                print('   [debug] Clicked Source code tab for diagnostics')
+                                break
+                            except Exception:
+                                continue
+                    except Exception:
+                        continue
+            except Exception:
+                pass
+
+            data = await self.page.evaluate(r'''async () => {
+                function looksLikePine(t){ return t && (t.includes('//@version') || t.includes('indicator(') || t.includes('strategy(') || t.includes('library(') || t.includes('plot(')); }
+                const attrs = ['data-clipboard-text','data-clipboard','data-copy','data-clipboard-text-original','data-clipboard-text-original-value'];
+                const btnSelectors = ['button[aria-label*="copy"]', 'button[title*="Copy"]','button[aria-label*="Copy to clipboard"]','.copy-to-clipboard','[data-qa-id*="copy"]','[class*="copy"]','.tv-copy'];
+                const found = {attrs: [], buttons: []};
+                for (const a of attrs){ const el=document.querySelector('['+a+']'); if(el) found.attrs.push({attr: a, sample:(el.getAttribute(a)||'').slice(0,200) }); }
+                for (const sel of btnSelectors){ const nodes=Array.from(document.querySelectorAll(sel)); nodes.forEach((b,i)=>{ const dialog=b.closest('[role="dialog"]')||b.closest('div')||document.body; const code=dialog.querySelector('pre, code, textarea, [class*="code"], [class*="source"]'); found.buttons.push({selector: sel, idx:i, text: (b.innerText||'').slice(0,120), nearby: (code? (code.value||code.textContent||'').slice(0,200):'')}); }); }
+                // Try clicking each button and capture copy event / clipboard
+                async function tryClick(b){ window.__copied__=''; const handler=(e)=>{ try{ window.__copied__=(e.clipboardData&&e.clipboardData.getData('text/plain'))||'';}catch{} }; document.addEventListener('copy', handler, {once:true}); try{ b.click(); }catch{}; const start=Date.now(); while((Date.now()-start)<2000){ await new Promise(r=>setTimeout(r,150)); if(window.__copied__) break; } try{ document.removeEventListener('copy', handler); }catch{}; let cb=window.__copied__||''; try{ if(!cb && navigator.clipboard && navigator.clipboard.readText) cb=await navigator.clipboard.readText(); }catch{}; return cb.slice(0,400); }
+                const caps=[]; const btns=Array.from(document.querySelectorAll(btnSelectors.join(',')));
+                for (const b of btns){ caps.push(await tryClick(b)); }
+                return {found: found, captures: caps};
+            }''')
+            # print results
+            for a in data.get('found', {}).get('attrs', []):
+                print(f"[ATTR] {a['attr']} sample: {a['sample']}")
+            for b in data.get('found', {}).get('buttons', []):
+                print(f"[BUTTON] {b['selector']} idx={b['idx']} text={b['text']!r} nearby_sample={b['nearby']!r}")
+            caps = data.get('captures', [])
+            for i, c in enumerate(caps):
+                print(f"[CAPTURE {i}] {c!r}")
+        finally:
+            await self.cleanup()
+        return
 
     def _normalize_source(self, source: str) -> str:
         """Normalize source text: whitespace, unicode normalization, and attempt to fix common mojibake."""
@@ -905,6 +1036,29 @@ class EnhancedTVScraper:
 
         # Remove stray control characters except tabs and newlines
         src = ''.join(ch if ch >= ' ' or ch in '\t\n' else ' ' for ch in src)
+
+        # Common mojibake replacements (cover frequent sequences from UTF-8->Latin1 mishandling)
+        mojibake_map = {
+            'â¢': '•',
+            'â': '—',
+            'â¦': '…',
+            'â¢': '™',
+            'Â©': '©',
+            'Â ': ' ',
+            'Ã©': 'é',
+            'Ã¨': 'è',
+            'Ã¢': 'â',
+            'Ã´': 'ô',
+            'Ã«': 'ë',
+            'â': '─',
+            'â': '-',
+            'â¡': '!',
+            'â': '•',
+            'ï¸': '',
+        }
+        for k, v in mojibake_map.items():
+            if k in src:
+                src = src.replace(k, v)
 
         # Trim trailing whitespace on lines
         src = '\n'.join(line.rstrip() for line in src.splitlines())
@@ -1304,6 +1458,7 @@ async def main():
     parser.add_argument('--no-resume', action='store_true', help='Start fresh (ignore progress)')
     parser.add_argument('--max-pages', '-p', type=int, default=20, help='Maximum pages to scan or visit')
     parser.add_argument('--debug-pages', action='store_true', help='Verbose page visit logging (debug)')
+    parser.add_argument('--dump-copy', action='store_true', help='Diagnostic: inspect copy-button(s) and captured clipboard payload on a single script URL')
     parser.add_argument('--status', action='store_true', help='Show status of output directory (progress files, existing .pine files) and exit')
     
     args = parser.parse_args()
@@ -1319,6 +1474,12 @@ async def main():
 
     if args.status:
         scraper.print_status()
+        return
+
+    if args.dump_copy:
+        if not args.url or '/script/' not in args.url:
+            parser.error('--dump-copy requires a single script URL (contains "/script/")')
+        await scraper.dump_copy_diagnostics(args.url)
         return
     
     await scraper.download_all(

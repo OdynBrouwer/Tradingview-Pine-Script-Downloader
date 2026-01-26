@@ -23,6 +23,13 @@ if [ ! -d "$REPO_DIR" ]; then
   exit 1
 fi
 
+# Ensure proper ownership so the target user can create virtualenvs and write files
+echo "Setting ownership of $REPO_DIR to $USER_NAME"
+chown -R "$USER_NAME":"$USER_NAME" "$REPO_DIR"
+
+# Make sure provided scripts are executable
+chmod +x "$REPO_DIR"/scripts/*.sh || true
+
 # Create virtualenv and install python deps as the target user
 echo "Creating virtualenv and installing python deps as $USER_NAME..."
 su - "$USER_NAME" -c "bash -lc 'cd \"$REPO_DIR\" && python3 -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip setuptools wheel && pip install -r requirements.txt'"

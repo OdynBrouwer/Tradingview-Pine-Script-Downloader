@@ -892,15 +892,16 @@ class EnhancedTVScraper:
         # Replace no-break spaces with normal spaces
         src = src.replace('\u00A0', ' ').replace('\xa0', ' ')
 
-        # If we see obvious mojibake patterns like 'Â' or sequences of 'â', try latin1->utf-8 fix
-        if ('Â' in src or 'â' in src) and not ('//@version' in src or 'indicator(' in src):
-            try:
-                alt = src.encode('latin-1').decode('utf-8')
-                # choose alt only if it contains Pine markers
-                if ('//@version' in alt or 'indicator(' in alt or 'library(' in alt) and alt.count('Â') < src.count('Â'):
-                    src = alt
-            except Exception:
-                pass
+        # Try a latin1->utf-8 re-decode if it reduces mojibake or increases recognizable Pine markers
+        try:
+            alt = src.encode('latin-1').decode('utf-8')
+            def weird_count(s):
+                return s.count('Â') + s.count('â') + s.count('�') + s.count('Ã')
+            # prefer alt if it reduces mojibake or contains Pine markers while original does not
+            if weird_count(alt) < weird_count(src) or (('@version' in alt or 'indicator(' in alt or 'library(' in alt) and not ('//@version' in src or 'indicator(' in src or 'library(' in src)):
+                src = alt
+        except Exception:
+            pass
 
         # Remove stray control characters except tabs and newlines
         src = ''.join(ch if ch >= ' ' or ch in '\t\n' else ' ' for ch in src)

@@ -947,11 +947,14 @@ class EnhancedTVScraper:
         """Scan output dir for existing .pine files and extract their URLs or script IDs.
 
         Returns set of URLs and script IDs found so subsequent runs can skip them regardless
-        of which category folder they were saved into.
+        of which category folder they were saved into. Files in ignored dirs (e.g. @Recycle) are skipped.
         """
         found = set()
         try:
             for p in self.output_dir.rglob('*.pine'):
+                # Skip files that are in ignored dirs (prefixes or starting with '@')
+                if any(part.startswith('@') or part in self.ignore_dir_prefixes for part in p.parts):
+                    continue
                 try:
                     with open(p, 'r', encoding='utf-8') as f:
                         for _ in range(40):

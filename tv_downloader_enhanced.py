@@ -185,13 +185,19 @@ class EnhancedTVScraper:
         except:
             pass
 
-    async def get_scripts_from_listing(self, max_scroll_attempts: int = 20) -> list[dict]:
-        """Get all scripts by scrolling and clicking 'load more'."""
+    async def get_scripts_from_listing(self, max_scroll_attempts: int | None = 20) -> list[dict]:
+        """Get all scripts by scrolling and clicking 'load more'.
+
+        If max_scroll_attempts is None, keep trying until the page stabilizes
+        (no new scripts found for several iterations).
+        """
         scripts = {}
         last_count = 0
         no_change_count = 0
         
-        for attempt in range(max_scroll_attempts):
+        attempt = 0
+        while True:
+            attempt += 1
             # Get current scripts (improved extraction)
             current_scripts = await self.page.evaluate('''() => {
                 const scripts = [];
@@ -235,7 +241,11 @@ class EnhancedTVScraper:
                 no_change_count = 0
             
             last_count = len(scripts)
-            print(f"   Found {len(scripts)} scripts... (attempt {attempt + 1})", end='\r')
+            print(f"   Found {len(scripts)} scripts... (attempt {attempt})", end='\r')
+            
+            # If we were given a hard limit and we've reached it, stop
+            if isinstance(max_scroll_attempts, int) and attempt >= max_scroll_attempts:
+                break
             
             # Try to load more with human-like behavior
             try:
@@ -747,7 +757,10 @@ class EnhancedTVScraper:
 
 async def main():
     parser = argparse.ArgumentParser(description='Download Pine Script from TradingView')
-    parser.add_argument('--url', '-u', required=True, help='TradingView scripts URL')
+
+    # URL can be provided via CLI or via DOWNLOAD_URL env var
+    default_url = os.environ.get('DOWNLOAD_URL')
+    parser.add_argument('--url', '-u', required=not bool(default_url), default=default_url, help='TradingView scripts URL (or set DOWNLOAD_URL env var)')
 
     # Default output: prefer env PINE_OUTPUT_DIR, else use /mnt/pinescripts if present, else local folder
     env_output = os.environ.get('PINE_OUTPUT_DIR')
@@ -759,7 +772,6 @@ async def main():
         default_output = './pinescript_downloads'
 
     parser.add_argument('--output', '-o', default=default_output, help='Output directory')
-    parser.add_argument('--max-pages', '-p', type=int, default=20, help='Max pages to scan')
     parser.add_argument('--delay', '-d', type=float, default=2.0, help='Delay between requests')
     parser.add_argument('--visible', action='store_true', help='Show browser window')
     parser.add_argument('--no-resume', action='store_true', help='Start fresh (ignore progress)')
@@ -773,7 +785,6 @@ async def main():
     
     await scraper.download_all(
         base_url=args.url,
-        max_pages=args.max_pages,
         delay=args.delay,
         resume=not args.no_resume
     )

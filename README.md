@@ -89,11 +89,11 @@ Run a single download (mount host output dir):
 ```bash
 # Windows (PowerShell):
 docker run --rm -v "${PWD}:/app" -v "${PWD}/pinescript_downloads:/app/pinescript_downloads" tv-downloader:latest \
-  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads --max-pages 5
+  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads
 
 # Linux/macOS:
 docker run --rm -v "$(pwd):/app" -v "$(pwd)/pinescript_downloads:/app/pinescript_downloads" tv-downloader:latest \
-  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads --max-pages 5
+  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads
 ```
 
 Or use docker-compose:
@@ -207,11 +207,11 @@ python tv_pinescript_downloader.py \
     --url "https://www.tradingview.com/scripts/luxalgo/" \
     --output "./my_indicators"
 
-# Limit pages scanned (for large collections)
+# Scan all pages (default behaviour)
 python tv_pinescript_downloader.py \
-    --url "https://www.tradingview.com/scripts/" \
-    --max-pages 5
+    --url "https://www.tradingview.com/scripts/"
 
+The enhanced downloader will automatically continue loading "Show more" until the page stabilizes and no new scripts are found. There's no need to pass a `--max-pages` value.
 # Show browser window (for debugging)
 python tv_pinescript_downloader.py \
     --url "https://www.tradingview.com/scripts/editors-picks/" \

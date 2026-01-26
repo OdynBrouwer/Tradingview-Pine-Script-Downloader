@@ -125,7 +125,7 @@ docker run --rm -v "$(pwd)/pinescript_downloads:/app/pinescript_downloads" -v "/
   python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/"
 ```
 
-If neither `PINE_OUTPUT_DIR` is set nor `/mnt/pinescripts` exists, the downloader falls back to `./pinescript_downloads` (local folder in the repo).
+The downloader resolves its output directory in this order: 1) the `PINE_OUTPUT_DIR` environment variable (if set), 2) the mounted NAS path `/mnt/pinescripts` (if present), and 3) otherwise `./pinescript_downloads` (local folder in the repo).
 
 Systemd service / timer (VM non-Docker setup)
 

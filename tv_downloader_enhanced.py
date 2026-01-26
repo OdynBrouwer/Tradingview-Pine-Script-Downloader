@@ -570,14 +570,24 @@ class EnhancedTVScraper:
                     result['error'] = 'not open-source'
                 return result
             
-            # Strategy 1: Click Source Code tab and extract
-            source_code = await self._try_source_tab_extraction()
+            # Strategy 1: Try copy/clipboard button fallback first (some pages expose raw source via copy button)
+            source_code = ''
+            try:
+                source_code = await self._try_copy_button_extraction()
+                if source_code and getattr(self, 'debug_pages', False):
+                    print(f"   [debug] Extracted source via copy-button fallback for {script_url} (chars: {len(source_code)})")
+            except Exception:
+                source_code = ''
+
+            # Strategy 2: Click Source Code tab and extract
+            if not source_code:
+                source_code = await self._try_source_tab_extraction()
             
-            # Strategy 2: Look for code in page directly
+            # Strategy 3: Look for code in page directly
             if not source_code:
                 source_code = await self._try_direct_extraction()
             
-            # Strategy 3: Check for embedded script data
+            # Strategy 4: Check for embedded script data
             if not source_code:
                 source_code = await self._try_embedded_extraction()
             
@@ -794,6 +804,73 @@ class EnhancedTVScraper:
         except:
             return ''
 
+    async def _try_copy_button_extraction(self) -> str:
+        """Try extracting source code from copy-to-clipboard buttons and nearby elements."""
+        try:
+            return await self.page.evaluate(r'''() => {
+                function looksLikePine(t) {
+                    if (!t) return false;
+                    return t.includes('//@version') || t.includes('indicator(') || t.includes('strategy(') || t.includes('library(') || t.includes('plot(');
+                }
+
+                // Attributes that sometimes hold the raw source
+                const attrs = ['data-clipboard-text', 'data-clipboard', 'data-copy', 'data-clipboard-text-original'];
+                for (const attr of attrs) {
+                    const el = document.querySelector('[' + attr + ']');
+                    if (el) {
+                        const v = el.getAttribute(attr);
+                        if (v && looksLikePine(v)) return v;
+                    }
+                }
+
+                // Common copy button selectors
+                const btnSelectors = [
+                    'button[aria-label*="copy"]',
+                    'button[title*="Copy"]',
+                    'button:has-text("Copy")',
+                    'button:has-text("Copy to clipboard")',
+                    '.copy-to-clipboard',
+                    '[data-qa-id*="copy"]',
+                    '[class*="copy"]'
+                ];
+
+                for (const sel of btnSelectors) {
+                    try {
+                        const b = document.querySelector(sel);
+                        if (!b) continue;
+
+                        // Check dataset attr
+                        if (b.dataset && b.dataset.clipboardText && looksLikePine(b.dataset.clipboardText)) return b.dataset.clipboardText;
+                        if (b.getAttribute && b.getAttribute('data-clipboard-text') && looksLikePine(b.getAttribute('data-clipboard-text'))) return b.getAttribute('data-clipboard-text');
+
+                        // Look for nearby code container
+                        const parent = b.closest('div') || document.body;
+                        const codeEl = parent.querySelector('pre, code, textarea, [class*="code"], [class*="source"], [class*="snippet"]');
+                        if (codeEl) {
+                            const txt = codeEl.value || codeEl.textContent || '';
+                            if (looksLikePine(txt)) return txt;
+                        }
+
+                        // Click the button - libraries often inject a textarea/input or select into DOM to copy
+                        try { b.click(); } catch(e) {}
+
+                        // After clicking, search for any textarea/input with content resembling Pine
+                        const inputs = Array.from(document.querySelectorAll('textarea, input'));
+                        for (const inp of inputs) {
+                            const v = inp.value || inp.textContent || '';
+                            if (looksLikePine(v)) return v;
+                        }
+
+                        // Finally, check if something was selected
+                        const sel = (window.getSelection && window.getSelection().toString()) || ' ';
+                        if (looksLikePine(sel)) return sel;
+                    } catch(e) {}
+                }
+
+                return '';
+            }''') or ''
+        except Exception:
+            return ''
     def save_script(self, result: dict, category: str) -> Path:
         """Save Pine Script to file with metadata."""
         category_dir = self.output_dir / sanitize_filename(category)

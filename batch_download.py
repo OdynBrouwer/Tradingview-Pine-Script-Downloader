@@ -19,8 +19,12 @@ from tv_downloader_enhanced import EnhancedTVScraper
 
 
 async def batch_download(urls: list[str], output_dir: str = "./pinescript_downloads", 
-                        delay: float = 2.0, max_pages: int = 10):
-    """Download from multiple URLs sequentially."""
+                        delay: float = 2.0, max_pages: int = 10, visible: bool = False, debug_pages: bool = False):
+    """Download from multiple URLs sequentially.
+
+    visible: show browser window when downloading each page
+    debug_pages: enable per-page debugging output
+    """
     
     print(f"\n{'='*70}")
     print(f"  BATCH DOWNLOAD")
@@ -39,7 +43,7 @@ async def batch_download(urls: list[str], output_dir: str = "./pinescript_downlo
         
         scraper = EnhancedTVScraper(
             output_dir=output_dir,
-            headless=True
+            headless=not visible
         )
         
         try:
@@ -47,7 +51,8 @@ async def batch_download(urls: list[str], output_dir: str = "./pinescript_downlo
                 base_url=url,
                 max_pages=max_pages,
                 delay=delay,
-                resume=True
+                resume=True,
+                debug_pages=debug_pages
             )
             
             total_stats['downloaded'] += scraper.stats['downloaded']
@@ -119,6 +124,12 @@ async def main():
         default=2.0,
         help='Delay between requests'
     )
+
+    parser.add_argument('--visible', action='store_true', help='Show browser window')
+    parser.add_argument('--debug-pages', action='store_true', help='Verbose page visit logging (debug)')
+    parser.add_argument('--template', help='URL template with {n} or {n:02d} placeholder, e.g. ".../page-{n}/?..."')
+    parser.add_argument('--start', type=int, default=1, help='Start number for template generation')
+    parser.add_argument('--end', type=int, help='End number (inclusive) for template generation')
     
     args = parser.parse_args()
     
@@ -134,12 +145,24 @@ async def main():
     
     if args.urls:
         urls.extend(args.urls)
-    
+
+    # If a template with an end is provided, generate the list of page URLs
+    if args.template and args.end:
+        generated = []
+        for n in range(args.start, args.end + 1):
+            try:
+                generated.append(args.template.format(n=n))
+            except Exception:
+                # Fallback if user used simple {n} placeholder without format spec
+                generated.append(args.template.replace('{n}', str(n)))
+        urls = generated
+
     if not urls:
         print("Error: No URLs provided")
         print("Usage:")
         print("  python batch_download.py urls.txt")
         print("  python batch_download.py --urls 'https://...' 'https://...'")
+        print("  or use --template and --start/--end to generate pages")
         sys.exit(1)
     
     # Remove duplicates while preserving order
@@ -154,7 +177,9 @@ async def main():
         urls=unique_urls,
         output_dir=args.output,
         delay=args.delay,
-        max_pages=args.max_pages
+        max_pages=args.max_pages,
+        visible=args.visible,
+        debug_pages=args.debug_pages
     )
 
 

@@ -74,7 +74,8 @@ VS Code
 python tv_downloader_fixed.py --url "https://www.tradingview.com/scripts/luxalgo/"
 ```
 
-### Docker (run headless with Playwright browsers)
+
+### Docker (always runs in visible mode)
 
 A Docker image is provided for running the downloader in an isolated, reproducible container. The image is based on the official Playwright Python image and includes browser binaries.
 
@@ -215,7 +216,7 @@ The enhanced downloader will automatically continue loading "Show more" until th
 # Show browser window (for debugging)
 python tv_pinescript_downloader.py \
     --url "https://www.tradingview.com/scripts/editors-picks/" \
-    --visible
+
 
 # Faster downloads (shorter delay - be respectful!)
 python tv_pinescript_downloader.py \
@@ -293,7 +294,7 @@ indicator("Smart Money Concepts [LuxAlgo]", overlay=true)
 | `--output`, `-o` | Output directory | `./pinescript_downloads` |
 | `--max-pages`, `-p` | Maximum pages to scan | `10` |
 | `--delay`, `-d` | Delay between downloads (seconds) | `2.0` |
-| `--visible` | Show browser window | `False` |
+
 
 ### Enhanced Version (`tv_downloader_enhanced.py`)
 
@@ -334,11 +335,10 @@ playwright install --force chromium
 
 ### Scripts not loading
 
-Try running with visible browser to debug:
 
-```bash
-python tv_downloader_enhanced.py --url "YOUR_URL" --visible
-```
+**Note:** The downloader always runs with a visible browser window to enable clipboard-based extraction. Headless mode is not supported, and the browser window must remain open during operation for correct script extraction.
+
+If you encounter issues, ensure your system allows the browser window to open and clipboard access is permitted.
 
 ## Ethical Usage
 

@@ -10,7 +10,7 @@ https://www.tradingview.com/scripts/editors-picks/
 # By category
 # https://www.tradingview.com/scripts/indicators/
 # https://www.tradingview.com/scripts/strategies/
-# https://www.tradingview.com/scripts/libraries/
+# https://www.tradingview.com/scripts/indicators/
 
 # By specific tags
 # https://www.tradingview.com/scripts/volumeprofile/

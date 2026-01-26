@@ -53,7 +53,7 @@ def extract_script_id(url: str) -> str:
 
 
 class EnhancedTVScraper:
-    def __init__(self, output_dir: str | None = None, headless: bool = True):
+    def __init__(self, output_dir: str | None = None, headless: bool = False):
         # Resolve default output: prefer env PINE_OUTPUT_DIR, then /mnt/pinescripts, otherwise ./pinescript_downloads
         if output_dir:
             resolved = output_dir
@@ -66,7 +66,7 @@ class EnhancedTVScraper:
             else:
                 resolved = './pinescript_downloads'
         self.output_dir = Path(resolved)
-        self.headless = headless
+        self.headless = headless  # Respect headless parameter (use --visible to show)
         self.browser = None
         self.context = None
         self.page = None
@@ -91,18 +91,25 @@ class EnhancedTVScraper:
     async def setup(self):
         """Initialize the browser with anti-detection settings."""
         self.playwright = await async_playwright().start()
-        self.browser = await self.playwright.chromium.launch(
-            headless=self.headless,
-            args=[
-                '--disable-blink-features=AutomationControlled',
-                '--no-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-infobars',
-                '--window-size=1920,1080',
-            ]
-        )
+        print(f"[setup] launching browser; headless={self.headless} user_agent={self.current_user_agent}")
+        try:
+            self.browser = await self.playwright.chromium.launch(
+                headless=self.headless,
+                args=[
+                    '--disable-blink-features=AutomationControlled',
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-infobars',
+                    '--window-size=1920,1080',
+                    '--enable-features=ClipboardAPI',
+                    '--enable-blink-features=ClipboardAPI',
+                ]
+            )
+            print("[setup] browser launched")
+        except Exception as e:
+            print(f"[setup] browser launch failed: {e}")
+            raise
 
-        # Randomize viewport within realistic ranges
         viewport_width = random.randint(1280, 1920)
         viewport_height = random.randint(800, 1080)
 
@@ -111,13 +118,22 @@ class EnhancedTVScraper:
             user_agent=self.current_user_agent,
             locale='en-US',
             timezone_id='America/New_York',
-            # Add realistic browser properties
             java_script_enabled=True,
             has_touch=False,
             is_mobile=False,
+            permissions=["clipboard-read", "clipboard-write"],
         )
         self.page = await self.context.new_page()
 
+        # Quick debug screenshot to confirm visible page (if possible)
+        try:
+            await self.page.goto('about:blank')
+            await self.page.wait_for_timeout(200)
+            debug_path = self.output_dir / 'debug_browser_screenshot.png'
+            await self.page.screenshot(path=str(debug_path))
+            print(f"[setup] saved debug screenshot to {debug_path}")
+        except Exception as e:
+            print(f"[setup] failed to take debug screenshot: {e}")
         # Mask webdriver property to avoid detection
         await self.page.add_init_script("""
             Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
@@ -205,6 +221,57 @@ class EnhancedTVScraper:
                         break
                 except:
                     continue
+        except:
+            pass
+
+    async def handle_overlays(self):
+        """Attempt to close or remove common overlays/popups that may block UI elements."""
+        try:
+            # Try common close buttons first
+            close_selectors = [
+                'button[aria-label="Close"]',
+                'button:has-text("Close")',
+                'button:has-text("×")',
+                'button[title="Close"]',
+                '.tv-dialog__close',
+                '.tv-modal__close',
+                '.modal-close',
+                '.overlay__close',
+                '.js-close',
+                '.tv-toast__close',
+                'button[aria-label*="dismiss"]',
+                'button:has-text("Sluiten")',
+                'button:has-text("Doorgaan")'
+            ]
+            for sel in close_selectors:
+                try:
+                    btns = self.page.locator(sel)
+                    count = await btns.count()
+                    for i in range(count):
+                        b = btns.nth(i)
+                        if await b.is_visible():
+                            try:
+                                await b.click()
+                                await self.page.wait_for_timeout(300)
+                            except:
+                                # As fallback, hide the parent overlay element
+                                try:
+                                    await self.page.evaluate('(s) => { const el = document.querySelector(s); if(el) { el.style.display="none"; el.style.pointerEvents="none"; } }', sel)
+                                except:
+                                    pass
+                except:
+                    continue
+
+            # Also aggressively remove some known overlay containers
+            overlay_selectors = ['#overlap-manager-root', '[data-qa-id="overlap-manager-root"]', 'div[id^="overlay"]', 'div[class*="overlay"]', 'div[class*="popup"]', '.tv-modal', '.tv-overlay']
+            for osel in overlay_selectors:
+                try:
+                    await self.page.evaluate('(s) => { document.querySelectorAll(s).forEach(e => { e.style.display = "none"; e.style.visibility = "hidden"; e.style.pointerEvents = "none"; }); }', osel)
+                except:
+                    continue
+
+            # Small wait for DOM to settle
+            await self.page.wait_for_timeout(300)
         except:
             pass
 
@@ -366,7 +433,6 @@ class EnhancedTVScraper:
                             if s['url'] not in scripts:
                                 scripts[s['url']] = s
                                 new_found += 1
-                                new_urls.push = s['url'] if False else None
                                 new_urls.append(s['url'])
                         if debug_pages:
                             print(f"   [debug] Numbered page {idx} found {found_total} scripts, new {new_found}")
@@ -430,8 +496,6 @@ class EnhancedTVScraper:
                                 if debug_pages:
                                     print(f"   [debug] {no_new_pages} consecutive generated pages had no new scripts, stopping generated page visits")
                                 break
-            except Exception:
-                pass
             except Exception:
                 pass
         except:
@@ -571,67 +635,123 @@ class EnhancedTVScraper:
                     result['error'] = 'not open-source'
                 return result
             
-            # Strategy 1: Try copy/clipboard fallback first — but ensure Source Code tab is opened (if present)
-            source_code = ''
+            # Only use clipboard/copy-button extraction. No fallback.
             try:
                 # Try to click the Source code tab first to reveal code & copy icon
+                tab_selectors = ['[role="tab"]:has-text("Source code")','button:has-text("Source code")','div:has-text("Source code"):not(:has(*))','button:has-text("Source")']
+                for s in tab_selectors:
+                    try:
+                        t = self.page.locator(s)
+                        if await t.count() > 0 and await t.first.is_visible():
+                            try:
+                                # Ensure overlays are cleared and the tab is scrolled into view
+                                await self.handle_overlays()
+                                await t.first.evaluate('el => el.scrollIntoView({block: "center"})')
+                                await t.first.click()
+                                await self.page.wait_for_timeout(600)
+                                if getattr(self, 'debug_pages', False):
+                                    print(f"   [debug] Clicked Source code tab using selector: {s}")
+                                break
+                            except Exception:
+                                continue
+                    except Exception:
+                        continue
+            except Exception:
+                pass
+
+
+            # Probeer tot 3 keer clipboard/copy-knop extractie
+            max_retries = 3
+            for attempt in range(1, max_retries + 1):
+                # Ensure overlays removed before each attempt
                 try:
-                    tab_selectors = ['[role="tab"]:has-text("Source code")','button:has-text("Source code")','div:has-text("Source code"):not(:has(*))','button:has-text("Source")']
-                    for s in tab_selectors:
-                        try:
-                            t = self.page.locator(s)
-                            if await t.count() > 0 and await t.first.is_visible():
-                                try:
-                                    await t.first.click()
-                                    await self.page.wait_for_timeout(600)
-                                    if getattr(self, 'debug_pages', False):
-                                        print(f"   [debug] Clicked Source code tab using selector: {s}")
-                                    break
-                                except Exception:
-                                    continue
-                        except Exception:
-                            continue
+                    await self.handle_overlays()
                 except Exception:
                     pass
 
                 source_code = await self._try_copy_button_extraction()
-                if source_code and getattr(self, 'debug_pages', False):
-                    print(f"   [debug] Extracted source via copy-button fallback for {script_url} (chars: {len(source_code)})")
-            except Exception:
-                source_code = ''
-
-            # Strategy 2: Click Source Code tab and extract
-            if not source_code:
-                source_code = await self._try_source_tab_extraction()
-            
-            # Strategy 3: Look for code in page directly
-            if not source_code:
-                source_code = await self._try_direct_extraction()
-            
-            # Strategy 4: Check for embedded script data
-            if not source_code:
-                source_code = await self._try_embedded_extraction()
-            
-            if source_code:
-                # Normalize encoding/whitespace before further processing
+                if source_code:
+                    # Mark that this source came directly from the copy-to-clipboard flow and
+                    # keep the raw captured value so we can save it byte-for-byte later.
+                    result['source_origin'] = 'clipboard'
+                    result['source_raw'] = source_code
+                    break
+                if getattr(self, 'debug_pages', False):
+                    print(f"   [debug] Clipboard extractie poging {attempt} mislukt voor {script_url}")
+                # Recovery steps
                 try:
-                    source_code = self._normalize_source(source_code)
+                    if attempt == 2:
+                        if getattr(self, 'debug_pages', False):
+                            print("   [debug] Removing overlays and retrying Source tab (recovery)")
+                        await self.handle_overlays()
+                        await self.page.wait_for_timeout(800)
+                        # try to click source tab again safely
+                        try:
+                            tab_selectors = ['[role="tab"]:has-text("Source code")','button:has-text("Source code")','div:has-text("Source code"):not(:has(*))','button:has-text("Source")']
+                            for s in tab_selectors:
+                                try:
+                                    t = self.page.locator(s)
+                                    if await t.count() > 0 and await t.first.is_visible():
+                                        try:
+                                            await t.first.evaluate('el => el.scrollIntoView({block: "center"})')
+                                            await t.first.click()
+                                            await self.page.wait_for_timeout(600)
+                                            if getattr(self, 'debug_pages', False):
+                                                print(f"   [debug] Clicked Source code tab using selector: {s} (recovery)")
+                                            break
+                                        except Exception:
+                                            continue
+                                except Exception:
+                                    continue
+                        except Exception:
+                            pass
+                    elif attempt == 3:
+                        if getattr(self, 'debug_pages', False):
+                            print("   [debug] Restarting browser context as recovery...")
+                        try:
+                            await self.cleanup()
+                        except Exception:
+                            pass
+                        await self.setup()
+                        # Re-navigate to the script page and re-open source tab after restart
+                        try:
+                            await self.page.goto(script_url, wait_until='networkidle', timeout=45000)
+                            await self.page.wait_for_timeout(1200)
+                            await self.handle_overlays()
+                            tab_selectors = ['[role="tab"]:has-text("Source code")','button:has-text("Source code")','div:has-text("Source code"):not(:has(*))','button:has-text("Source")']
+                            for s in tab_selectors:
+                                try:
+                                    t = self.page.locator(s)
+                                    if await t.count() > 0 and await t.first.is_visible():
+                                        try:
+                                            await t.first.evaluate('el => el.scrollIntoView({block: "center"})')
+                                            await t.first.click()
+                                            await self.page.wait_for_timeout(600)
+                                            if getattr(self, 'debug_pages', False):
+                                                print(f"   [debug] Clicked Source code tab using selector: {s} (post-restart)")
+                                            break
+                                        except Exception:
+                                            continue
+                                except Exception:
+                                    continue
+                        except Exception:
+                            pass
                 except Exception:
                     pass
-                result['source_code'] = source_code.strip()
-                # Detect version and type from normalized source
-                version_match = re.search(r'//@version=(\d+)', result['source_code'])
-                result['version'] = version_match.group(1) if version_match else ''
-                result['is_strategy'] = 'strategy(' in result['source_code']
-            else:
-                # Diagnostics when debug is enabled
-                if getattr(self, 'debug_pages', False):
-                    try:
-                        snippet = await self.page.evaluate('() => document.body.innerText.slice(0,800)')
-                        sanitized = snippet[:400].replace('\n', ' ')
-                        print(f"   [debug-extract] No source found for {script_url}; title: {result['title']}; text-snippet: {sanitized}")
-                    except Exception:
-                        print(f"   [debug-extract] No source found for {script_url}; and could not fetch snippet")
+                await self.page.wait_for_timeout(1200)
+            if not source_code:
+                result['error'] = 'clipboard_extraction_failed'
+                return result
+
+            # Normalize encoding/whitespace before further processing
+            try:
+                source_code = self._normalize_source(source_code)
+            except Exception:
+                pass
+            result['source_code'] = source_code.strip()
+            # Detect version and type from normalized source
+            version_match = re.search(r'//@version=(\d+)', result['source_code'])
+
 
             return result
             
@@ -831,142 +951,146 @@ class EnhancedTVScraper:
             return ''
 
     async def _try_copy_button_extraction(self) -> str:
-        """Try extracting source code from copy-to-clipboard buttons and nearby elements.
+        """Try extracting source code by searching for copy buttons and clicking them using Playwright locators."""
+        btn_selectors = [
+            'button[aria-label*="copy"]',
+            'button[title*="Copy"]',
+            'button[aria-label*="Copy to clipboard"]',
+            'button:has-text("Copy")',
+            'button:has-text("Copy to clipboard")',
+            '.copy-to-clipboard',
+            '[data-qa-id*="copy"]',
+            '[class*="copy"]',
+            '.tv-copy'
+        ]
 
-        This attempts (in order):
-         - read common data-clipboard attributes
-         - scan nearby code/textarea elements
-         - attach a 'copy' event listener, click the copy button, and capture clipboard payload
-         - as fallback try navigator.clipboard.readText()
-        """
+        # 1) Check common data attributes that may hold the source directly
         try:
-            return await self.page.evaluate(r'''() => {
-                function looksLikePine(t) {
-                    if (!t) return false;
-                    return t.includes('//@version') || t.includes('indicator(') || t.includes('strategy(') || t.includes('library(') || t.includes('plot(');
-                }
-
-                // Attributes that sometimes hold the raw source
-                const attrs = ['data-clipboard-text', 'data-clipboard', 'data-copy', 'data-clipboard-text-original', 'data-clipboard-text-original-value'];
-                for (const attr of attrs) {
-                    const el = document.querySelector('[' + attr + ']');
-                    if (el) {
-                        const v = el.getAttribute(attr);
-                        if (v && looksLikePine(v)) return v;
-                    }
-                }
-
-                // More aggressive search for copy buttons (icons, aria labels, titles)
-                const btnSelectors = [
-                    'button[aria-label*="copy"]',
-                    'button[title*="Copy"]',
-                    'button[aria-label*="Copy to clipboard"]',
-                    'button:has-text("Copy")',
-                    'button:has-text("Copy to clipboard")',
-                    '.copy-to-clipboard',
-                    '[data-qa-id*="copy"]',
-                    '[class*="copy"]',
-                    '.tv-copy'
-                ];
-
-                // Helper to attempt click + capture via copy event
-                async function tryClickAndCapture(b) {
-                    try {
-                        // install listener
-                        window.__copied_source__ = '';
-                        const handler = (e) => {
-                            try {
-                                const txt = (e.clipboardData && e.clipboardData.getData('text/plain')) || '';
-                                if (txt) window.__copied_source__ = txt;
-                            } catch(err) {}
-                        };
-                        document.addEventListener('copy', handler, {once: true});
-
-                        // monkeypatch navigator.clipboard.writeText to capture direct writes
-                        let origWrite = null;
-                        try {
-                            if (navigator.clipboard && navigator.clipboard.writeText) {
-                                origWrite = navigator.clipboard.writeText;
-                                navigator.clipboard.writeText = (s) => { window.__copied_source__ = (s || ''); return Promise.resolve(); };
-                            } else {
-                                navigator.clipboard = { writeText: (s) => { window.__copied_source__ = (s || ''); return Promise.resolve(); } };
-                            }
-                        } catch(e) {}
-
-                        try { b.click(); } catch(e) {}
-
-                        // wait briefly for copy to happen (up to 2s)
-                        const start = Date.now();
-                        while ((Date.now() - start) < 2000) {
-                            await new Promise(r => setTimeout(r, 150));
-                            if (window.__copied_source__) break;
-                        }
-
-                        // restore original writeText
-                        try { if (origWrite && navigator.clipboard) navigator.clipboard.writeText = origWrite; } catch(e) {}
-
-                        // remove handler if still present
-                        try { document.removeEventListener('copy', handler); } catch(e) {}
-
-                        if (window.__copied_source__ && looksLikePine(window.__copied_source__)) return window.__copied_source__;
-
-                        // Fallback: try navigator.clipboard.readText()
-                        try {
-                            if (navigator.clipboard && navigator.clipboard.readText) {
-                                const cb = await navigator.clipboard.readText();
-                                if (cb && looksLikePine(cb)) return cb;
-                            }
-                        } catch(e) {}
-                    } catch(e) {}
-                    return '';
-                }
-
-                for (const sel of btnSelectors) {
-                    try {
-                        const b = document.querySelector(sel);
-                        if (!b) continue;
-
-                        // Check dataset attr
-                        if (b.dataset && b.dataset.clipboardText && looksLikePine(b.dataset.clipboardText)) return b.dataset.clipboardText;
-                        if (b.getAttribute && b.getAttribute('data-clipboard-text') && looksLikePine(b.getAttribute('data-clipboard-text'))) return b.getAttribute('data-clipboard-text');
-
-                        // Look inside nearest dialog or parent for code container
-                        const dialog = b.closest('[role="dialog"]') || b.closest('div') || document.body;
-                        const codeEl = dialog.querySelector('pre, code, textarea, [class*="code"], [class*="source"], [class*="snippet"]');
-                        if (codeEl) {
-                            const txt = codeEl.value || codeEl.textContent || '';
-                            if (looksLikePine(txt)) return txt;
-                        }
-
-                        // Click and try to capture via copy event
-                        const captured = await tryClickAndCapture(b);
-                        if (captured && looksLikePine(captured)) return captured;
-
-                        // After clicking also check any temporary inputs/textarea
-                        const inputs = Array.from(document.querySelectorAll('textarea, input'));
-                        for (const inp of inputs) {
-                            const v = inp.value || inp.textContent || '';
-                            if (looksLikePine(v)) return v;
-                        }
-
-                        // Check selection
-                        const seltxt = (window.getSelection && window.getSelection().toString()) || '';
-                        if (looksLikePine(seltxt)) return seltxt;
-                    } catch(e) {}
-                }
-
-                return '';
-            }''') or ''
+            attrs = ['data-clipboard-text', 'data-clipboard', 'data-copy', 'data-clipboard-text-original', 'data-clipboard-text-original-value']
+            for a in attrs:
+                try:
+                    v = await self.page.evaluate('(a) => { const el = document.querySelector("["+a+"]"); return el ? el.getAttribute(a) : ""; }', a)
+                    if v and ("//@version" in v or "indicator(" in v or "library(" in v or "plot(" in v):
+                        return v
+                except Exception:
+                    continue
         except Exception:
-            return ''
+            pass
+
+        # 2) Iterate visible copy buttons (bottom-up), click and try to read clipboard
+        try:
+            for sel in btn_selectors:
+                try:
+                    loc = self.page.locator(sel)
+                    count = await loc.count()
+                    if count == 0:
+                        continue
+                    for idx in range(count - 1, -1, -1):
+                        btn = loc.nth(idx)
+                        try:
+                            if not await btn.is_visible():
+                                continue
+                            # remove overlays that might block interaction
+                            try:
+                                await self.handle_overlays()
+                            except Exception:
+                                pass
+
+                            # scroll into view and click
+                            try:
+                                await btn.evaluate('el => el.scrollIntoView({block: "center"})')
+                            except Exception:
+                                pass
+                            try:
+                                await btn.click()
+                            except Exception:
+                                try:
+                                    await btn.click(force=True)
+                                except Exception:
+                                    continue
+
+                            # small wait then attempt to read any in-page captured copy data first (more reliable than OS clipboard in some environments)
+                            await self.page.wait_for_timeout(500)
+                            try:
+                                tmp = await self.page.evaluate('''() => {
+                                    if (window.__copied__ && typeof window.__copied__ === 'string') return window.__copied__;
+                                    if (window.__copied_source__ && typeof window.__copied_source__ === 'string') return window.__copied_source__;
+                                    const ta = document.querySelector('textarea'); if (ta && ta.value) return ta.value;
+                                    const inp = document.querySelector('input[type="text"]'); if (inp && inp.value) return inp.value;
+                                    const sel = (window.getSelection && window.getSelection().toString()) || '';
+                                    return sel || '';
+                                }''')
+                                if getattr(self, 'debug_pages', False):
+                                    short = (tmp[:200] + '...') if tmp and len(tmp) > 200 else (tmp or '')
+                                    print(f"   [debug] tmp-capture snippet: {short!r} (len={len(tmp) if tmp else 0})")
+                                if tmp and ("//@version" in tmp or "indicator(" in tmp or "library(" in tmp or "plot(" in tmp):
+                                    return tmp
+                            except Exception:
+                                pass
+
+                            # fallback: try reading navigator.clipboard (OS clipboard)
+                            try:
+                                cb = await self.page.evaluate('navigator.clipboard && navigator.clipboard.readText ? navigator.clipboard.readText() : ""')
+                                if getattr(self, 'debug_pages', False):
+                                    short = (cb[:200] + '...') if cb and len(cb) > 200 else (cb or '')
+                                    print(f"   [debug] navigator.clipboard.readText snippet: {short!r} (len={len(cb) if cb else 0})")
+                                if cb and ("//@version" in cb or "indicator(" in cb or "library(" in cb or "plot(" in cb):
+                                    return cb
+                            except Exception:
+                                pass
+
+                        except Exception:
+                            continue
+                except Exception:
+                    continue
+        except Exception:
+            pass
+
+        return ''
 
     async def dump_copy_diagnostics(self, url: str):
         """Visit a single script URL and print diagnostics for copy-button capture attempts."""
         await self.setup()
         try:
+            # Inject copy-capture helpers *before* any page scripts run
+            await self.page.add_init_script(r'''() => {
+                window.__cv = window.__cv || { captures: [], mutations: [], logs: [] };
+                document.addEventListener('copy', function(e){
+                    try { const t = (e.clipboardData && e.clipboardData.getData('text/plain')) || document.getSelection().toString(); if (t) window.__cv.captures.push(t); window.__cv.logs.push({type:'copy-event', text:t, time:Date.now()}); } catch(e){}
+                }, true);
+                function patchAllCopyFuncs(obj) {
+                    for (const k of Object.getOwnPropertyNames(obj)) {
+                        if (typeof obj[k] === 'function' && k.toLowerCase().includes('copy')) {
+                            const orig = obj[k];
+                            obj[k] = function(...args){ try{ window.__cv.logs.push({type:'func', name:k, args, time:Date.now()}); }catch(e){}; let res = orig.apply(this, args); try{ if (typeof res === 'string' && res.includes('//@version')) window.__cv.captures.push(res); }catch(e){}; return res; };
+                        }
+                    }
+                }
+                try{ patchAllCopyFuncs(window); }catch(e){}
+                try{ patchAllCopyFuncs(document); }catch(e){}
+                try {
+                    const origWrite = navigator.clipboard && navigator.clipboard.writeText;
+                    if (origWrite) {
+                        navigator.clipboard.writeText = async function(t){ try{ window.__cv.captures.push(t || ''); window.__cv.logs.push({type:'clipboard.writeText', text:t, time:Date.now()}); }catch(e){}; return origWrite.call(this, t); };
+                    } else {
+                        navigator.clipboard = { writeText: async function(t){ try{ window.__cv.captures.push(t || ''); window.__cv.logs.push({type:'clipboard.writeText', text:t, time:Date.now()}); }catch(e){}; } };
+                    }
+                } catch(e){}
+                try {
+                    const origExec = Document.prototype.execCommand;
+                    Document.prototype.execCommand = function(cmd){ if (cmd === 'copy') { try{ window.__cv.captures.push(document.getSelection().toString()); window.__cv.logs.push({type:'execCommand', selection:document.getSelection().toString(), time:Date.now()}); }catch(e){} } return origExec.apply(this, arguments); };
+                } catch(e){}
+                try {
+                    const mo = new MutationObserver((muts) => { for (const m of muts) { for (const n of Array.from(m.addedNodes || [])) { try { const t = (n && n.textContent) ? String(n.textContent) : ''; if (t && (t.includes('//@version') || t.includes('indicator(') || t.includes('strategy(') || t.includes('library(') || t.includes('plot('))) { window.__cv.mutations.push(t); window.__cv.logs.push({type:'mutation', text:t, time:Date.now()}); } } catch(e){} } } }); mo.observe(document, { childList: true, subtree: true }); window.__cv._mo = true;
+                } catch(e){}
+                const origAddEventListener = EventTarget.prototype.addEventListener;
+                EventTarget.prototype.addEventListener = function(type, ...rest){ if (type && (type.toLowerCase().includes('copy') || type.toLowerCase().includes('clipboard'))) { try{ window.__cv.logs.push({type:'addEventListener', event:type, target:this && this.tagName, time:Date.now()}); }catch(e){} } return origAddEventListener.call(this, type, ...rest); };
+            }''')
+            print('   [debug] Injected copy-capture init script')
             print(f"Diagnostics: visiting {url}")
             await self.page.goto(url, wait_until='networkidle', timeout=60000)
             await self.page.wait_for_timeout(800)
+
             # try to open source tab so copy-button inside source becomes visible
             try:
                 tab_selectors = ['[role="tab"]:has-text("Source code")','button:has-text("Source code")','div:has-text("Source code"):not(:has(*))','button:has-text("Source")']
@@ -992,152 +1116,44 @@ class EnhancedTVScraper:
                 const btnSelectors = ['button[aria-label*="copy"]', 'button[title*="Copy"]','button[aria-label*="Copy to clipboard"]','.copy-to-clipboard','[data-qa-id*="copy"]','[class*="copy"]','.tv-copy'];
                 const found = {attrs: [], buttons: []};
                 for (const a of attrs){ const el=document.querySelector('['+a+']'); if(el) found.attrs.push({attr: a, sample:(el.getAttribute(a)||'').slice(0,200) }); }
-                for (const sel of btnSelectors){ const nodes=Array.from(document.querySelectorAll(sel)); nodes.forEach((b,i)=>{ const dialog=b.closest('[role="dialog"]')||b.closest('div')||document.body; const code=dialog.querySelector('pre, code, textarea, [class*="code"], [class*="source"]'); found.buttons.push({selector: sel, idx:i, text: (b.innerText||'').slice(0,120), nearby: (code? (code.value||code.textContent||'').slice(0,200):'')}); }); }
-                // Try clicking each button and capture copy event / clipboard
+                for (const sel of btnSelectors){ const nodes=Array.from(document.querySelectorAll(sel)); nodes.forEach((b,i)=>{ const dialog=b.closest('[role="dialog"]')||b.closest('div')||document.body; const code=dialog.querySelector('pre, code, textarea, [class*="code"], [class*="source"]');
+                            let struct = [];
+                            try { let candidate = dialog.querySelector('div'); let container = candidate || dialog; try { let p=container; while(p && p.parentElement && container.children.length < 10){ p = p.parentElement; container = p; } } catch(e){}
+                                struct = Array.from(container.children).slice(0,10).map(c => ({tag: c.tagName, text: (c.textContent||'').trim().slice(0,200)})); } catch(e){}
+                            found.buttons.push({selector: sel, idx:i, text: (b.innerText||'').slice(0,120), nearby: (code? (code.value||code.textContent||'').slice(0,200):''), structureSample: struct}); }); }
                 async function tryClick(b){ window.__copied__=''; const handler=(e)=>{ try{ window.__copied__=(e.clipboardData&&e.clipboardData.getData('text/plain'))||'';}catch{} }; document.addEventListener('copy', handler, {once:true}); try{ b.click(); }catch{}; const start=Date.now(); while((Date.now()-start)<2000){ await new Promise(r=>setTimeout(r,150)); if(window.__copied__) break; } try{ document.removeEventListener('copy', handler); }catch{}; let cb=window.__copied__||''; try{ if(!cb && navigator.clipboard && navigator.clipboard.readText) cb=await navigator.clipboard.readText(); }catch{}; return cb.slice(0,400); }
                 const caps=[]; const btns=Array.from(document.querySelectorAll(btnSelectors.join(',')));
                 for (const b of btns){ caps.push(await tryClick(b)); }
                 return {found: found, captures: caps};
             }''')
+
             # print results
             for a in data.get('found', {}).get('attrs', []):
                 print(f"[ATTR] {a['attr']} sample: {a['sample']}")
             for b in data.get('found', {}).get('buttons', []):
-                print(f"[BUTTON] {b['selector']} idx={b['idx']} text={b['text']!r} nearby_sample={b['nearby']!r}")
+                print(f"[BUTTON] {b['selector']} idx={b['idx']} text={b['text']!r} nearby_sample={b.get('nearby','')!r}")
+                struct = b.get('structureSample', [])
+                if struct:
+                    print('  [STRUCTURE SAMPLE]')
+                    for child in struct[:8]:
+                        print(f"    - {child.get('tag')} : {child.get('text')!r}")
             caps = data.get('captures', [])
             for i, c in enumerate(caps):
                 print(f"[CAPTURE {i}] {c!r}")
+
+            try:
+                cv = await self.page.evaluate('(function(){ try { return window.__cv || {}; } catch(e) { return {}; } })()')
+                if not isinstance(cv, dict):
+                    cv = dict(cv or {})
+                injected_caps = cv.get('captures', [])
+                injected_mut = cv.get('mutations', [])
+                print(f"[INJECTED CAPTURES] {injected_caps[:3]!r}")
+                print(f"[INJECTED MUTATIONS] {injected_mut[:3]!r}")
+            except Exception as e:
+                print('   [debug] failed to read window.__cv', e)
         finally:
             await self.cleanup()
         return
-
-    def _normalize_source(self, source: str) -> str:
-        """Normalize source text: whitespace, unicode normalization, and attempt to fix common mojibake."""
-        if not isinstance(source, str):
-            return str(source or '')
-
-        # Normalize line endings and Unicode form
-        src = source.replace('\r\n', '\n').replace('\r', '\n')
-        src = unicodedata.normalize('NFC', src)
-
-        # Replace no-break spaces with normal spaces
-        src = src.replace('\u00A0', ' ').replace('\xa0', ' ')
-
-        # Try a latin1->utf-8 re-decode if it reduces mojibake or increases recognizable Pine markers
-        try:
-            alt = src.encode('latin-1').decode('utf-8')
-            def weird_count(s):
-                return s.count('Â') + s.count('â') + s.count('�') + s.count('Ã')
-            # prefer alt if it reduces mojibake or contains Pine markers while original does not
-            if weird_count(alt) < weird_count(src) or (('@version' in alt or 'indicator(' in alt or 'library(' in alt) and not ('//@version' in src or 'indicator(' in src or 'library(' in src)):
-                src = alt
-        except Exception:
-            pass
-
-        # Remove stray control characters except tabs and newlines
-        src = ''.join(ch if ch >= ' ' or ch in '\t\n' else ' ' for ch in src)
-
-        # Common mojibake replacements (cover frequent sequences from UTF-8->Latin1 mishandling)
-        mojibake_map = {
-            'â¢': '•',
-            'â': '—',
-            'â¦': '…',
-            'â¢': '™',
-            'Â©': '©',
-            'Â ': ' ',
-            'Ã©': 'é',
-            'Ã¨': 'è',
-            'Ã¢': 'â',
-            'Ã´': 'ô',
-            'Ã«': 'ë',
-            'â': '─',
-            'â': '-',
-            'â¡': '!',
-            'â': '•',
-            'ï¸': '',
-        }
-        for k, v in mojibake_map.items():
-            if k in src:
-                src = src.replace(k, v)
-
-        # Trim trailing whitespace on lines
-        src = '\n'.join(line.rstrip() for line in src.splitlines())
-
-        # Collapse multiple spaces (but keep indentation) - preserve leading indent
-        def collapse_spaces(line):
-            leading = len(line) - len(line.lstrip(' '))
-            return ' ' * leading + re.sub(' {2,}', ' ', line[leading:])
-        src = '\n'.join(collapse_spaces(l) for l in src.splitlines())
-
-        # Final trim
-        return src.strip('\n')
-
-    def save_script(self, result: dict, category: str) -> Path:
-        """Save Pine Script to file with metadata."""
-        category_dir = self.output_dir / sanitize_filename(category)
-        category_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Create filename
-        safe_title = sanitize_filename(result['title'] or 'unknown')
-        filename = f"{result['script_id']}_{safe_title}.pine"
-        filepath = category_dir / filename
-        
-        # Format tags for header
-        tags_str = ', '.join(result.get('tags', [])) if result.get('tags') else ''
-
-        # Build header with extended metadata
-        header = [
-            f"// Title: {result['title']}",
-            f"// Script ID: {result['script_id']}",
-            f"// Author: {result['author']}",
-            f"// URL: {result['url']}",
-            f"// Published: {result.get('published_date', '')}",
-            f"// Downloaded: {datetime.now().isoformat()}",
-            f"// Pine Version: {result['version']}",
-            f"// Type: {'Strategy' if result['is_strategy'] else 'Indicator'}",
-            f"// Boosts: {result.get('boosts', 0)}",
-            f"// Tags: {tags_str}",
-            "//",
-            ""
-        ]
-        
-        # Normalize source: unescape common JS/JSON style escapes (\n, \t, unicode) so files are readable
-        source = result.get('source_code') or ''
-        if isinstance(source, str):
-            try:
-                # If the source contains escaped sequences like '\\n' or '\\u', decode them into real chars
-                if '\\n' in source or '\\t' in source or '\\u' in source:
-                    try:
-                        source = codecs.decode(source, 'unicode_escape')
-                    except Exception:
-                        # Fallback: manual replacements
-                        source = source.replace('\\n', '\n').replace('\\r', '\r').replace('\\t', '\t')
-                        source = source.replace('\\"', '"').replace('\\/', '/')
-                # Trim accidental leading/trailing whitespace
-                source = source.strip('\n')
-            except Exception:
-                pass
-        else:
-            source = str(source)
-
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(header))
-            f.write(source)
-            f.write('\n')
-
-        return filepath
-
-    def save_progress(self, category: str):
-        """Save progress to JSON for resuming."""
-        progress_path = self.output_dir / sanitize_filename(category) / '.progress.json'
-        progress_path.parent.mkdir(parents=True, exist_ok=True)
-        
-        with open(progress_path, 'w') as f:
-            json.dump({
-                'stats': self.stats,
-                'results': self.results,
-                'timestamp': datetime.now().isoformat()
-            }, f, indent=2)
 
     def load_progress(self, category: str) -> set:
         """Load previous progress. Returns set of completed URLs and script IDs."""
@@ -1148,10 +1164,8 @@ class EnhancedTVScraper:
                 with open(progress_path) as f:
                     data = json.load(f)
                     for r in data.get('results', []):
-                        # Add URL if present
                         if r.get('url'):
                             urls_and_ids.add(r['url'])
-                        # Add script_id if present; also add prefix before '-' for compatibility
                         sid = r.get('script_id')
                         if sid:
                             urls_and_ids.add(sid)
@@ -1164,73 +1178,22 @@ class EnhancedTVScraper:
                 pass
         return urls_and_ids
 
-    def print_status(self, sample_limit: int = 10):
-        """Print quick status: where .progress.json and .pine files are found under output_dir."""
-        print(f"Output directory: {self.output_dir}")
-
-        # .progress.json files (skip ignored dirs)
-        all_progress = list(self.output_dir.rglob('.progress.json'))
-        progress_files = [p for p in all_progress if not any(part.startswith('@') or part in self.ignore_dir_prefixes for part in p.parts)]
-        ignored_progress = len(all_progress) - len(progress_files)
-        if progress_files:
-            print(f"Found {len(progress_files)} .progress.json files (sample):")
-            for p in progress_files[:sample_limit]:
-                print(f"  {p}")
-        else:
-            print("No .progress.json files found under output directory.")
-        if ignored_progress:
-            print(f"  (skipped {ignored_progress} .progress.json files in ignored dirs, eg. starting with '@')")
-
-        # .pine files (skip ignored dirs)
-        all_pine = list(self.output_dir.rglob('*.pine'))
-        pine_files = [p for p in all_pine if not any(part.startswith('@') or part in self.ignore_dir_prefixes for part in p.parts)]
-        skipped = len(all_pine) - len(pine_files)
-        print(f"Found {len(pine_files)} .pine files (top {sample_limit}):")
-        for p in pine_files[:sample_limit]:
-            print(f"  {p}")
-        if skipped:
-            print(f"  (skipped {skipped} .pine files in ignored dirs, e.g. @Recycle)")
-
-        # Script IDs/URLs from .pine headers (only from non-ignored files)
-        found = set()
-        try:
-            for p in pine_files:
-                try:
-                    with open(p, 'r', encoding='utf-8') as f:
-                        for _ in range(40):
-                            line = f.readline()
-                            if not line:
-                                break
-                            m = re.match(r'\s*//\s*URL:\s*(\S+)', line)
-                            if m:
-                                found.add(m.group(1).strip())
-                                break
-                            m2 = re.match(r'\s*//\s*Script ID:\s*(\S+)', line)
-                            if m2:
-                                sid = m2.group(1).strip()
-                                found.add(sid)
-                                try:
-                                    found.add(sid.split('-')[0])
-                                except:
-                                    pass
-                                break
-                except Exception:
-                    continue
-        except Exception:
-            pass
-
-        print(f"Found {len(found)} script IDs/URLs in .pine headers (sample): {list(found)[:sample_limit]}")
+    def save_progress(self, category: str):
+        """Save progress to JSON for resuming."""
+        progress_path = self.output_dir / sanitize_filename(category) / '.progress.json'
+        progress_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(progress_path, 'w') as f:
+            json.dump({
+                'stats': self.stats,
+                'results': self.results,
+                'timestamp': datetime.now().isoformat()
+            }, f, indent=2)
 
     def _scan_existing_scripts(self) -> set:
-        """Scan output dir for existing .pine files and extract their URLs or script IDs.
-
-        Returns set of URLs and script IDs found so subsequent runs can skip them regardless
-        of which category folder they were saved into. Files in ignored dirs (e.g. @Recycle) are skipped.
-        """
+        """Scan output dir for existing .pine files and extract their URLs or script IDs."""
         found = set()
         try:
             for p in self.output_dir.rglob('*.pine'):
-                # Skip files that are in ignored dirs (prefixes or starting with '@')
                 if any(part.startswith('@') or part in self.ignore_dir_prefixes for part in p.parts):
                     continue
                 try:
@@ -1247,7 +1210,6 @@ class EnhancedTVScraper:
                             if m2:
                                 sid = m2.group(1).strip()
                                 found.add(sid)
-                                # also add prefix before dash for compatibility
                                 try:
                                     found.add(sid.split('-')[0])
                                 except:
@@ -1259,166 +1221,117 @@ class EnhancedTVScraper:
             pass
         return found
 
-    async def download_all(self, base_url: str, max_pages: int = 20, 
-                          delay: float = 2.0, resume: bool = True, debug_pages: bool = False):
-        """Main download method."""
-        # Determine category
-        parsed = urlparse(base_url)
-        path_parts = [p for p in parsed.path.strip('/').split('/') if p]
-        category = path_parts[-1] if path_parts else "scripts"
+    def save_script(self, result: dict, category: str) -> Path:
+        """Save Pine Script to file with metadata."""
+        category_dir = self.output_dir / sanitize_filename(category)
+        category_dir.mkdir(parents=True, exist_ok=True)
         
-        print(f"\n{'='*70}")
-        print(f"  TradingView Pine Script Downloader")
-        print(f"{'='*70}")
-        print(f"  URL: {base_url}")
-        print(f"  Category: {category}")
-        print(f"  Output: {self.output_dir}")
-        print(f"{'='*70}\n")
+        # Create filename
+        safe_title = sanitize_filename(result.get('title') or 'unknown')
+        filename = f"{result.get('script_id')}_{safe_title}.pine"
+        filepath = category_dir / filename
         
-        await self.setup()
-        # store debug flag for extract diagnostics
-        self.debug_pages = debug_pages
-        
-        try:
-            # Load previous progress
-            completed_urls = self.load_progress(category) if resume else set()
+        # Format tags for header
+        tags_str = ', '.join(result.get('tags', [])) if result.get('tags') else ''
 
-            # Scan existing .pine files in the output folder to avoid re-downloading across runs
-            existing_files = self._scan_existing_scripts()
-            if existing_files:
-                # existing_files may contain URLs or script IDs; union them
-                completed_urls |= existing_files
+        # Build header
+        header = [
+            f"// Title: {result.get('title')}",
+            f"// Script ID: {result.get('script_id')}",
+            f"// Author: {result.get('author')}",
+            f"// URL: {result.get('url')}",
+            f"// Published: {result.get('published_date','')}",
+            f"// Downloaded: {datetime.now().isoformat()}",
+            f"// Pine Version: {result.get('version','')}",
+            f"// Type: {'Strategy' if result.get('is_strategy') else 'Indicator'}",
+            f"// Boosts: {result.get('boosts',0)}",
+            f"// Tags: {tags_str}",
+            "//",
+            ""
+        ]
 
-            if completed_urls:
-                print(f"📂 Resuming: {len(completed_urls)} scripts already processed\n")
-            
-            # If the provided URL is a single script page, process it directly
-            if '/script/' in base_url:
-                print("📋 Detected single script URL — processing that script directly")
-                scripts = [{'url': base_url, 'title': ''}]
+        # If the script was captured directly from the copy-to-clipboard flow, write the
+        # raw captured content verbatim as UTF-8 bytes and do NOT add the generated metadata header
+        # (we must avoid automatic newline translation on Windows and keep exact bytes).
+        if result.get('source_origin') == 'clipboard' and result.get('source_raw'):
+            raw = result.get('source_raw')
+            if isinstance(raw, str):
+                raw_bytes = raw.encode('utf-8')
             else:
-                # Navigate and collect scripts
-                print("📋 Collecting script list...")
-                await self.page.goto(base_url, wait_until='networkidle', timeout=60000)
-                await self.page.wait_for_timeout(2000)
-                await self.handle_cookie_consent()
-                scripts = await self.get_scripts_from_listing(max_pages, debug_pages)
-
-            self.stats['total'] = len(scripts)
-            # Filter already completed (by URL or by script_id)
-            filtered = []
-            skipped = 0
-            for s in scripts:
-                sid = extract_script_id(s['url'])
-                if s['url'] in completed_urls or sid in completed_urls or sid.split('-')[0] in completed_urls:
-                    skipped += 1
-                    if debug_pages:
-                        print(f"   [debug] Skipping already-processed: {s['url']} (id: {sid})")
-                    continue
-                filtered.append(s)
-            scripts = filtered
-            print(f"✓ Found {self.stats['total']} scripts, {len(scripts)} to process (skipped {skipped})\n")
-            
-            if not scripts:
-                print("Nothing new to download!")
-                return
-            
-            # Process each script
-            print(f"{'='*70}")
-            print(f"  Downloading...")
-            print(f"{'='*70}\n")
-            
-            for i, script_info in enumerate(scripts, 1):
-                url = script_info['url']
-                title = script_info.get('title', 'Unknown')[:50]
-
-                print(f"[{i}/{len(scripts)}] {title}...")
-
-                result = await self.extract_pine_source(url)
-                self.results.append(result)
-
-                if result['is_protected']:
-                    print(f"         ⊘ Protected/Invite-only")
-                    self.stats['skipped_protected'] += 1
-                    self.consecutive_failures = 0  # Protected scripts are not failures
-                elif result['error']:
-                    print(f"         ✗ Error: {result['error']}")
-                    self.stats['failed'] += 1
-                    self.consecutive_failures += 1  # Track failures for backoff
-                elif result['source_code']:
-                    filepath = self.save_script(result, category)
-                    print(f"         ✓ Saved ({len(result['source_code'])} chars)")
-                    self.stats['downloaded'] += 1
-                    self.consecutive_failures = 0  # Reset on success
-                else:
-                    print(f"         ⊘ No source code found")
-                    self.stats['skipped_no_code'] += 1
-                    self.consecutive_failures = 0  # No source is not a failure
-
-                # Save progress periodically
-                if i % 10 == 0:
-                    self.save_progress(category)
-
-                # Randomized delay between requests with backoff
-                if i < len(scripts):
-                    delay_seconds = self._get_random_delay()
-                    await self.page.wait_for_timeout(int(delay_seconds * 1000))
-            
-            # Final progress save
-            self.save_progress(category)
-            
-            # Export metadata
-            self._export_metadata(category)
-            
-            # Print summary
-            self._print_summary(category)
-            
-        except Exception as e:
-            print(f"Unexpected error during processing: {e}")
+                raw_bytes = str(raw).encode('utf-8')
+            # Write exact bytes to disk (binary mode)
+            with open(filepath, 'wb') as f:
+                f.write(raw_bytes)
+            # Also export metadata as a separate JSON sidecar so we do not embed it in the script
             try:
-                self.save_progress(category)
+                meta = {
+                    'title': result.get('title'),
+                    'script_id': result.get('script_id'),
+                    'author': result.get('author'),
+                    'url': result.get('url'),
+                    'downloaded': datetime.now().isoformat(),
+                    'tags': result.get('tags', []),
+                    'pine_version': result.get('version','')
+                }
+                meta_path = filepath.with_suffix('.meta.json')
+                with open(meta_path, 'w', encoding='utf-8') as mf:
+                    json.dump(meta, mf, indent=2)
             except Exception:
                 pass
+            print(f"Saved raw clipboard script to {filepath} (metadata written to {meta_path})")
+            return filepath
+
+        source = result.get('source_code') or ''
+        if isinstance(source, str):
             try:
-                self._export_metadata(category)
+                # Previous code tried to unescape escaped sequences; keep that behavior
+                # for non-clipboard sources only.
+                if '\\n' in source or '\\t' in source or '\\u' in source:
+                    try:
+                        source = codecs.decode(source, 'unicode_escape')
+                    except Exception:
+                        source = source.replace('\\n','\n').replace('\\r','\r').replace('\\t','\t')
+                        source = source.replace('\\"','"').replace('\\/','/')
+                source = source.strip('\n')
             except Exception:
                 pass
-            # Re-raise so caller and cleanup are aware
-            raise
-        finally:
-            await self.cleanup()
+        else:
+            source = str(source)
+
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(header))
+            f.write(source)
+            f.write('\n')
+
+        return filepath
 
     def _export_metadata(self, category: str):
         """Export all metadata to JSON."""
         metadata_path = self.output_dir / sanitize_filename(category) / 'metadata.json'
-        
         export_data = {
             'download_date': datetime.now().isoformat(),
             'category': category,
             'statistics': self.stats,
             'scripts': []
         }
-        
         for r in self.results:
             export_data['scripts'].append({
-                'script_id': r['script_id'],
-                'title': r['title'],
-                'author': r['author'],
-                'url': r['url'],
-                'version': r['version'],
-                'is_strategy': r['is_strategy'],
-                'is_protected': r['is_protected'],
+                'script_id': r.get('script_id'),
+                'title': r.get('title'),
+                'author': r.get('author'),
+                'url': r.get('url'),
+                'version': r.get('version'),
+                'is_strategy': r.get('is_strategy'),
+                'is_protected': r.get('is_protected'),
                 'has_source': bool(r.get('source_code')),
                 'published_date': r.get('published_date', ''),
                 'description': r.get('description', ''),
                 'tags': r.get('tags', []),
                 'boosts': r.get('boosts', 0),
-                'error': r['error']
+                'error': r.get('error')
             })
-        
         with open(metadata_path, 'w', encoding='utf-8') as f:
             json.dump(export_data, f, indent=2, ensure_ascii=False)
-        
         print(f"\n📄 Metadata exported: {metadata_path}")
 
     def _print_summary(self, category: str):
@@ -1460,7 +1373,7 @@ async def main():
     parser.add_argument('--debug-pages', action='store_true', help='Verbose page visit logging (debug)')
     parser.add_argument('--dump-copy', action='store_true', help='Diagnostic: inspect copy-button(s) and captured clipboard payload on a single script URL')
     parser.add_argument('--status', action='store_true', help='Show status of output directory (progress files, existing .pine files) and exit')
-    
+
     args = parser.parse_args()
 
     # Require --url unless --status is used (so --status can run standalone)
@@ -1481,7 +1394,40 @@ async def main():
             parser.error('--dump-copy requires a single script URL (contains "/script/")')
         await scraper.dump_copy_diagnostics(args.url)
         return
-    
+
+    # If a single script URL was provided, run the simple single-script flow instead of download_all
+    if args.url and '/script/' in args.url:
+        scraper.debug_pages = args.debug_pages
+        await scraper.setup()
+        try:
+            print('Processing single script URL...')
+            res = await scraper.extract_pine_source(args.url)
+            if res.get('error'):
+                print(f"Error: {res.get('error')}")
+            elif res.get('source_code'):
+                # Use script id as category for single downloads
+                category = extract_script_id(args.url) or 'scripts'
+                fp = scraper.save_script(res, category)
+                # If this was a clipboard capture, verify the written file equals the raw clipboard payload
+                if res.get('source_origin') == 'clipboard' and res.get('source_raw'):
+                    try:
+                        written_bytes = Path(fp).read_bytes()
+                        raw_bytes = res.get('source_raw').encode('utf-8')
+                        if written_bytes != raw_bytes:
+                            print('Warning: written file does not match raw clipboard payload. Overwriting with raw bytes...')
+                            Path(fp).write_bytes(raw_bytes)
+                        else:
+                            print('Verified: saved file matches clipboard content (byte-for-byte)')
+                    except Exception as e:
+                        print(f'Warning: failed to verify written file: {e}')
+                print(f"Saved single script to: {fp}")
+            else:
+                print('No source code found for single script URL')
+        finally:
+            await scraper.cleanup()
+        return
+
+    # Fallback to batch download (download_all may be implemented in future)
     await scraper.download_all(
         base_url=args.url,
         max_pages=args.max_pages,

@@ -20,10 +20,9 @@ from tv_downloader_enhanced import EnhancedTVScraper
 
 
 async def batch_download(urls: list[str], output_dir: str | None = None, 
-                        delay: float = 2.0, max_pages: int = 10, visible: bool = False, debug_pages: bool = False):
+                        delay: float = 2.0, max_pages: int = 10, debug_pages: bool = False):
     """Download from multiple URLs sequentially.
 
-    visible: show browser window when downloading each page
     debug_pages: enable per-page debugging output
     """
     # Resolve output_dir default if None
@@ -58,7 +57,7 @@ async def batch_download(urls: list[str], output_dir: str | None = None,
         
         scraper = EnhancedTVScraper(
             output_dir=output_dir,
-            headless=not visible
+            headless=False  # Always run in visible mode for clipboard extraction
         )
         
         try:
@@ -149,7 +148,7 @@ async def main():
         help='Delay between requests'
     )
 
-    parser.add_argument('--visible', action='store_true', help='Show browser window')
+    # --visible option removed: always runs in visible mode for clipboard extraction
     parser.add_argument('--debug-pages', action='store_true', help='Verbose page visit logging (debug)')
     parser.add_argument('--template', help='URL template with {n} or {n:02d} placeholder, e.g. ".../page-{n}/?..."')
     parser.add_argument('--start', type=int, default=1, help='Start number for template generation')
@@ -202,7 +201,6 @@ async def main():
         output_dir=args.output,
         delay=args.delay,
         max_pages=args.max_pages,
-        visible=args.visible,
         debug_pages=args.debug_pages
     )
 

@@ -882,6 +882,29 @@ class EnhancedTVScraper:
                 pass
         return urls_and_ids
 
+    def print_status(self, sample_limit: int = 10):
+        """Print quick status: where .progress.json and .pine files are found under output_dir."""
+        print(f"Output directory: {self.output_dir}")
+
+        # .progress.json files
+        progress_files = list(self.output_dir.rglob('.progress.json'))
+        if progress_files:
+            print(f"Found {len(progress_files)} .progress.json files (sample):")
+            for p in progress_files[:sample_limit]:
+                print(f"  {p}")
+        else:
+            print("No .progress.json files found under output directory.")
+
+        # .pine files
+        pine_files = list(self.output_dir.rglob('*.pine'))
+        print(f"Found {len(pine_files)} .pine files (top {sample_limit}):")
+        for p in pine_files[:sample_limit]:
+            print(f"  {p}")
+
+        # Script IDs/URLs from .pine headers
+        found = self._scan_existing_scripts()
+        print(f"Found {len(found)} script IDs/URLs in .pine headers (sample): {list(found)[:sample_limit]}")
+
     def _scan_existing_scripts(self) -> set:
         """Scan output dir for existing .pine files and extract their URLs or script IDs.
 
@@ -1099,7 +1122,7 @@ async def main():
 
     # URL can be provided via CLI or via DOWNLOAD_URL env var
     default_url = os.environ.get('DOWNLOAD_URL')
-    parser.add_argument('--url', '-u', required=not bool(default_url), default=default_url, help='TradingView scripts URL (or set DOWNLOAD_URL env var)')
+    parser.add_argument('--url', '-u', default=default_url, help='TradingView scripts URL (or set DOWNLOAD_URL env var)')
 
     # Default output: prefer env PINE_OUTPUT_DIR, else use /mnt/pinescripts if present, else local folder
     env_output = os.environ.get('PINE_OUTPUT_DIR')
@@ -1116,13 +1139,22 @@ async def main():
     parser.add_argument('--no-resume', action='store_true', help='Start fresh (ignore progress)')
     parser.add_argument('--max-pages', '-p', type=int, default=20, help='Maximum pages to scan or visit')
     parser.add_argument('--debug-pages', action='store_true', help='Verbose page visit logging (debug)')
+    parser.add_argument('--status', action='store_true', help='Show status of output directory (progress files, existing .pine files) and exit')
     
     args = parser.parse_args()
+
+    # Require --url unless --status is used (so --status can run standalone)
+    if not args.url and not args.status:
+        parser.error('the following arguments are required: --url (unless --status is provided or DOWNLOAD_URL env var is set)')
     
     scraper = EnhancedTVScraper(
         output_dir=args.output,
         headless=not args.visible
     )
+
+    if args.status:
+        scraper.print_status()
+        return
     
     await scraper.download_all(
         base_url=args.url,

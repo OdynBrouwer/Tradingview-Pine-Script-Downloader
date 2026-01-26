@@ -19,6 +19,7 @@ import os
 import random
 import re
 import sys
+import codecs
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
@@ -818,10 +819,30 @@ class EnhancedTVScraper:
             ""
         ]
         
+        # Normalize source: unescape common JS/JSON style escapes (\n, \t, unicode) so files are readable
+        source = result.get('source_code') or ''
+        if isinstance(source, str):
+            try:
+                # If the source contains escaped sequences like '\\n' or '\\u', decode them into real chars
+                if '\\n' in source or '\\t' in source or '\\u' in source:
+                    try:
+                        source = codecs.decode(source, 'unicode_escape')
+                    except Exception:
+                        # Fallback: manual replacements
+                        source = source.replace('\\n', '\n').replace('\\r', '\r').replace('\\t', '\t')
+                        source = source.replace('\\"', '"').replace('\\/', '/')
+                # Trim accidental leading/trailing whitespace
+                source = source.strip('\n')
+            except Exception:
+                pass
+        else:
+            source = str(source)
+
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write('\n'.join(header))
-            f.write(result['source_code'])
-        
+            f.write(source)
+            f.write('\n')
+
         return filepath
 
     def save_progress(self, category: str):

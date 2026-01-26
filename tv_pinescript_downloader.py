@@ -55,8 +55,18 @@ def extract_script_name(url: str) -> str:
 
 
 class TradingViewScraper:
-    def __init__(self, output_dir: str = "./pinescript_downloads", headless: bool = True):
-        self.output_dir = Path(output_dir)
+    def __init__(self, output_dir: str | None = None, headless: bool = True):
+        if output_dir:
+            resolved = output_dir
+        else:
+            env_output = os.environ.get('PINE_OUTPUT_DIR')
+            if env_output:
+                resolved = env_output
+            elif os.path.exists('/mnt/pinescripts'):
+                resolved = '/mnt/pinescripts'
+            else:
+                resolved = './pinescript_downloads'
+        self.output_dir = Path(resolved)
         self.headless = headless
         self.browser = None
         self.context = None
@@ -425,8 +435,17 @@ Notes:
     
     parser.add_argument(
         '--output', '-o',
-        default='./pinescript_downloads',
-        help='Output directory for downloaded scripts (default: ./pinescript_downloads)'
+        # Default output: prefer env PINE_OUTPUT_DIR, else /mnt/pinescripts if present, else local folder
+        env_output = os.environ.get('PINE_OUTPUT_DIR')
+        if env_output:
+            default_output = env_output
+        elif os.path.exists('/mnt/pinescripts'):
+            default_output = '/mnt/pinescripts'
+        else:
+            default_output = './pinescript_downloads'
+        
+        default=default_output,
+        help='Output directory for downloaded scripts (default: PINE_OUTPUT_DIR or /mnt/pinescripts if available)'
     )
     
     parser.add_argument(

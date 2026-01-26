@@ -51,8 +51,19 @@ def extract_script_id(url: str) -> str:
 
 
 class EnhancedTVScraper:
-    def __init__(self, output_dir: str = "./pinescript_downloads", headless: bool = True):
-        self.output_dir = Path(output_dir)
+    def __init__(self, output_dir: str | None = None, headless: bool = True):
+        # Resolve default output: prefer env PINE_OUTPUT_DIR, then /mnt/pinescripts, otherwise ./pinescript_downloads
+        if output_dir:
+            resolved = output_dir
+        else:
+            env_output = os.environ.get('PINE_OUTPUT_DIR')
+            if env_output:
+                resolved = env_output
+            elif os.path.exists('/mnt/pinescripts'):
+                resolved = '/mnt/pinescripts'
+            else:
+                resolved = './pinescript_downloads'
+        self.output_dir = Path(resolved)
         self.headless = headless
         self.browser = None
         self.context = None

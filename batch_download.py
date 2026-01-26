@@ -12,14 +12,29 @@ Usage:
 import argparse
 import asyncio
 import sys
+import os
 from pathlib import Path
 
 # Import from the enhanced downloader (which is now fixed)
 from tv_downloader_enhanced import EnhancedTVScraper
 
 
-async def batch_download(urls: list[str], output_dir: str = "./pinescript_downloads", 
+async def batch_download(urls: list[str], output_dir: str | None = None, 
                         delay: float = 2.0, max_pages: int = 10, visible: bool = False, debug_pages: bool = False):
+    """Download from multiple URLs sequentially.
+
+    visible: show browser window when downloading each page
+    debug_pages: enable per-page debugging output
+    """
+    # Resolve output_dir default if None
+    if not output_dir:
+        env_output = os.environ.get('PINE_OUTPUT_DIR')
+        if env_output:
+            output_dir = env_output
+        elif os.path.exists('/mnt/pinescripts'):
+            output_dir = '/mnt/pinescripts'
+        else:
+            output_dir = './pinescript_downloads'
     """Download from multiple URLs sequentially.
 
     visible: show browser window when downloading each page
@@ -105,10 +120,19 @@ async def main():
         help='URLs to download from'
     )
     
+    # Default output: prefer env PINE_OUTPUT_DIR, else use /mnt/pinescripts if present, else local folder
+    env_output = os.environ.get('PINE_OUTPUT_DIR')
+    if env_output:
+        default_output = env_output
+    elif os.path.exists('/mnt/pinescripts'):
+        default_output = '/mnt/pinescripts'
+    else:
+        default_output = './pinescript_downloads'
+
     parser.add_argument(
         '--output', '-o',
-        default='./pinescript_downloads',
-        help='Output directory'
+        default=default_output,
+        help='Output directory (defaults to PINE_OUTPUT_DIR or /mnt/pinescripts when available)'
     )
     
     parser.add_argument(

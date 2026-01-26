@@ -186,7 +186,7 @@ class EnhancedTVScraper:
             pass
 
     async def get_scripts_from_listing(self, max_scroll_attempts: int | None = 20) -> list[dict]:
-        """Get all scripts by scrolling and clicking 'load more'.
+        """Get all scripts by scrolling/clicking and following paginated pages.
 
         If max_scroll_attempts is None, keep trying until the page stabilizes
         (no new scripts found for several iterations).
@@ -195,20 +195,20 @@ class EnhancedTVScraper:
         last_count = 0
         no_change_count = 0
         
-        attempt = 0
-        while True:
-            attempt += 1
-            # Get current scripts (improved extraction)
-            current_scripts = await self.page.evaluate('''() => {
+        # Use a click loop similar to the fixed downloader: try 'Show more' up to a limit, checking visibility
+        click_count = 0
+        max_clicks = max_scroll_attempts if isinstance(max_scroll_attempts, int) else 30
+        while click_count < max_clicks:
+            # Get current scripts using a slightly stricter pattern (include slugs)
+            current_scripts = await self.page.evaluate(r'''() => {
                 const scripts = [];
                 const links = document.querySelectorAll('a');
-
                 links.forEach(link => {
                     const href = link.href;
                     // Include /script/ links, exclude comment links
                     if (href &&
                         href.includes('/script/') &&
-                        href.match(/\\/script\\/[a-zA-Z0-9]+/) &&
+                        href.match(/\/script\/[A-Za-z0-9]+/) &&
                         !href.endsWith('#chart-view-comment-form')) {
 
                         // Clean URL: remove query params and hash
@@ -223,48 +223,156 @@ class EnhancedTVScraper:
                         }
                     }
                 });
-
                 return scripts;
             }''')
-            
+
             # Add to collection
+            prev_count = len(scripts)
             for s in current_scripts:
                 if s['url'] not in scripts:
                     scripts[s['url']] = s
-            
-            # Check if we got new scripts
-            if len(scripts) == last_count:
-                no_change_count += 1
-                if no_change_count >= 3:
+
+            print(f"   Found {len(scripts)} scripts... (clicks {click_count})", end='\r')
+
+            # If no new scripts, attempt to click 'Show more' if visible
+            if len(scripts) == prev_count:
+                try:
+                    show_more = self.page.locator('button:has-text("Show more")')
+                    if await show_more.count() > 0 and await show_more.first.is_visible():
+                        try:
+                            await show_more.first.click()
+                        except Exception:
+                            # Try cookie consent, overlay removal and force click
+                            try:
+                                await self.handle_cookie_consent()
+                            except:
+                                pass
+                            try:
+                                await self.page.evaluate(r'''() => {
+                                    const els = document.querySelectorAll('#overlap-manager-root, [data-qa-id="overlap-manager-root"], div[id^="overlay"], div[class*="overlay"], canvas');
+                                    els.forEach(e => e.style.pointerEvents = 'none');
+                                }''')
+                            except:
+                                pass
+                            try:
+                                await show_more.first.click(force=True)
+                            except Exception:
+                                # give up on this button
+                                break
+
+                        await self.page.wait_for_timeout(1800)
+                        click_count += 1
+                        continue
+                    else:
+                        break
+                except Exception:
                     break
             else:
-                no_change_count = 0
-            
-            last_count = len(scripts)
-            print(f"   Found {len(scripts)} scripts... (attempt {attempt})", end='\r')
-            
-            # If we were given a hard limit and we've reached it, stop
-            if isinstance(max_scroll_attempts, int) and attempt >= max_scroll_attempts:
-                break
-            
-            # Try to load more with human-like behavior
-            try:
-                load_more = self.page.locator('button:has-text("Show more")')
-                if await load_more.count() > 0:
-                    await self._human_like_delay(300, 800)
-                    await load_more.first.click()
-                    await self.page.wait_for_timeout(random.randint(1500, 2500))
-                else:
-                    # Try scrolling instead with random amounts
-                    scroll_amount = random.randint(500, 1000)
-                    await self.page.evaluate(f'window.scrollBy(0, {scroll_amount})')
-                    await self.page.wait_for_timeout(random.randint(1200, 2000))
-            except:
-                scroll_amount = random.randint(500, 1000)
-                await self.page.evaluate(f'window.scrollBy(0, {scroll_amount})')
-                await self.page.wait_for_timeout(random.randint(1200, 2000))
+                # Reset click counter when new scripts are found
+                click_count = 0
+
+            await self.page.wait_for_timeout(600)
+
+        print()  # New line after progress
+
+        # If the listing uses numbered pagination or the above failed to gather enough, gather page links and visit them
+        try:
+            page_links = await self.page.evaluate(r'''() => {
+                const pages = new Set();
+                const anchors = Array.from(document.querySelectorAll('a[href*="?page="]'));
+                anchors.forEach(a => {
+                    try {
+                        const href = a.href.split('#')[0];
+                        const m = href.match(/\?page=\d+/);
+                        if (m) pages.add(href);
+                    } catch(e) {}
+                });
+                return Array.from(pages);
+            }''')
+
+            # Visit each pagination link and collect scripts (limit to reasonable amount)
+            if page_links:
+                page_links = sorted(set(page_links))[:40]
+                for idx, purl in enumerate(page_links, 1):
+                    try:
+                        print(f"   Visiting page {idx}/{len(page_links)}: {purl}")
+                        await self.page.goto(purl, wait_until='networkidle', timeout=30000)
+                        await self.page.wait_for_timeout(1200)
+                        page_scripts = await self.page.evaluate(r'''() => {
+                            const scripts = [];
+                            const links = document.querySelectorAll('a');
+                            links.forEach(link => {
+                                const href = link.href;
+                                // Include /script/ links, exclude comment links
+                                if (href && href.includes('/script/') && href.match(/\/script\/[A-Za-z0-9]+/) && !href.endsWith('#chart-view-comment-form')) {
+                                    const cleanUrl = href.split('?')[0].split('#')[0];
+                                    const title = link.textContent?.trim();
+                                    if (!scripts.some(s => s.url === cleanUrl)) {
+                                        scripts.push({url: cleanUrl, title: (title && title.length > 3) ? title.substring(0,200) : 'Unknown'});
+                                    }
+                                }
+                            });
+                            return scripts;
+                        }''')
+                        for s in page_scripts:
+                            if s['url'] not in scripts:
+                                scripts[s['url']] = s
+                    except:
+                        continue
+        except:
+            pass
+
+        return list(scripts.values())
         
         print()  # New line after progress
+
+        # If the listing uses numbered pagination, gather page links and visit them
+        try:
+            page_links = await self.page.evaluate(r'''() => {
+                const pages = new Set();
+                const anchors = Array.from(document.querySelectorAll('a[href*="?page="]'));
+                anchors.forEach(a => {
+                    try {
+                        const href = a.href.split('#')[0];
+                        // Normalize to only include distinct page query
+                        const m = href.match(/\?page=\d+/);
+                        if (m) pages.add(href);
+                    } catch(e) {}
+                });
+                return Array.from(pages);
+            }''')
+
+            # Visit each pagination link and collect scripts (limit to reasonable amount)
+            if page_links:
+                page_links = sorted(set(page_links))[:20]
+                for idx, purl in enumerate(page_links, 1):
+                    try:
+                        print(f"   Visiting page {idx}/{len(page_links)}: {purl}")
+                        await self.page.goto(purl, wait_until='networkidle', timeout=30000)
+                        await self.page.wait_for_timeout(1200)
+                        page_scripts = await self.page.evaluate(r'''() => {
+                            const scripts = [];
+                            const links = document.querySelectorAll('a');
+                            links.forEach(link => {
+                                const href = link.href;
+                                if (href && href.includes('/script/') && href.match(/\/script\/[a-zA-Z0-9]+/)) {
+                                    const cleanUrl = href.split('?')[0].split('#')[0];
+                                    const title = link.textContent?.trim();
+                                    if (!scripts.some(s => s.url === cleanUrl)) {
+                                        scripts.push({url: cleanUrl, title: (title && title.length > 3) ? title.substring(0,200) : 'Unknown'});
+                                    }
+                                }
+                            });
+                            return scripts;
+                        }''')
+                        for s in page_scripts:
+                            if s['url'] not in scripts:
+                                scripts[s['url']] = s
+                    except:
+                        continue
+        except:
+            pass
+
         return list(scripts.values())
 
     async def extract_pine_source(self, script_url: str) -> dict:
@@ -301,18 +409,18 @@ class EnhancedTVScraper:
             await self._human_like_scroll()
             
             # Extract metadata
-            result['title'] = await self.page.evaluate('''() => {
+            result['title'] = await self.page.evaluate(r'''() => {
                 const h1 = document.querySelector('h1');
                 return h1 ? h1.textContent.trim() : '';
             }''')
             
-            result['author'] = await self.page.evaluate('''() => {
+            result['author'] = await self.page.evaluate(r'''() => {
                 const authorLink = document.querySelector('a[href^="/u/"]');
                 return authorLink ? authorLink.textContent.trim().replace('by ', '') : '';
             }''')
 
             # Extract extended metadata (published date, description, tags, stats)
-            extended_meta = await self.page.evaluate('''() => {
+            extended_meta = await self.page.evaluate(r'''() => {
                 const meta = {
                     published_date: '',
                     description: '',
@@ -367,7 +475,7 @@ class EnhancedTVScraper:
             result['boosts'] = extended_meta.get('boosts', 0)
 
             # Check if open-source (FIXED: look for explicit open-source indicator, not lock icons)
-            script_type = await self.page.evaluate('''() => {
+            script_type = await self.page.evaluate(r'''() => {
                 const pageText = document.body.innerText;
                 const pageUpper = pageText.toUpperCase();
                 
@@ -431,11 +539,14 @@ class EnhancedTVScraper:
             await self._human_like_mouse_move()
             await self._human_like_delay(200, 500)
 
-            # Find and click Source Code tab
+            # Find and click Source Code tab (extra selectors)
             tab_selectors = [
                 '[role="tab"]:has-text("Source code")',
                 'button:has-text("Source code")',
                 'div:has-text("Source code"):not(:has(*))',
+                'button:has-text("Source")',
+                'a:has-text("Source")',
+                'button:has-text("Show source")',
             ]
 
             for selector in tab_selectors:
@@ -445,28 +556,25 @@ class EnhancedTVScraper:
                         # Move mouse near the tab before clicking
                         await self._human_like_delay(100, 300)
                         await tab.first.click()
-                        await self.page.wait_for_timeout(random.randint(2000, 3000))
+                        await self.page.wait_for_timeout(random.randint(1500, 3000))
                         break
                 except:
                     continue
             
             # Extract code - FIXED: Look for container with many child divs (line-by-line code)
-            code = await self.page.evaluate('''() => {
+            code = await self.page.evaluate(r'''() => {
                 // Find all divs and look for containers with many child divs
                 const allDivs = document.querySelectorAll('div');
                 
                 for (const container of allDivs) {
                     const children = Array.from(container.children);
                     
-                    // If this div has many child divs (50+), it might be the code container
-                    if (children.length > 50) {
+                    // If this div has many child divs (or smaller code blocks), it might be the code container
+                    if (children.length >= 12) {
                         const texts = children.map(c => c.textContent?.trim() || '');
-                        const joined = texts.join('\\n');
-                        
-                        // Check if this looks like Pine Script
-                        if (joined.includes('//@version') && 
-                            (joined.includes('indicator(') || joined.includes('strategy('))) {
-                            // Filter out line numbers (pure numeric lines)
+                        const joined = texts.join('\n');
+                        // Accept library declarations and other Pine identifiers
+                        if ((joined.includes('//@version') || joined.includes('indicator(') || joined.includes('strategy(') || joined.includes('library(') || joined.includes('plot(') || joined.toLowerCase().includes('library ')) && joined.length > 100) {
                             const codeLines = texts.filter(t => t && !/^\\d+$/.test(t));
                             return codeLines.join('\\n');
                         }
@@ -481,7 +589,37 @@ class EnhancedTVScraper:
                         return text;
                     }
                 }
-                
+
+                // NEW FALLBACK: Find the visible "Pine Script" section header and grab adjacent code container
+                try {
+                    const headers = Array.from(document.querySelectorAll('*')).filter(el => {
+                        const t = (el.textContent || '').trim();
+                        return t && (t.toLowerCase().includes('pine script') || t.toLowerCase().includes('pine script®'));
+                    });
+                    for (const h of headers) {
+                        // look for code-like sibling or descendant
+                        let candidate = null;
+                        // check next siblings
+                        let sib = h.nextElementSibling;
+                        while (sib) {
+                            const txt = (sib.textContent || '').trim();
+                            if (txt.length > 100 && (txt.includes('//@version') || txt.includes('library(') || txt.includes('indicator('))) {
+                                candidate = txt; break;
+                            }
+                            sib = sib.nextElementSibling;
+                        }
+                        if (candidate) return candidate;
+                        // else check descendants of parent
+                        const parent = h.parentElement;
+                        if (parent) {
+                            const bigText = parent.innerText || '';
+                            if (bigText.includes('//@version') || bigText.includes('library(')) {
+                                return bigText;
+                            }
+                        }
+                    }
+                } catch(e) {}
+
                 return '';
             }''')
             
@@ -492,19 +630,17 @@ class EnhancedTVScraper:
     async def _try_direct_extraction(self) -> str:
         """Try extracting code directly from page elements."""
         try:
-            return await self.page.evaluate('''() => {
+            return await self.page.evaluate(r'''() => {
                 // Method 1: Look for containers with many child divs (line-by-line code)
                 const allDivs = document.querySelectorAll('div');
                 
                 for (const container of allDivs) {
                     const children = Array.from(container.children);
                     
-                    if (children.length > 50) {
+                    if (children.length >= 8) {
                         const texts = children.map(c => c.textContent?.trim() || '');
-                        const joined = texts.join('\\n');
-                        
-                        if (joined.includes('//@version') && 
-                            (joined.includes('indicator(') || joined.includes('strategy('))) {
+                        const joined = texts.join('\n');
+                        if ((joined.includes('//@version') || joined.includes('indicator(') || joined.includes('strategy(') || joined.includes('library(') || joined.includes('plot(')) && joined.length > 80) {
                             const codeLines = texts.filter(t => t && !/^\\d+$/.test(t));
                             return codeLines.join('\\n');
                         }
@@ -532,19 +668,30 @@ class EnhancedTVScraper:
     async def _try_embedded_extraction(self) -> str:
         """Try extracting code from embedded page data."""
         try:
-            return await self.page.evaluate('''() => {
+            return await self.page.evaluate(r'''() => {
                 // Check for script data in page scripts
                 const scripts = document.querySelectorAll('script');
                 for (const script of scripts) {
                     const content = script.textContent || '';
-                    // Look for Pine Script patterns in JSON data
-                    const match = content.match(/"source"\\s*:\\s*"([^"]+)"/);
+                    // Look for Pine Script patterns in JSON data (double- or single-quoted)
+                    let match = content.match(/"source"\s*:\s*"((?:\\\\.|[^"\\\\])*)"/s);
+                    if (!match) match = content.match(/'source'\s*:\s*'((?:\\\\.|[^'\\\\])*)'/s);
                     if (match) {
-                        const decoded = match[1]
+                        let decoded = match[1]
                             .replace(/\\\\n/g, '\\n')
                             .replace(/\\\\t/g, '\\t')
-                            .replace(/\\\\"/g, '"');
-                        if (decoded.includes('//@version') || decoded.includes('indicator(')) {
+                            .replace(/\\\\\"/g, '"')
+                            .replace(/\\\\'/g, "'");
+                        if (decoded.includes('//@version') || decoded.includes('indicator(') || decoded.includes('library(') || decoded.includes('plot(')) {
+                            return decoded;
+                        }
+                    }
+
+                    // Sometimes the source is in a different key like 'body' or 'script'
+                    match = content.match(/"body"\s*:\s*"((?:\\\\.|[^"\\\\])*)"/s);
+                    if (match) {
+                        let decoded = match[1].replace(/\\\\n/g, '\\n');
+                        if (decoded.includes('//@version') || decoded.includes('indicator(') || decoded.includes('library(')) {
                             return decoded;
                         }
                     }
@@ -637,15 +784,19 @@ class EnhancedTVScraper:
             if completed_urls:
                 print(f"📂 Resuming: {len(completed_urls)} scripts already processed\n")
             
-            # Navigate and collect scripts
-            print("📋 Collecting script list...")
-            await self.page.goto(base_url, wait_until='networkidle', timeout=60000)
-            await self.page.wait_for_timeout(2000)
-            await self.handle_cookie_consent()
-            
-            scripts = await self.get_scripts_from_listing(max_pages)
+            # If the provided URL is a single script page, process it directly
+            if '/script/' in base_url:
+                print("📋 Detected single script URL — processing that script directly")
+                scripts = [{'url': base_url, 'title': ''}]
+            else:
+                # Navigate and collect scripts
+                print("📋 Collecting script list...")
+                await self.page.goto(base_url, wait_until='networkidle', timeout=60000)
+                await self.page.wait_for_timeout(2000)
+                await self.handle_cookie_consent()
+                scripts = await self.get_scripts_from_listing(max_pages)
+
             self.stats['total'] = len(scripts)
-            
             # Filter already completed
             scripts = [s for s in scripts if s['url'] not in completed_urls]
             print(f"✓ Found {self.stats['total']} scripts, {len(scripts)} to process\n")

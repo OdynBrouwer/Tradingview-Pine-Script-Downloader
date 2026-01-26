@@ -105,6 +105,28 @@ docker-compose run --rm downloader python tv_downloader_enhanced.py --url "https
 
 Notes for Proxmox LXC: enable nesting and run Docker inside the container, or use a full VM for the most reliable Playwright/browser support.
 
+Mounting your NAS and making it the default download location
+
+If you mounted your NAS at `/mnt/pinescripts` (example fstab line below), the downloader will automatically prefer that path as the output directory.
+
+Example /etc/fstab entry (your values):
+
+```
+//192.168.15.101/Pinescripts /mnt/pinescripts cifs noauto,x-systemd.automount,x-systemd.requires=network-online.target,x-systemd.mount-timeout=10s,credentials=/root/.smbcreds_pinescripts,uid=1000,gid=1000,dir_mode=0755,file_mode=0644 0 0
+```
+
+Environment variable override
+
+You can also set `PINE_OUTPUT_DIR` to force the output location (useful for Docker, systemd, or other setups):
+
+```bash
+# Example: run container and force output to /mnt/pinescripts
+docker run --rm -v "$(pwd)/pinescript_downloads:/app/pinescript_downloads" -v "/mnt/pinescripts:/mnt/pinescripts" -e PINE_OUTPUT_DIR=/mnt/pinescripts tv-downloader:latest \
+  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/"
+```
+
+If neither `PINE_OUTPUT_DIR` is set nor `/mnt/pinescripts` exists, the downloader falls back to `./pinescript_downloads` (local folder in the repo).
+
 Verify browsers inside the container (quick health check):
 
 ```bash

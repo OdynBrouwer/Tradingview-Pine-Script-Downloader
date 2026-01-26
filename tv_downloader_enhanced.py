@@ -748,7 +748,17 @@ class EnhancedTVScraper:
 async def main():
     parser = argparse.ArgumentParser(description='Download Pine Script from TradingView')
     parser.add_argument('--url', '-u', required=True, help='TradingView scripts URL')
-    parser.add_argument('--output', '-o', default='./pinescript_downloads', help='Output directory')
+
+    # Default output: prefer env PINE_OUTPUT_DIR, else use /mnt/pinescripts if present, else local folder
+    env_output = os.environ.get('PINE_OUTPUT_DIR')
+    if env_output:
+        default_output = env_output
+    elif os.path.exists('/mnt/pinescripts'):
+        default_output = '/mnt/pinescripts'
+    else:
+        default_output = './pinescript_downloads'
+
+    parser.add_argument('--output', '-o', default=default_output, help='Output directory')
     parser.add_argument('--max-pages', '-p', type=int, default=20, help='Max pages to scan')
     parser.add_argument('--delay', '-d', type=float, default=2.0, help='Delay between requests')
     parser.add_argument('--visible', action='store_true', help='Show browser window')

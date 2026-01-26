@@ -576,7 +576,8 @@ class EnhancedTVScraper:
                 if getattr(self, 'debug_pages', False):
                     try:
                         snippet = await self.page.evaluate('() => document.body.innerText.slice(0,800)')
-                        print(f"   [debug-extract] No source found for {script_url}; title: {result['title']}; text-snippet: {snippet[:400].replace('\n',' ')}")
+                        sanitized = snippet[:400].replace('\n', ' ')
+                        print(f"   [debug-extract] No source found for {script_url}; title: {result['title']}; text-snippet: {sanitized}")
                     except Exception:
                         print(f"   [debug-extract] No source found for {script_url}; and could not fetch snippet")
 

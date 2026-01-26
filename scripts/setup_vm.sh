@@ -34,12 +34,19 @@ chmod +x "$REPO_DIR"/scripts/*.sh || true
 echo "Creating virtualenv and installing python deps as $USER_NAME..."
 su - "$USER_NAME" -c "bash -lc 'cd \"$REPO_DIR\" && python3 -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip setuptools wheel && pip install -r requirements.txt'"
 
-# Install Playwright browsers (run as root to allow package installs)
+# Install Playwright browsers (run as root first to ensure system deps, then as the user to populate user's cache)
 echo "Installing Playwright browsers (this can take a while)..."
-# Run inside the venv as root so playwright can install system deps without prompting for password
-bash -lc "cd \"$REPO_DIR\" && . .venv/bin/activate && python -m playwright install --with-deps --force"
-# If you prefer to run as the target user (no root), uncomment the following line instead:
-# su - "$USER_NAME" -c "bash -lc 'cd \"$REPO_DIR\" && . .venv/bin/activate && python -m playwright install --with-deps --force'"
+# 1) Run as root inside the venv so playwright can install system deps without prompting for password
+bash -lc "cd \"$REPO_DIR\" && . .venv/bin/activate && python -m playwright install --with-deps --force" || true
+
+# 2) Ensure the target user has the browser binaries installed in their own cache
+echo "Ensuring Playwright browsers are available for $USER_NAME (installing as that user)..."
+su - "$USER_NAME" -c "bash -lc 'cd \"$REPO_DIR\" && . .venv/bin/activate && python -m playwright install --force'" || true
+
+# 3) Fix permissions of the user's playwright cache directory if it exists
+if [ -d "/home/$USER_NAME/.cache/ms-playwright" ]; then
+  chown -R "$USER_NAME":"$USER_NAME" "/home/$USER_NAME/.cache/ms-playwright" || true
+fi
 
 echo "Setup complete. You can now run:"
 echo "  sudo -u $USER_NAME -i bash -lc 'cd $REPO_DIR && ./scripts/run_download.sh --url <URL> --max-pages 5'"

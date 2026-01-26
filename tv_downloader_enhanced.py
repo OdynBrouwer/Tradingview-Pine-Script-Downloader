@@ -20,6 +20,7 @@ import random
 import re
 import sys
 import codecs
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
@@ -592,11 +593,16 @@ class EnhancedTVScraper:
                 source_code = await self._try_embedded_extraction()
             
             if source_code:
+                # Normalize encoding/whitespace before further processing
+                try:
+                    source_code = self._normalize_source(source_code)
+                except Exception:
+                    pass
                 result['source_code'] = source_code.strip()
-                # Detect version and type
-                version_match = re.search(r'//@version=(\d+)', source_code)
+                # Detect version and type from normalized source
+                version_match = re.search(r'//@version=(\d+)', result['source_code'])
                 result['version'] = version_match.group(1) if version_match else ''
-                result['is_strategy'] = 'strategy(' in source_code
+                result['is_strategy'] = 'strategy(' in result['source_code']
             else:
                 # Diagnostics when debug is enabled
                 if getattr(self, 'debug_pages', False):
@@ -814,7 +820,7 @@ class EnhancedTVScraper:
                 }
 
                 // Attributes that sometimes hold the raw source
-                const attrs = ['data-clipboard-text', 'data-clipboard', 'data-copy', 'data-clipboard-text-original'];
+                const attrs = ['data-clipboard-text', 'data-clipboard', 'data-copy', 'data-clipboard-text-original', 'data-clipboard-text-original-value'];
                 for (const attr of attrs) {
                     const el = document.querySelector('[' + attr + ']');
                     if (el) {
@@ -823,15 +829,17 @@ class EnhancedTVScraper:
                     }
                 }
 
-                // Common copy button selectors
+                // More aggressive search for copy buttons (icons, aria labels, titles)
                 const btnSelectors = [
                     'button[aria-label*="copy"]',
                     'button[title*="Copy"]',
+                    'button[aria-label*="Copy to clipboard"]',
                     'button:has-text("Copy")',
                     'button:has-text("Copy to clipboard")',
                     '.copy-to-clipboard',
                     '[data-qa-id*="copy"]',
-                    '[class*="copy"]'
+                    '[class*="copy"]',
+                    '.tv-copy'
                 ];
 
                 for (const sel of btnSelectors) {
@@ -843,26 +851,26 @@ class EnhancedTVScraper:
                         if (b.dataset && b.dataset.clipboardText && looksLikePine(b.dataset.clipboardText)) return b.dataset.clipboardText;
                         if (b.getAttribute && b.getAttribute('data-clipboard-text') && looksLikePine(b.getAttribute('data-clipboard-text'))) return b.getAttribute('data-clipboard-text');
 
-                        // Look for nearby code container
-                        const parent = b.closest('div') || document.body;
-                        const codeEl = parent.querySelector('pre, code, textarea, [class*="code"], [class*="source"], [class*="snippet"]');
+                        // Look inside nearest dialog or parent for code container
+                        const dialog = b.closest('[role="dialog"]') || b.closest('div') || document.body;
+                        const codeEl = dialog.querySelector('pre, code, textarea, [class*="code"], [class*="source"], [class*="snippet"]');
                         if (codeEl) {
                             const txt = codeEl.value || codeEl.textContent || '';
                             if (looksLikePine(txt)) return txt;
                         }
 
-                        // Click the button - libraries often inject a textarea/input or select into DOM to copy
+                        // Try to click and shortly wait for injected inputs/textareas
                         try { b.click(); } catch(e) {}
 
-                        // After clicking, search for any textarea/input with content resembling Pine
+                        // After clicking, look for temporary elements or inputs with content
                         const inputs = Array.from(document.querySelectorAll('textarea, input'));
                         for (const inp of inputs) {
                             const v = inp.value || inp.textContent || '';
                             if (looksLikePine(v)) return v;
                         }
 
-                        // Finally, check if something was selected
-                        const sel = (window.getSelection && window.getSelection().toString()) || ' ';
+                        // Check selection
+                        const sel = (window.getSelection && window.getSelection().toString()) || '';
                         if (looksLikePine(sel)) return sel;
                     } catch(e) {}
                 }
@@ -871,6 +879,44 @@ class EnhancedTVScraper:
             }''') or ''
         except Exception:
             return ''
+
+    def _normalize_source(self, source: str) -> str:
+        """Normalize source text: whitespace, unicode normalization, and attempt to fix common mojibake."""
+        if not isinstance(source, str):
+            return str(source or '')
+
+        # Normalize line endings and Unicode form
+        src = source.replace('\r\n', '\n').replace('\r', '\n')
+        src = unicodedata.normalize('NFC', src)
+
+        # Replace no-break spaces with normal spaces
+        src = src.replace('\u00A0', ' ').replace('\xa0', ' ')
+
+        # If we see obvious mojibake patterns like 'Â' or sequences of 'â', try latin1->utf-8 fix
+        if ('Â' in src or 'â' in src) and not ('//@version' in src or 'indicator(' in src):
+            try:
+                alt = src.encode('latin-1').decode('utf-8')
+                # choose alt only if it contains Pine markers
+                if ('//@version' in alt or 'indicator(' in alt or 'library(' in alt) and alt.count('Â') < src.count('Â'):
+                    src = alt
+            except Exception:
+                pass
+
+        # Remove stray control characters except tabs and newlines
+        src = ''.join(ch if ch >= ' ' or ch in '\t\n' else ' ' for ch in src)
+
+        # Trim trailing whitespace on lines
+        src = '\n'.join(line.rstrip() for line in src.splitlines())
+
+        # Collapse multiple spaces (but keep indentation) - preserve leading indent
+        def collapse_spaces(line):
+            leading = len(line) - len(line.lstrip(' '))
+            return ' ' * leading + re.sub(' {2,}', ' ', line[leading:])
+        src = '\n'.join(collapse_spaces(l) for l in src.splitlines())
+
+        # Final trim
+        return src.strip('\n')
+
     def save_script(self, result: dict, category: str) -> Path:
         """Save Pine Script to file with metadata."""
         category_dir = self.output_dir / sanitize_filename(category)

@@ -82,6 +82,10 @@ class EnhancedTVScraper:
         self.consecutive_failures = 0
         self.base_delay = 2.0  # Base delay in seconds
         self.current_user_agent = random.choice(USER_AGENTS)
+        # Directories to ignore when scanning existing files (comma-separated env var)
+        ignore_env = os.environ.get('PINE_IGNORE_DIRS', '@Recycle,@Recently-Snapshot')
+        self.ignore_dir_prefixes = set([s.strip() for s in ignore_env.split(',') if s.strip()])
+
         
     async def setup(self):
         """Initialize the browser with anti-detection settings."""
@@ -886,23 +890,57 @@ class EnhancedTVScraper:
         """Print quick status: where .progress.json and .pine files are found under output_dir."""
         print(f"Output directory: {self.output_dir}")
 
-        # .progress.json files
-        progress_files = list(self.output_dir.rglob('.progress.json'))
+        # .progress.json files (skip ignored dirs)
+        all_progress = list(self.output_dir.rglob('.progress.json'))
+        progress_files = [p for p in all_progress if not any(part.startswith('@') or part in self.ignore_dir_prefixes for part in p.parts)]
+        ignored_progress = len(all_progress) - len(progress_files)
         if progress_files:
             print(f"Found {len(progress_files)} .progress.json files (sample):")
             for p in progress_files[:sample_limit]:
                 print(f"  {p}")
         else:
             print("No .progress.json files found under output directory.")
+        if ignored_progress:
+            print(f"  (skipped {ignored_progress} .progress.json files in ignored dirs, eg. starting with '@')")
 
-        # .pine files
-        pine_files = list(self.output_dir.rglob('*.pine'))
+        # .pine files (skip ignored dirs)
+        all_pine = list(self.output_dir.rglob('*.pine'))
+        pine_files = [p for p in all_pine if not any(part.startswith('@') or part in self.ignore_dir_prefixes for part in p.parts)]
+        skipped = len(all_pine) - len(pine_files)
         print(f"Found {len(pine_files)} .pine files (top {sample_limit}):")
         for p in pine_files[:sample_limit]:
             print(f"  {p}")
+        if skipped:
+            print(f"  (skipped {skipped} .pine files in ignored dirs, e.g. @Recycle)")
 
-        # Script IDs/URLs from .pine headers
-        found = self._scan_existing_scripts()
+        # Script IDs/URLs from .pine headers (only from non-ignored files)
+        found = set()
+        try:
+            for p in pine_files:
+                try:
+                    with open(p, 'r', encoding='utf-8') as f:
+                        for _ in range(40):
+                            line = f.readline()
+                            if not line:
+                                break
+                            m = re.match(r'\s*//\s*URL:\s*(\S+)', line)
+                            if m:
+                                found.add(m.group(1).strip())
+                                break
+                            m2 = re.match(r'\s*//\s*Script ID:\s*(\S+)', line)
+                            if m2:
+                                sid = m2.group(1).strip()
+                                found.add(sid)
+                                try:
+                                    found.add(sid.split('-')[0])
+                                except:
+                                    pass
+                                break
+                except Exception:
+                    continue
+        except Exception:
+            pass
+
         print(f"Found {len(found)} script IDs/URLs in .pine headers (sample): {list(found)[:sample_limit]}")
 
     def _scan_existing_scripts(self) -> set:

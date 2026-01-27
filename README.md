@@ -254,6 +254,23 @@ Here are some TradingView pages you can download from:
 
 ## Output Structure
 
+### Fast mode and soft-restart
+
+A few performance and reliability features were added to speed up bulk runs and reduce recover time:
+
+- `--fast` (batch only): shortens waits, reduces retries, and disables soft-restarts. Use for quick validation runs when you don't need maximum robustness. Example:
+
+```bash
+python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=libraries&sort=recent_extended&page=2" --start 1 --end 1 --max-pages 1 --debug-pages --fast
+```
+
+- Soft context-restart: on recoveries (non-fast mode) the downloader now performs a soft restart of the browser *context* (close and recreate the tab/context) instead of closing the entire browser process. This keeps clipboard permissions intact and is much faster than a full browser restart.
+
+Notes:
+- `--fast` is faster but less tolerant of overlays/clipboard glitches. Use it during development or for quick checks; use normal mode for full archival runs.
+
+## Output Structure
+
 ```
 pinescript_downloads/
 └── luxalgo/                        # Category folder

@@ -1,369 +1,236 @@
-# TradingView Pine Script Downloader
+# TradingView Pine Script Downloader — Batch Collection & Processing
 
-Automate downloading open-source Pine Script indicators and strategies from TradingView.
+Een helder, beknopt overzicht van de batch-verzamel- en verwerkingsstappen die we gebruiken om open-source Pine Scripts van TradingView te verzamelen en lokaal op te slaan.
 
-## Features
+> Dit document is bedoeld voor ontwikkelaars en beheerders die grootschalig URL-verzamelingen willen maken en vervolgens gecontroleerd willen downloaden.
 
-- 📥 **Batch Download**: Download all scripts from any TradingView scripts listing page
-- 📄 **Pagination Support**: Automatically handles "Show more" buttons
-- 🔐 **Smart Detection**: Identifies and skips protected/invite-only scripts
-- 💾 **Progress Saving**: Resume interrupted downloads
-- 📊 **Metadata Export**: JSON export of all script metadata
-- 🎯 **Multiple Extraction Methods**: Robust source code extraction with fallbacks
+---
 
-## Installation
+## Wat doet dit project
 
-### 1. Install Python Requirements
+- Verzamelt script-URLs van TradingView listing pagina's (indicators, libraries, strategies) in JSON-bestanden per pagina.
+- Verwerkt die URL-lijsten en downloadt `.pine` bestanden met metadata en statusbestanden voor herstel.
 
-```bash
-# Clone or download this folder
-cd tradingview_scraper
+## Belangrijkste features
 
-# Install dependencies
-pip install -r requirements.txt
+- Batch-georiënteerde URL-collectie met `batch_download.py` (template-based)
+- Gecontroleerde bulk-downloading via `batch_pages.py` (proces per pagina-map)
+- Verbeterde extraction met `tv_downloader_enhanced.py` (zichtbare browser, multiple extraction methods)
+- Eenvoudige onderhoudsscripts (`scripts/check_types.py`)
 
-# Install Playwright browsers
-playwright install chromium
-```
+---
 
-### 2. Verify Installation
+## Aan de slag — aanbevolen stappen
+
+1. Verzamel URL-lijsten per categorie (gebruik de volgende commando's):
 
 ```bash
-python tv_pinescript_downloader.py --help
+# Strategies
+python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=strategies&sort=recent_extended&page={n}" --start 1 --end 217 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads
+
+# Libraries
+python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=libraries&sort=recent_extended&page={n}" --start 1 --end 61 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads
+
+# Indicators
+python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=indicators&sort=recent_extended&page={n}" --start 1 --end 500 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads
 ```
 
-### Development / Virtual Environment
-
-Follow these steps to create and activate a virtual environment and use it in VS Code.
-
-PowerShell:
-```powershell
-python -m venv .venv
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  # if needed (one-time per session)
-. .venv\\Scripts\\Activate.ps1
-```
-
-CMD:
-```
-.venv\\Scripts\\activate.bat
-```
-
-Git Bash / WSL:
-```
-source .venv/bin/activate
-```
-
-Install dependencies and Playwright browsers:
-```bash
-pip install -r requirements.txt
-python -m playwright install
-```
-
-VS Code
-- Open the workspace; `.vscode/settings.json` is configured to use `.venv`.
-- If not selected: Command Palette → `Python: Select Interpreter` → choose `.venv\\Scripts\\python.exe`.
-- The integrated terminal will auto-activate the venv; press F5 or use the Debug panel to run/debug (the provided `Python: Current File` launch configuration uses the integrated terminal).
-
-## Usage
-
-### Basic Usage
-
-**Use the fixed version (recommended):**
+2. Controleer een paar `page-XX-urls.json` bestanden (sanity check).
+3. Verwerk pagina-mappen (bijv. 1..60):
 
 ```bash
-python tv_downloader_fixed.py --url "https://www.tradingview.com/scripts/luxalgo/"
+python batch_pages.py --start 1 --end 60
 ```
 
+4. Na de run: controleer `scripts/logs/` en voer `python scripts/check_types.py` voor `.pine` header validatie.
 
-### Docker (always runs in visible mode)
+---
 
-A Docker image is provided for running the downloader in an isolated, reproducible container. The image is based on the official Playwright Python image and includes browser binaries.
+## Actuele scripts (kort overzicht)
 
-Build the image locally:
+- `tv_downloader_enhanced.py` — Hoofd downloader (aanbevolen), met diagnostics en resume-ondersteuning.
+- `batch_download.py` — Template-gebaseerde URL-collectie (per categorie/pagina).
+- `batch_pages.py` — Verwerk verzamelde `page-XX` mappen en download scripts per type.
+- `download_from_json.py` — Download per-URL lijst (`page-XX-urls.json`).
+- `scripts/check_types.py` — Controleer `.pine` headers en detecteer type-mismatches.
+- `scripts/run_periodic_collection.ps1` — Windows PowerShell runner voor periodieke collectie (optioneel).
 
+---
+
+## tv_downloader_enhanced.py (kort)
+
+Belangrijkste opties:
+- `--url / -u` : TradingView scripts URL
+- `--output / -o` : output directory
+- `--delay / -d` : wachttijd tussen requests
+- `--visible` : toon browser window (vereist voor correcte extractie)
+- `--no-resume` : start zonder resume
+- `--debug-pages` : extra logging
+- `--dump-copy` / `--dump-copy-diagnostics` / `--write-diagnostics` : snelle capture modes en diagnostics
+- `--positional-click` : experimentele methode
+- `--status` : toon output status
+
+Voorbeelden:
 ```bash
-docker build -t tv-downloader:latest .
-```
-
-Run a single download (mount host output dir):
-
-```bash
-# Windows (PowerShell):
-docker run --rm -v "${PWD}:/app" -v "${PWD}/pinescript_downloads:/app/pinescript_downloads" tv-downloader:latest \
-  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads
-
-# Linux/macOS:
-docker run --rm -v "$(pwd):/app" -v "$(pwd)/pinescript_downloads:/app/pinescript_downloads" tv-downloader:latest \
-  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads
-```
-
-Or use docker-compose:
-
-```bash
-docker-compose build
-docker-compose run --rm downloader python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --output ./pinescript_downloads --max-pages 5
-```
-
-Notes for Proxmox LXC: enable nesting and run Docker inside the container, or use a full VM for the most reliable Playwright/browser support.
-
-Mounting your NAS and making it the default download location
-
-If you mounted your NAS at `/mnt/pinescripts` (example fstab line below), the downloader will automatically prefer that path as the output directory.
-
-Example /etc/fstab entry (your values):
-
-```
-//192.168.15.101/Pinescripts /mnt/pinescripts cifs noauto,x-systemd.automount,x-systemd.requires=network-online.target,x-systemd.mount-timeout=10s,credentials=/root/.smbcreds_pinescripts,uid=1000,gid=1000,dir_mode=0755,file_mode=0644 0 0
-```
-
-Environment variable override
-
-You can also set `PINE_OUTPUT_DIR` to force the output location (useful for Docker, systemd, or other setups):
-
-```bash
-# Example: run container and force output to /mnt/pinescripts
-docker run --rm -v "$(pwd)/pinescript_downloads:/app/pinescript_downloads" -v "/mnt/pinescripts:/mnt/pinescripts" -e PINE_OUTPUT_DIR=/mnt/pinescripts tv-downloader:latest \
-  python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/"
-```
-
-The downloader resolves its output directory in this order: 1) the `PINE_OUTPUT_DIR` environment variable (if set), 2) the mounted NAS path `/mnt/pinescripts` (if present), and 3) otherwise `./pinescript_downloads` (local folder in the repo).
-
-Systemd service / timer (VM non-Docker setup)
-
-If you prefer running the downloader directly in the VM (no Docker), you can install and enable a systemd unit and a daily timer. The repo includes `systemd/tv-downloader.service` and `systemd/tv-downloader.timer` and a small wrapper script `scripts/run_download.sh` that:
-- prefers `PINE_OUTPUT_DIR` or `/mnt/pinescripts` and falls back to `./pinescript_downloads`
-- activates `.venv` if present
-
-Example steps (run as root on the VM):
-
-```bash
-# Clone repo on VM
-git clone https://github.com/<your-username>/Tradingview-Pine-Script-Downloader.git
-cd Tradingview-Pine-Script-Downloader
-
-# Create user for running the job (optional, recommended)
-adduser --disabled-password --gecos '' tvdown
-usermod -aG docker tvdown  # if you use docker on VM; optional
-
-# Create virtualenv and install deps
-sudo -u tvdown -i bash -lc "python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && python -m playwright install"
-
-# Ensure your CIFS mount is available at /mnt/pinescripts (fstab entry, credentials file)
-# Example: create credentials file (owned by root):
-# echo 'username=MYUSER' > /root/.smbcreds_pinescripts
-# echo 'password=MYPASS' >> /root/.smbcreds_pinescripts
-# chmod 600 /root/.smbcreds_pinescripts
-
-# Copy systemd unit files to system location and set proper user/path
-cp systemd/tv-downloader.service /etc/systemd/system/
-cp systemd/tv-downloader.timer /etc/systemd/system/
-# Edit /etc/systemd/system/tv-downloader.service and replace <youruser> and paths with 'tvdown' or the account you want to use
-
-# Reload and enable timer
-systemctl daemon-reload
-systemctl enable --now tv-downloader.timer
-
-# Run once now (optional)
-systemctl start tv-downloader.service
-journalctl -u tv-downloader.service -b --no-pager
-```
-
-This runs the job once (or daily via the timer). You can also run the wrapper directly as the tvdown user:
-
-```bash
-sudo -u tvdown -i bash -lc "cd ~/Tradingview-Pine-Script-Downloader && ./scripts/run_download.sh --url 'https://www.tradingview.com/scripts/luxalgo/' --max-pages 3"
-```
-
-
-Verify browsers inside the container (quick health check):
-
-```bash
-# Run the small verification script inside the image
-# Windows (PowerShell):
-docker run --rm -v "${PWD}:/app" tv-downloader:latest python scripts/verify_playwright.py
-
-# Linux/macOS:
-docker run --rm -v "$(pwd):/app" tv-downloader:latest python scripts/verify_playwright.py
-```
-
-If the verification fails with permission errors related to installing browsers, rebuild the image locally (the official Playwright base image includes browsers, so rebuilding ensures binaries are present):
-
-```bash
-docker build -t tv-downloader:latest .
-```
-
-
-
-Download scripts from a specific page (e.g., LuxAlgo scripts):
-
-```bash
-python tv_pinescript_downloader.py --url "https://www.tradingview.com/scripts/luxalgo/"
-```
-
-### With Options
-
-```bash
-# Custom output directory
-python tv_pinescript_downloader.py \
-    --url "https://www.tradingview.com/scripts/luxalgo/" \
-    --output "./my_indicators"
-
-# Scan all pages (default behaviour)
-python tv_pinescript_downloader.py \
-    --url "https://www.tradingview.com/scripts/"
-
-The enhanced downloader will automatically continue loading "Show more" until the page stabilizes and no new scripts are found. There's no need to pass a `--max-pages` value.
-# Show browser window (for debugging)
-python tv_pinescript_downloader.py \
-    --url "https://www.tradingview.com/scripts/editors-picks/" \
-
-
-# Faster downloads (shorter delay - be respectful!)
-python tv_pinescript_downloader.py \
-    --url "https://www.tradingview.com/scripts/luxalgo/" \
-    --delay 1.5
-```
-
-### Enhanced Version (Recommended)
-
-The enhanced version has better source code extraction and progress resuming:
-
-```bash
+# Single download
 python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/"
 
-# Resume an interrupted download
+# Debug capture met diagnostics
+python tv_downloader_enhanced.py --url <URL> --visible --dump-copy-diagnostics --write-diagnostics --output ./pinescript_downloads
+```
+
+Kleine code-opmerking:
+- Er is een kleine SyntaxWarning gevonden in de broncode rondom een `.replace("\\/","/")` gebruik. De fix is eenvoudig (escapen of raw string) en wordt aanbevolen. Zie `tv_downloader_enhanced.py` rond regel ~1179.
+
+---
+
+## Onderhoud & checks
+
+- Controleer `.pine` headers: `python scripts/check_types.py`
+- Logs: `scripts/logs/` (per run timestamped)
+- Suggestie: toevoeging van `scripts/cleanup_duplicates.py` (dry-run) voor duplicaat-detectie en veilige opruiming.
+
+---
+
+## Bijdragen & support
+
+- Issues: open een issue voor bugs of gewenste features.
+- PRs: maak feature branches en stuur een pull request met duidelijke omschrijving en tests (indien van toepassing).
+- Code stijl: volg PEP8, voeg type hints toe wanneer mogelijk.
+
+---
+
+## License & auteurs
+
+Bekijk de `LICENSE` en `AUTHORS` bestanden (indien aanwezig) voor licentie- en maintainer-informatie.
+
+---
+
+*Laat het weten als je wilt dat ik nu de `strategies`-collectie uitvoer en een rapport oplever.*
+
+*Gemaakt op: 2026-02-02*
+```bash
+python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=strategies&sort=recent_extended&page={n}" --start 1 --end 217 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads
+```
+- Wat het doet: doorloopt pagina's 1..217 en slaat per pagina een JSON-bestand op met de exacte script-URL's (zoals `pinescript_downloads/page-001/strategies/page-001-urls.json`).
+- Reden: strategies-categorie is relatief groot; we verzamelen eerst enkel URLs (geen downloads) om later gecontroleerd te verwerken.
+- Output: `pinescript_downloads/page-XXX/strategies/page-XXX-urls.json` per pagina.
+
+2) Libraries (verzamel URLs)
+
+```bash
+python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=libraries&sort=recent_extended&page={n}" --start 1 --end 61 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads
+```
+- Wat het doet: zelfde als hierboven maar voor libraries (1..61).
+- Output: `pinescript_downloads/page-XXX/libraries/page-XXX-urls.json`.
+
+3) Indicators (verzamel URLs)
+
+```bash
+python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=indicators&sort=recent_extended&page={n}" --start 1 --end 500 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads
+```
+- Wat het doet: verzamel URLs voor indicators (grote set, 1..500).
+- Output: `pinescript_downloads/page-XXX/indicators/page-XXX-urls.json`.
+
+4) Verwerk de verzamelde pagina-mappen
+
+```bash
+python batch_pages.py --start 1 --end 60
+```
+- Wat het doet: zoekt in `pinescript_downloads/page-01` .. `page-60` naar `page-XX-urls.json` bestanden en roept per URL de downloader aan (`tv_downloader_enhanced.py`) om `.pine` bestanden te downloaden en metadata op te slaan.
+- Let op: `batch_pages.py` detecteert type-subfolders (`indicators`, `libraries`, `strategies`) en plaatst downloads in diezelfde submappen.
+- Output: `.pine` bestanden in `pinescript_downloads/page-XX/<type>/` plus `manifest.txt`, `metadata.json` en `.progress.json`.
+
+---
+
+## Aanbevolen volgorde (veilig en reproduceerbaar)
+
+1. Run de 3 `batch_download.py`-commando's (strategies, libraries, indicators) om URL-lijsten te verzamelen.
+2. Controleer een paar `page-XX-urls.json` bestanden handmatig (quick sanity-check) om te controleren of de URLs geldig zijn.
+3. Run `python batch_pages.py --start 1 --end 60` (of het bereik dat je wilt) om de downloads uit die pagina-mappen te starten.
+4. Na de run: controleer `scripts/logs/` en voer `python scripts/check_types.py` om `.pine` headers en type-mismatches na te lopen.
+
+---
+
+## Tips en waarschuwingen
+
+- `--fast --collect-urls-only` verzamelt alleen URLs en is veel sneller en vriendelijker voor de server (geen downloads). Gebruik dit als eerste stap.
+- Wees zorgvuldig met ranges: `indicators` is groot (1..500). Verdeel in batches als je dat prettiger vindt (bijv. 1..100, 101..200, ...).
+- Respecteer rate limits: houd een redelijke marge als je later daadwerkelijk gaat downloaden (verlaag `--fast` niet zonder reden bij downloads).
+- Backups: bewaar `pinescript_downloads` of verplaats naar een NAS voordat je grootschalig verwijdert of opschoont.
+
+---
+
+## Script: `tv_downloader_enhanced.py`
+
+**Kort:** dit is de hoofd-downloader. Hij opent een zichtbare browser (clipboard-based extraction), ondersteunt voortgangsherstel (`--no-resume` om even níet te herstellen), en heeft een aantal diagnostische modi voor snellere captures of uitgebreidere logging.
+
+Belangrijkste opties (kort):
+- `--url / -u` : TradingView scripts URL (verplicht voor single runs)
+- `--output / -o` : output directory (standaard `./pinescript_downloads`)
+- `--delay / -d` : wachttijd tussen requests
+- `--visible` : toon browser window (verplicht voor juiste extractie)
+- `--no-resume` : start schoon (negeer `.progress.json`)
+- `--max-pages / -p` : max aantal pagina's te scannen
+- `--debug-pages` : extra pagina-logging
+- `--dump-copy` / `--dump-copy-diagnostics` / `--write-diagnostics` : snelle dump-copy capture modes en optioneel diagnostics schrijven
+- `--positional-click` : experimentele, snelle click-methode (fragiel)
+- `--status` : toon status van de output directory en exit
+
+Voorbeelden:
+
+```bash
+# Single download (aanbevolen)
 python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/"
 
-# Start fresh (ignore previous progress)
-python tv_downloader_enhanced.py --url "https://www.tradingview.com/scripts/luxalgo/" --no-resume
+# Snelle capture met diagnostics (geschikt voor bulk debugging)
+python tv_downloader_enhanced.py --url <URL> --visible --dump-copy-diagnostics --write-diagnostics --output ./pinescript_downloads
+
+# Start zonder voortgangsherstel
+python tv_downloader_enhanced.py --url <URL> --no-resume
+
+# Check output status
+python tv_downloader_enhanced.py --output ./pinescript_downloads --status
 ```
 
-## Example URLs
-
-Here are some TradingView pages you can download from:
-
-| Description | URL |
-|------------|-----|
-| LuxAlgo Scripts | `https://www.tradingview.com/scripts/luxalgo/` |
-| Editors' Picks | `https://www.tradingview.com/scripts/editors-picks/` |
-| All Scripts | `https://www.tradingview.com/scripts/` |
-| Indicators Only | `https://www.tradingview.com/scripts/indicators/` |
-| Strategies | `https://www.tradingview.com/scripts/strategies/` |
-| By Author | `https://www.tradingview.com/u/USERNAME/#published-scripts` |
-| Specific Tag | `https://www.tradingview.com/scripts/volumeprofile/` |
-
-## Output Structure
-
-### Fast mode and soft-restart
-
-A few performance and reliability features were added to speed up bulk runs and reduce recover time:
-
-- `--fast` (batch only): shortens waits, reduces retries, and disables soft-restarts. Use for quick validation runs when you don't need maximum robustness. Example:
-
-```bash
-python batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=libraries&sort=recent_extended&page=2" --start 1 --end 1 --max-pages 1 --debug-pages --fast
-```
-
-- Soft context-restart: on recoveries (non-fast mode) the downloader now performs a soft restart of the browser *context* (close and recreate the tab/context) instead of closing the entire browser process. This keeps clipboard permissions intact and is much faster than a full browser restart.
-
-Notes:
-- `--fast` is faster but less tolerant of overlays/clipboard glitches. Use it during development or for quick checks; use normal mode for full archival runs.
-
-## Output Structure
+Kleine code-opmerking / waarschuwing:
+- Tijdens code-inspectie is een kleine SyntaxWarning gevonden in `tv_downloader_enhanced.py`:
 
 ```
-pinescript_downloads/
-└── luxalgo/                        # Category folder
-    ├── ABC123_Script_Name.pine     # Pine Script files
-    ├── DEF456_Another_Script.pine
-    ├── ...
-    ├── manifest.txt                # Download summary
-    ├── metadata.json               # Full metadata (enhanced version)
-    └── .progress.json              # Progress file for resuming
+C:\GIT\Tradingview-Pine-Script-Downloader\tv_downloader_enhanced.py:1179: SyntaxWarning: invalid escape sequence '\/'
+  source = source.replace('\"', '"').replace('\/', '/')
 ```
 
-## Script File Format
+- Oplossing: gebruik dubbele backslash of raw string zodat Python geen invalid escape sequence rapporteert, bijv. `source = source.replace('\\/','/')` of `source = source.replace(r'\/', '/')`.
+- Na de fix: voer `python scripts/check_types.py` uit en/of run een korte lint/type-check.
 
-Each downloaded `.pine` file includes a header:
+---
 
-```pinescript
-// Title: Smart Money Concepts [LuxAlgo]
-// Script ID: xyz123
-// Author: LuxAlgo
-// URL: https://www.tradingview.com/script/xyz123-Smart-Money-Concepts-LuxAlgo/
-// Downloaded: 2024-01-15T10:30:00
-// Pine Version: 5
-// Type: Indicator
-//
+## Verificatie & onderhoud
 
-//@version=5
-indicator("Smart Money Concepts [LuxAlgo]", overlay=true)
-// ... rest of the script
-```
+- Na downloads: run `python scripts/check_types.py` en los eventuele mismatches handmatig op.
+- Logs: bekijk `scripts/logs/` voor fouten en waarschuwingen.
+- Indien nodig: schrijf een kleine `scripts/cleanup_duplicates.py` (dry-run) om dubbele `.pine` bestanden op te sporen en te rapporteren alvorens te verwijderen.
 
-## Command Line Options
+---
 
-### Basic Version (`tv_pinescript_downloader.py`)
+## Juridisch & Ethiek
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `--url`, `-u` | TradingView scripts URL (required) | - |
-| `--output`, `-o` | Output directory | `./pinescript_downloads` |
-| `--max-pages`, `-p` | Maximum pages to scan | `10` |
-| `--delay`, `-d` | Delay between downloads (seconds) | `2.0` |
+- **Respecteer auteursrechten en TradingView's regels:** download alleen scripts die expliciet open-source of openbaar beschikbaar zijn. Gebruik deze tool niet om toegang te verkrijgen tot beschermde of invite-only scripts.
+- **ToS naleving:** zorg dat je gebruik van deze tool niet in strijd is met TradingView's Terms of Service of de licenties van de script-auteurs.
+- **Geen misbruik of herdistributie zonder toestemming:** herverpakken of commercieel verspreiden van andermans code zonder expliciete toestemming is niet toegestaan.
+- **Attribueren en respecteren van licenties:** respecteer de licentievoorwaarden in de bronbestanden en geef altijd correcte attributie wanneer je andermans code gebruikt.
+- **Rate limiting en beleid:** wees verantwoordelijk — beperk de snelheid van requests, gebruik `--fast` alleen voor URL-collectie en niet voor grootschalige downloads zonder zorgvuldige planning.
+- **Geen omzeiling van beveiliging:** deze tool is niet bedoeld om beschermingsmechanismen te omzeilen. Pogingen daartoe wordt afgeraden en kunnen juridische gevolgen hebben.
 
+Als je juridisch advies nodig hebt over specifieke gebruiksgevallen, raadpleeg een jurist; deze sectie is geen juridisch advies.
 
-### Enhanced Version (`tv_downloader_enhanced.py`)
+---
 
-All basic options plus:
+## Contact / Volgende stappen
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `--no-resume` | Start fresh, ignore progress | `False` |
+Als je wilt, voer ik de batch-collecties uit in deze volgorde en lever ik een kort rapport (aantal URLs per pagina, aantal succesvolle downloads, errors) na elke stap. Geef "start" en ik begin met de `strategies`-collectie.
 
-## Limitations
+---
 
-1. **Open Source Only**: Protected and invite-only scripts cannot be downloaded
-2. **Rate Limiting**: TradingView may block requests if too fast - use reasonable delays
-3. **Dynamic Content**: Some scripts may have complex loading that prevents extraction
-4. **Terms of Service**: Respect TradingView's ToS and script authors' licensing
-
-## Troubleshooting
-
-### "No source code found"
-
-Some scripts may be:
-- Protected/Invite-only (not downloadable)
-- Using complex rendering that prevents extraction
-- Try the enhanced version which has more extraction methods
-
-### "Timeout" errors
-
-- Increase the delay: `--delay 3.0`
-- Check your internet connection
-- TradingView might be temporarily slow
-
-### Browser crashes
-
-```bash
-# Reinstall Playwright browsers
-playwright install --force chromium
-```
-
-### Scripts not loading
-
-
-**Note:** The downloader always runs with a visible browser window to enable clipboard-based extraction. Headless mode is not supported, and the browser window must remain open during operation for correct script extraction.
-
-If you encounter issues, ensure your system allows the browser window to open and clipboard access is permitted.
-
-## Ethical Usage
-
-- **Respect Authors**: Downloaded scripts retain their original licensing
-- **Rate Limiting**: Use reasonable delays between requests
-- **Personal Use**: Intended for personal backup/reference
-- **Attribution**: Credit original authors when using their code
-
-## License
-
-This tool is provided as-is for educational and personal use. The downloaded scripts belong to their respective authors and are subject to their licensing terms.
+*Gemaakt op: 2026-02-02*

@@ -1,0 +1,602 @@
+[
+  {
+    "url": "https://www.tradingview.com/script/Srrb0TTS-Big-Trend-Catcher-Quad-Gate-VCP-ATR-trailing-Swing-Trade/",
+    "pubtext": "Sun, 18 Jan 2026 08:32:53 GMT",
+    "published_utc": "2026-01-18T08:32:53+00:00",
+    "normalized": "Sun, 18 Jan 2026 08:32:53 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/KBY5g802-Multiple-Daily-Breakouts-Close-Only/",
+    "pubtext": "Sat, 17 Jan 2026 18:42:08 GMT",
+    "published_utc": "2026-01-17T18:42:08+00:00",
+    "normalized": "Sat, 17 Jan 2026 18:42:08 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/8R7QP5Ok-NY-First-4H-Range-Breakout-Strategy-1PM-Close/",
+    "pubtext": "Sat, 17 Jan 2026 18:31:27 GMT",
+    "published_utc": "2026-01-17T18:31:27+00:00",
+    "normalized": "Sat, 17 Jan 2026 18:31:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/36zwwSMa-Volatility-Breakout-System-Fixed-Risk/",
+    "pubtext": "Sat, 31 Jan 2026 18:38:17 GMT",
+    "published_utc": "2026-01-31T18:38:17+00:00",
+    "normalized": "Sat, 31 Jan 2026 18:38:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4CGviqgh-Supertrend-4-22-Sell-Backtest-Reversed/",
+    "pubtext": "Sat, 17 Jan 2026 12:25:27 GMT",
+    "published_utc": "2026-01-17T12:25:27+00:00",
+    "normalized": "Sat, 17 Jan 2026 12:25:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Z0bdEzyG-Supertrend-4-22/",
+    "pubtext": "Sat, 17 Jan 2026 12:10:36 GMT",
+    "published_utc": "2026-01-17T12:10:36+00:00",
+    "normalized": "Sat, 17 Jan 2026 12:10:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/eDvgup6u-VSA-Absorption-Bookmap/",
+    "pubtext": "Sat, 17 Jan 2026 00:51:03 GMT",
+    "published_utc": "2026-01-17T00:51:03+00:00",
+    "normalized": "Sat, 17 Jan 2026 00:51:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ITD8vbY0/",
+    "pubtext": "Fri, 16 Jan 2026 16:02:56 GMT",
+    "published_utc": "2026-01-16T16:02:56+00:00",
+    "normalized": "Fri, 16 Jan 2026 16:02:56 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/GXXGsmYx-Strategy-EMA-trend-MACD-5m-15m/",
+    "pubtext": "Fri, 16 Jan 2026 13:40:36 GMT",
+    "published_utc": "2026-01-16T13:40:36+00:00",
+    "normalized": "Fri, 16 Jan 2026 13:40:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/H7UInZ3f-Bar-Close-Confirmed-Supertrend/",
+    "pubtext": "Fri, 16 Jan 2026 08:03:46 GMT",
+    "published_utc": "2026-01-16T08:03:46+00:00",
+    "normalized": "Fri, 16 Jan 2026 08:03:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/gOVkTn1t-Futures-Calendar-Spread-Mean-Reversion-Strategy/",
+    "pubtext": "Thu, 15 Jan 2026 17:33:49 GMT",
+    "published_utc": "2026-01-15T17:33:49+00:00",
+    "normalized": "Thu, 15 Jan 2026 17:33:49 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/D256RMUS/",
+    "pubtext": "Thu, 15 Jan 2026 15:33:32 GMT",
+    "published_utc": "2026-01-15T15:33:32+00:00",
+    "normalized": "Thu, 15 Jan 2026 15:33:32 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/V548AK9W/",
+    "pubtext": "Fri, 30 Jan 2026 22:02:57 GMT",
+    "published_utc": "2026-01-30T22:02:57+00:00",
+    "normalized": "Fri, 30 Jan 2026 22:02:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/p6JuhRRE-Liquidity-Trap-Strategy-ATR-Optimized/",
+    "pubtext": "Thu, 15 Jan 2026 12:34:44 GMT",
+    "published_utc": "2026-01-15T12:34:44+00:00",
+    "normalized": "Thu, 15 Jan 2026 12:34:44 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/fMdIpQ10/",
+    "pubtext": "Thu, 15 Jan 2026 08:33:37 GMT",
+    "published_utc": "2026-01-15T08:33:37+00:00",
+    "normalized": "Thu, 15 Jan 2026 08:33:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4MQAn8no/",
+    "pubtext": "Thu, 15 Jan 2026 08:32:09 GMT",
+    "published_utc": "2026-01-15T08:32:09+00:00",
+    "normalized": "Thu, 15 Jan 2026 08:32:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Uc8d471n/",
+    "pubtext": "Thu, 15 Jan 2026 08:30:17 GMT",
+    "published_utc": "2026-01-15T08:30:17+00:00",
+    "normalized": "Thu, 15 Jan 2026 08:30:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/zg0X54kp/",
+    "pubtext": "Thu, 15 Jan 2026 08:24:14 GMT",
+    "published_utc": "2026-01-15T08:24:14+00:00",
+    "normalized": "Thu, 15 Jan 2026 08:24:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/nLBzycub-TJR-asia-session-sweep/",
+    "pubtext": "Tue, 13 Jan 2026 22:47:06 GMT",
+    "published_utc": "2026-01-13T22:47:06+00:00",
+    "normalized": "Tue, 13 Jan 2026 22:47:06 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/MuBnsIvj/",
+    "pubtext": "Tue, 13 Jan 2026 18:35:03 GMT",
+    "published_utc": "2026-01-13T18:35:03+00:00",
+    "normalized": "Tue, 13 Jan 2026 18:35:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/yRcMYWsI-Williams-Fractal-MA-Pullback-Strategy-1-5-RR-BY-DANISH/",
+    "pubtext": "Tue, 13 Jan 2026 18:06:16 GMT",
+    "published_utc": "2026-01-13T18:06:16+00:00",
+    "normalized": "Tue, 13 Jan 2026 18:06:16 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/2dvhxn9p-EMA-VWAP-Strategy/",
+    "pubtext": "Wed, 14 Jan 2026 08:32:01 GMT",
+    "published_utc": "2026-01-14T08:32:01+00:00",
+    "normalized": "Wed, 14 Jan 2026 08:32:01 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5lOBhPnz-Big-Trend-Catcher-Dual-Gate-EMA-ATR-Trailing-Swing-Trader/",
+    "pubtext": "Tue, 13 Jan 2026 08:38:17 GMT",
+    "published_utc": "2026-01-13T08:38:17+00:00",
+    "normalized": "Tue, 13 Jan 2026 08:38:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/2XcjLMfY-EMA-PB-Strategy/",
+    "pubtext": "Tue, 13 Jan 2026 03:50:33 GMT",
+    "published_utc": "2026-01-13T03:50:33+00:00",
+    "normalized": "Tue, 13 Jan 2026 03:50:33 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/zhMMpPpN-My-Swift-like-Algo-J-ALIMOJANID/",
+    "pubtext": "Sun, 11 Jan 2026 05:10:05 GMT",
+    "published_utc": "2026-01-11T05:10:05+00:00",
+    "normalized": "Sun, 11 Jan 2026 05:10:05 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/kLr0pj3H-ATR-BB-Swing-Strategy/",
+    "pubtext": "Tue, 13 Jan 2026 03:24:48 GMT",
+    "published_utc": "2026-01-13T03:24:48+00:00",
+    "normalized": "Tue, 13 Jan 2026 03:24:48 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/hNPuoyrz-Tick-Tock-UT-Bot-Alert-Linear-Regression-Candles/",
+    "pubtext": "Tue, 13 Jan 2026 02:19:12 GMT",
+    "published_utc": "2026-01-13T02:19:12+00:00",
+    "normalized": "Tue, 13 Jan 2026 02:19:12 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/yZaJHE3X/",
+    "pubtext": "Mon, 12 Jan 2026 19:43:17 GMT",
+    "published_utc": "2026-01-12T19:43:17+00:00",
+    "normalized": "Mon, 12 Jan 2026 19:43:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/CscMmpyc-Strict-EMA-Wick-Pullback-Trend-Continuation/",
+    "pubtext": "Mon, 12 Jan 2026 18:48:59 GMT",
+    "published_utc": "2026-01-12T18:48:59+00:00",
+    "normalized": "Mon, 12 Jan 2026 18:48:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/h4sf8qQ6-RSI-RS-Strategy/",
+    "pubtext": "Tue, 13 Jan 2026 06:29:14 GMT",
+    "published_utc": "2026-01-13T06:29:14+00:00",
+    "normalized": "Tue, 13 Jan 2026 06:29:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4GpShajB-Quality-Controlled-Trend-Strategy/",
+    "pubtext": "Mon, 12 Jan 2026 10:56:51 GMT",
+    "published_utc": "2026-01-12T10:56:51+00:00",
+    "normalized": "Mon, 12 Jan 2026 10:56:51 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/b74KzneI-Kadunagra-Pivot-Point-SuperTrend-trades-analysis/",
+    "pubtext": "Mon, 12 Jan 2026 12:19:28 GMT",
+    "published_utc": "2026-01-12T12:19:28+00:00",
+    "normalized": "Mon, 12 Jan 2026 12:19:28 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/H0T9jWQp/",
+    "pubtext": "Mon, 12 Jan 2026 07:16:36 GMT",
+    "published_utc": "2026-01-12T07:16:36+00:00",
+    "normalized": "Mon, 12 Jan 2026 07:16:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/aXsVyCud-SSL-MACD-nhuthang83/",
+    "pubtext": "Mon, 12 Jan 2026 06:09:21 GMT",
+    "published_utc": "2026-01-12T06:09:21+00:00",
+    "normalized": "Mon, 12 Jan 2026 06:09:21 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/pdg03eUJ-SSL-MACD-nhuthang83/",
+    "pubtext": "Mon, 12 Jan 2026 06:06:57 GMT",
+    "published_utc": "2026-01-12T06:06:57+00:00",
+    "normalized": "Mon, 12 Jan 2026 06:06:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/fjn9UW36-rsi-martingale/",
+    "pubtext": "Mon, 12 Jan 2026 05:21:29 GMT",
+    "published_utc": "2026-01-12T05:21:29+00:00",
+    "normalized": "Mon, 12 Jan 2026 05:21:29 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/kUk5ZGd5-MoneyMakers-Scalping-Signals/",
+    "pubtext": "Sun, 11 Jan 2026 23:36:06 GMT",
+    "published_utc": "2026-01-11T23:36:06+00:00",
+    "normalized": "Sun, 11 Jan 2026 23:36:06 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/tmoU0ZxW-Turtle-System-1/",
+    "pubtext": "Sun, 11 Jan 2026 21:44:57 GMT",
+    "published_utc": "2026-01-11T21:44:57+00:00",
+    "normalized": "Sun, 11 Jan 2026 21:44:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/jmEkrmaT-Ichimoku-EMA-RSI-Enhanced/",
+    "pubtext": "Sun, 11 Jan 2026 19:12:53 GMT",
+    "published_utc": "2026-01-11T19:12:53+00:00",
+    "normalized": "Sun, 11 Jan 2026 19:12:53 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/wm9e7Wca-ICT-Entry-V2-TS-Indie/",
+    "pubtext": "Mon, 12 Jan 2026 12:55:45 GMT",
+    "published_utc": "2026-01-12T12:55:45+00:00",
+    "normalized": "Mon, 12 Jan 2026 12:55:45 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/lGONJpPY/",
+    "pubtext": "Sun, 11 Jan 2026 11:05:34 GMT",
+    "published_utc": "2026-01-11T11:05:34+00:00",
+    "normalized": "Sun, 11 Jan 2026 11:05:34 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/WZ4s1MRC-SMC-Liquidity-Grab-Pro/",
+    "pubtext": "Sun, 11 Jan 2026 07:31:04 GMT",
+    "published_utc": "2026-01-11T07:31:04+00:00",
+    "normalized": "Sun, 11 Jan 2026 07:31:04 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/a0ryei2l-My-Swift-like-Algo-ALIMOJANID/",
+    "pubtext": "Sun, 11 Jan 2026 05:29:16 GMT",
+    "published_utc": "2026-01-11T05:29:16+00:00",
+    "normalized": "Sun, 11 Jan 2026 05:29:16 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/RGK228Gd-My-Swiftlike-Algo-Backtest-ATR-SL-TP-HH-HL-LH-LL-BOS-CHOCH/",
+    "pubtext": "Sun, 11 Jan 2026 04:07:28 GMT",
+    "published_utc": "2026-01-11T04:07:28+00:00",
+    "normalized": "Sun, 11 Jan 2026 04:07:28 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/iETF7CUW-Ground-Control/",
+    "pubtext": "Mon, 12 Jan 2026 04:22:20 GMT",
+    "published_utc": "2026-01-12T04:22:20+00:00",
+    "normalized": "Mon, 12 Jan 2026 04:22:20 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/nmu1zkrM-proof-quant-model/",
+    "pubtext": "Wed, 07 Jan 2026 23:27:49 GMT",
+    "published_utc": "2026-01-07T23:27:49+00:00",
+    "normalized": "Wed, 07 Jan 2026 23:27:49 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/oWKhxUbj-COT-SMI-Dual-Strategy-Rev-Trend/",
+    "pubtext": "Sat, 10 Jan 2026 05:40:02 GMT",
+    "published_utc": "2026-01-10T05:40:02+00:00",
+    "normalized": "Sat, 10 Jan 2026 05:40:02 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ov6cAQVy-Closed-Source-Strategy-Tester/",
+    "pubtext": "Fri, 09 Jan 2026 20:23:17 GMT",
+    "published_utc": "2026-01-09T20:23:17+00:00",
+    "normalized": "Fri, 09 Jan 2026 20:23:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/lry34ZtC-EMA-8-20-Crossover/",
+    "pubtext": "Fri, 09 Jan 2026 19:08:36 GMT",
+    "published_utc": "2026-01-09T19:08:36+00:00",
+    "normalized": "Fri, 09 Jan 2026 19:08:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/gJlyxtBf-Fibonacci-RSI-Strategy/",
+    "pubtext": "Sun, 25 Jan 2026 15:43:48 GMT",
+    "published_utc": "2026-01-25T15:43:48+00:00",
+    "normalized": "Sun, 25 Jan 2026 15:43:48 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/0PnQNiPQ-Dstrat-V1/",
+    "pubtext": "Fri, 09 Jan 2026 08:32:06 GMT",
+    "published_utc": "2026-01-09T08:32:06+00:00",
+    "normalized": "Fri, 09 Jan 2026 08:32:06 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/s1hX2vza-GK1-Long-only-Daily-Trend-Strategy-Max-4-Positions-Risk-Based/",
+    "pubtext": "Fri, 09 Jan 2026 08:23:01 GMT",
+    "published_utc": "2026-01-09T08:23:01+00:00",
+    "normalized": "Fri, 09 Jan 2026 08:23:01 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/YVDaCo31/",
+    "pubtext": "Fri, 09 Jan 2026 07:24:57 GMT",
+    "published_utc": "2026-01-09T07:24:57+00:00",
+    "normalized": "Fri, 09 Jan 2026 07:24:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/HM0bmtI7/",
+    "pubtext": "Fri, 09 Jan 2026 07:18:37 GMT",
+    "published_utc": "2026-01-09T07:18:37+00:00",
+    "normalized": "Fri, 09 Jan 2026 07:18:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/eJcCV7DO/",
+    "pubtext": "Fri, 09 Jan 2026 07:17:21 GMT",
+    "published_utc": "2026-01-09T07:17:21+00:00",
+    "normalized": "Fri, 09 Jan 2026 07:17:21 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/wChVEMWI/",
+    "pubtext": "Fri, 09 Jan 2026 07:13:57 GMT",
+    "published_utc": "2026-01-09T07:13:57+00:00",
+    "normalized": "Fri, 09 Jan 2026 07:13:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/kpIjgnhL-ETH-Trap-Short-v2-HTF-Filter-5m/",
+    "pubtext": "Fri, 09 Jan 2026 06:33:00 GMT",
+    "published_utc": "2026-01-09T06:33:00+00:00",
+    "normalized": "Fri, 09 Jan 2026 06:33:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/KamzncJQ/",
+    "pubtext": "Fri, 09 Jan 2026 00:19:24 GMT",
+    "published_utc": "2026-01-09T00:19:24+00:00",
+    "normalized": "Fri, 09 Jan 2026 00:19:24 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/fvy9u3e3-Professional-Grid-Reversal-Bot-v10-Binance-Style/",
+    "pubtext": "Thu, 08 Jan 2026 23:22:02 GMT",
+    "published_utc": "2026-01-08T23:22:02+00:00",
+    "normalized": "Thu, 08 Jan 2026 23:22:02 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ZCY5C3ko-Long-Only-Double-EMA-Session/",
+    "pubtext": "Thu, 08 Jan 2026 22:03:14 GMT",
+    "published_utc": "2026-01-08T22:03:14+00:00",
+    "normalized": "Thu, 08 Jan 2026 22:03:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Kylorl1g-Stark-Overnight-Levels/",
+    "pubtext": "Thu, 08 Jan 2026 19:06:59 GMT",
+    "published_utc": "2026-01-08T19:06:59+00:00",
+    "normalized": "Thu, 08 Jan 2026 19:06:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/NK0wCpT8-Stark-Overnight-Levels/",
+    "pubtext": "Thu, 08 Jan 2026 19:01:38 GMT",
+    "published_utc": "2026-01-08T19:01:38+00:00",
+    "normalized": "Thu, 08 Jan 2026 19:01:38 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/TlzT1ZYO-Old-Indicator-Multi-Component-Decision-Strategy/",
+    "pubtext": "Thu, 08 Jan 2026 17:33:12 GMT",
+    "published_utc": "2026-01-08T17:33:12+00:00",
+    "normalized": "Thu, 08 Jan 2026 17:33:12 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/FSKbEHbT-Delta-Volume-Bubble-Strategy-Quant-Z-Score-Maxxed-Version/",
+    "pubtext": "Thu, 08 Jan 2026 16:38:50 GMT",
+    "published_utc": "2026-01-08T16:38:50+00:00",
+    "normalized": "Thu, 08 Jan 2026 16:38:50 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/1fHPJfDz-BZNESMAN-High-Win-Rate-CCI-PSAR-MA-Strategy-70-Target/",
+    "pubtext": "Thu, 08 Jan 2026 15:23:34 GMT",
+    "published_utc": "2026-01-08T15:23:34+00:00",
+    "normalized": "Thu, 08 Jan 2026 15:23:34 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/kxT5f5rq-Simple-RSI-Strategy-Rule-Based-Higher-Timeframe-Trading/",
+    "pubtext": "Thu, 08 Jan 2026 10:11:37 GMT",
+    "published_utc": "2026-01-08T10:11:37+00:00",
+    "normalized": "Thu, 08 Jan 2026 10:11:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/6hnGTVTM/",
+    "pubtext": "Wed, 07 Jan 2026 04:00:58 GMT",
+    "published_utc": "2026-01-07T04:00:58+00:00",
+    "normalized": "Wed, 07 Jan 2026 04:00:58 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ciCtT5bB-Bullish-Engulfing-at-Daily-Support-Pivot-Low-R-Target-v6/",
+    "pubtext": "Tue, 06 Jan 2026 16:30:58 GMT",
+    "published_utc": "2026-01-06T16:30:58+00:00",
+    "normalized": "Tue, 06 Jan 2026 16:30:58 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/HXRqRlzR-MDZ-Strategy-v4-2-Multi-factor-trend-strategy/",
+    "pubtext": "Tue, 06 Jan 2026 14:41:16 GMT",
+    "published_utc": "2026-01-06T14:41:16+00:00",
+    "normalized": "Tue, 06 Jan 2026 14:41:16 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/pkEgBWVX/",
+    "pubtext": "Tue, 06 Jan 2026 09:09:03 GMT",
+    "published_utc": "2026-01-06T09:09:03+00:00",
+    "normalized": "Tue, 06 Jan 2026 09:09:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/mVdZBLJ7-ICT-Entry-V1-TS-Indie/",
+    "pubtext": "Sun, 11 Jan 2026 15:03:43 GMT",
+    "published_utc": "2026-01-11T15:03:43+00:00",
+    "normalized": "Sun, 11 Jan 2026 15:03:43 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/pOhUxnHl-BTC-Scalping-3m-Supertrend-MACD-Squeeze-NY-v6-FINAL/",
+    "pubtext": "Tue, 06 Jan 2026 08:20:50 GMT",
+    "published_utc": "2026-01-06T08:20:50+00:00",
+    "normalized": "Tue, 06 Jan 2026 08:20:50 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ktAEAy0G/",
+    "pubtext": "Tue, 06 Jan 2026 03:28:11 GMT",
+    "published_utc": "2026-01-06T03:28:11+00:00",
+    "normalized": "Tue, 06 Jan 2026 03:28:11 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/gXB2cndL-proof-quant-model-v1/",
+    "pubtext": "Tue, 06 Jan 2026 02:00:49 GMT",
+    "published_utc": "2026-01-06T02:00:49+00:00",
+    "normalized": "Tue, 06 Jan 2026 02:00:49 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/G6O8DZGw-MACD-Bounce-Strategy-for-Cryptohopper/",
+    "pubtext": "Mon, 05 Jan 2026 16:42:36 GMT",
+    "published_utc": "2026-01-05T16:42:36+00:00",
+    "normalized": "Mon, 05 Jan 2026 16:42:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/GuTwbMXn-ronismc333/",
+    "pubtext": "Mon, 05 Jan 2026 12:57:46 GMT",
+    "published_utc": "2026-01-05T12:57:46+00:00",
+    "normalized": "Mon, 05 Jan 2026 12:57:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/yYMlMaPd-BE-QuantFlow-Adaptive-Momentum-Trading/",
+    "pubtext": "Tue, 13 Jan 2026 10:16:59 GMT",
+    "published_utc": "2026-01-13T10:16:59+00:00",
+    "normalized": "Tue, 13 Jan 2026 10:16:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Iwh12xxf-EMA-Multi-Type-Strategy/",
+    "pubtext": "Mon, 05 Jan 2026 11:33:24 GMT",
+    "published_utc": "2026-01-05T11:33:24+00:00",
+    "normalized": "Mon, 05 Jan 2026 11:33:24 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/vT0ZVDN5-ML-Inspired-Adaptive-Momentum-Strategy-TradingView-v6/",
+    "pubtext": "Mon, 05 Jan 2026 11:04:37 GMT",
+    "published_utc": "2026-01-05T11:04:37+00:00",
+    "normalized": "Mon, 05 Jan 2026 11:04:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/sw0Mfxm2-Supertrend-OBV-AND-Logic-long-only/",
+    "pubtext": "Mon, 05 Jan 2026 10:34:43 GMT",
+    "published_utc": "2026-01-05T10:34:43+00:00",
+    "normalized": "Mon, 05 Jan 2026 10:34:43 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/elpZekZw-SMA-Strategy-MK/",
+    "pubtext": "Tue, 06 Jan 2026 08:11:02 GMT",
+    "published_utc": "2026-01-06T08:11:02+00:00",
+    "normalized": "Tue, 06 Jan 2026 08:11:02 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/f09TPuYj-Smart-Trader-Episode-1-by-Ata-Sabanci-Unified-Matrix/",
+    "pubtext": "Tue, 06 Jan 2026 08:43:27 GMT",
+    "published_utc": "2026-01-06T08:43:27+00:00",
+    "normalized": "Tue, 06 Jan 2026 08:43:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/wLSGHPUe-ORB-Breakout-Strategy-with-VWAP-and-Volume-Filters/",
+    "pubtext": "Fri, 23 Jan 2026 09:25:06 GMT",
+    "published_utc": "2026-01-23T09:25:06+00:00",
+    "normalized": "Fri, 23 Jan 2026 09:25:06 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4BcYQ0Ns-VIOP-Scalping-Original/",
+    "pubtext": "Sun, 04 Jan 2026 12:21:11 GMT",
+    "published_utc": "2026-01-04T12:21:11+00:00",
+    "normalized": "Sun, 04 Jan 2026 12:21:11 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/R0CTM8NR-VIOP-Scalping-ATR-SNIPER/",
+    "pubtext": "Sun, 04 Jan 2026 12:23:07 GMT",
+    "published_utc": "2026-01-04T12:23:07+00:00",
+    "normalized": "Sun, 04 Jan 2026 12:23:07 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/fERudxRt-Algomist-Adaptive-Velocity-Cross/",
+    "pubtext": "Sun, 04 Jan 2026 11:39:10 GMT",
+    "published_utc": "2026-01-04T11:39:10+00:00",
+    "normalized": "Sun, 04 Jan 2026 11:39:10 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/cSbzYrvO-Golder-Silter-Setups/",
+    "pubtext": "Sun, 04 Jan 2026 01:57:30 GMT",
+    "published_utc": "2026-01-04T01:57:30+00:00",
+    "normalized": "Sun, 04 Jan 2026 01:57:30 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/jvBLQDK3-BTC-Pro-High-Win-Scalper-w-Risk/",
+    "pubtext": "Sun, 04 Jan 2026 02:09:41 GMT",
+    "published_utc": "2026-01-04T02:09:41+00:00",
+    "normalized": "Sun, 04 Jan 2026 02:09:41 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/CYoBygFI/",
+    "pubtext": "Sat, 03 Jan 2026 21:05:47 GMT",
+    "published_utc": "2026-01-03T21:05:47+00:00",
+    "normalized": "Sat, 03 Jan 2026 21:05:47 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/kOrPPMc6-Ichimoku-SSB-0-5-Risk-Strategy-v6/",
+    "pubtext": "Sat, 03 Jan 2026 17:59:59 GMT",
+    "published_utc": "2026-01-03T17:59:59+00:00",
+    "normalized": "Sat, 03 Jan 2026 17:59:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4GxvZVzm-Crypto-15M-Volume-Supertrend-RSI-Strategy/",
+    "pubtext": "Sat, 03 Jan 2026 06:45:46 GMT",
+    "published_utc": "2026-01-03T06:45:46+00:00",
+    "normalized": "Sat, 03 Jan 2026 06:45:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/V8bxV9Up-Black-Scholes-Gamma-Scalping-Strategy/",
+    "pubtext": "Fri, 02 Jan 2026 13:52:19 GMT",
+    "published_utc": "2026-01-02T13:52:19+00:00",
+    "normalized": "Fri, 02 Jan 2026 13:52:19 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5w42MB2x/",
+    "pubtext": "Fri, 02 Jan 2026 13:38:05 GMT",
+    "published_utc": "2026-01-02T13:38:05+00:00",
+    "normalized": "Fri, 02 Jan 2026 13:38:05 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Qu5RWcEi-EXPANSION-MODEL/",
+    "pubtext": "Fri, 02 Jan 2026 11:01:03 GMT",
+    "published_utc": "2026-01-02T11:01:03+00:00",
+    "normalized": "Fri, 02 Jan 2026 11:01:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/qfI90ACQ-The-Blessed-Trader-Ph-Double-EMA-RSI-20-Strategy-v1-0/",
+    "pubtext": "Thu, 01 Jan 2026 22:00:42 GMT",
+    "published_utc": "2026-01-01T22:00:42+00:00",
+    "normalized": "Thu, 01 Jan 2026 22:00:42 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/wp0V0TVO-Algomist-app-v1-0/",
+    "pubtext": "Sat, 03 Jan 2026 12:07:36 GMT",
+    "published_utc": "2026-01-03T12:07:36+00:00",
+    "normalized": "Sat, 03 Jan 2026 12:07:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/s1Gm2aUB-RSI-Trendline-Breakout-BB-Exit-by-RiazMalik/",
+    "pubtext": "Thu, 01 Jan 2026 05:28:09 GMT",
+    "published_utc": "2026-01-01T05:28:09+00:00",
+    "normalized": "Thu, 01 Jan 2026 05:28:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ajFNJDtR/",
+    "pubtext": "Thu, 01 Jan 2026 02:22:19 GMT",
+    "published_utc": "2026-01-01T02:22:19+00:00",
+    "normalized": "Thu, 01 Jan 2026 02:22:19 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Ul3FD7nz-CTA-Trend-Model-TA-and-Quant/",
+    "pubtext": "Thu, 01 Jan 2026 01:58:21 GMT",
+    "published_utc": "2026-01-01T01:58:21+00:00",
+    "normalized": "Thu, 01 Jan 2026 01:58:21 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/8ZRw9gh1-PickMyTrade-Trend-strategy-for-Long/",
+    "pubtext": "Wed, 31 Dec 2025 08:47:40 GMT",
+    "published_utc": "2025-12-31T08:47:40+00:00",
+    "normalized": "Wed, 31 Dec 2025 08:47:40 GMT"
+  }
+]

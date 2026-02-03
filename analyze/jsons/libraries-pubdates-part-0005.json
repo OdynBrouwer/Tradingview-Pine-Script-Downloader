@@ -1,0 +1,602 @@
+[
+  {
+    "url": "https://www.tradingview.com/script/kPJ5g54q/",
+    "pubtext": "Thu, 10 Oct 2024 01:37:54 GMT",
+    "published_utc": "2024-10-10T01:37:54+00:00",
+    "normalized": "Thu, 10 Oct 2024 01:37:54 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/cZqWKqWG/",
+    "pubtext": "Thu, 10 Oct 2024 01:33:42 GMT",
+    "published_utc": "2024-10-10T01:33:42+00:00",
+    "normalized": "Thu, 10 Oct 2024 01:33:42 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/WXbzEHZ1-TimeLibrary/",
+    "pubtext": "Thu, 03 Oct 2024 17:56:24 GMT",
+    "published_utc": "2024-10-03T17:56:24+00:00",
+    "normalized": "Thu, 03 Oct 2024 17:56:24 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/NFryMY1J-HTFBands/",
+    "pubtext": "Wed, 02 Oct 2024 21:27:50 GMT",
+    "published_utc": "2024-10-02T21:27:50+00:00",
+    "normalized": "Wed, 02 Oct 2024 21:27:50 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/rdIrUGf5-HTFMAs/",
+    "pubtext": "Wed, 02 Oct 2024 21:19:14 GMT",
+    "published_utc": "2024-10-02T21:19:14+00:00",
+    "normalized": "Wed, 02 Oct 2024 21:19:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/JUhCC2Ma-CSVParser/",
+    "pubtext": "Wed, 02 Oct 2024 21:15:55 GMT",
+    "published_utc": "2024-10-02T21:15:55+00:00",
+    "normalized": "Wed, 02 Oct 2024 21:15:55 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/C81hfyIs-Autotable/",
+    "pubtext": "Wed, 02 Oct 2024 21:12:48 GMT",
+    "published_utc": "2024-10-02T21:12:48+00:00",
+    "normalized": "Wed, 02 Oct 2024 21:12:48 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4pVDaUSx-StrTrimPadCase/",
+    "pubtext": "Sat, 08 Feb 2025 00:01:10 GMT",
+    "published_utc": "2025-02-08T00:01:10+00:00",
+    "normalized": "Sat, 08 Feb 2025 00:01:10 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/6s8divyy-StrConcatWrap/",
+    "pubtext": "Wed, 02 Oct 2024 21:05:36 GMT",
+    "published_utc": "2024-10-02T21:05:36+00:00",
+    "normalized": "Wed, 02 Oct 2024 21:05:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/vgPLkr8T-RegexLib/",
+    "pubtext": "Sat, 08 Feb 2025 00:28:40 GMT",
+    "published_utc": "2025-02-08T00:28:40+00:00",
+    "normalized": "Sat, 08 Feb 2025 00:28:40 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/s6xcghZI-ToStringMx/",
+    "pubtext": "Wed, 02 Oct 2024 08:59:01 GMT",
+    "published_utc": "2024-10-02T08:59:01+00:00",
+    "normalized": "Wed, 02 Oct 2024 08:59:01 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5LTH7Tde-ToStringAr/",
+    "pubtext": "Wed, 02 Oct 2024 08:49:37 GMT",
+    "published_utc": "2024-10-02T08:49:37+00:00",
+    "normalized": "Wed, 02 Oct 2024 08:49:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/VuEvLiMP-display-value/",
+    "pubtext": "Wed, 02 Oct 2024 03:05:37 GMT",
+    "published_utc": "2024-10-02T03:05:37+00:00",
+    "normalized": "Wed, 02 Oct 2024 03:05:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/d137yzBl-ToS/",
+    "pubtext": "Wed, 25 Sep 2024 15:25:52 GMT",
+    "published_utc": "2024-09-25T15:25:52+00:00",
+    "normalized": "Wed, 25 Sep 2024 15:25:52 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/27ioZiAd-Killzones-And-Macros-Library/",
+    "pubtext": "Wed, 25 Sep 2024 09:08:50 GMT",
+    "published_utc": "2024-09-25T09:08:50+00:00",
+    "normalized": "Wed, 25 Sep 2024 09:08:50 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/XqmGMpgE-mlivs/",
+    "pubtext": "Thu, 23 Jan 2025 20:00:30 GMT",
+    "published_utc": "2025-01-23T20:00:30+00:00",
+    "normalized": "Thu, 23 Jan 2025 20:00:30 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/oHtSJOQ0-movingAveragesUtilities/",
+    "pubtext": "Wed, 05 Mar 2025 15:14:36 GMT",
+    "published_utc": "2025-03-05T15:14:36+00:00",
+    "normalized": "Wed, 05 Mar 2025 15:14:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/y4ixUis3-iterator/",
+    "pubtext": "Wed, 21 Aug 2024 04:07:04 GMT",
+    "published_utc": "2024-08-21T04:07:04+00:00",
+    "normalized": "Wed, 21 Aug 2024 04:07:04 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5FgE14fr-gridUtilities/",
+    "pubtext": "Fri, 04 Oct 2024 08:43:20 GMT",
+    "published_utc": "2024-10-04T08:43:20+00:00",
+    "normalized": "Fri, 04 Oct 2024 08:43:20 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/84jVSU1b-BinaryInsertionSort/",
+    "pubtext": "Fri, 20 Sep 2024 12:34:59 GMT",
+    "published_utc": "2024-09-20T12:34:59+00:00",
+    "normalized": "Fri, 20 Sep 2024 12:34:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/41RFdWPk-formattingUtilities/",
+    "pubtext": "Sat, 21 Sep 2024 17:49:09 GMT",
+    "published_utc": "2024-09-21T17:49:09+00:00",
+    "normalized": "Sat, 21 Sep 2024 17:49:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/9RUkGkf8-utilities/",
+    "pubtext": "Fri, 13 Sep 2024 15:02:11 GMT",
+    "published_utc": "2024-09-13T15:02:11+00:00",
+    "normalized": "Fri, 13 Sep 2024 15:02:11 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/JcRUQ36c-bollingerBands/",
+    "pubtext": "Mon, 30 Sep 2024 10:14:39 GMT",
+    "published_utc": "2024-09-30T10:14:39+00:00",
+    "normalized": "Mon, 30 Sep 2024 10:14:39 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/F2EkpWYB-pseudorenko/",
+    "pubtext": "Tue, 10 Sep 2024 08:51:19 GMT",
+    "published_utc": "2024-09-10T08:51:19+00:00",
+    "normalized": "Tue, 10 Sep 2024 08:51:19 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5fM66Wqj-JordanSwindenLibrary/",
+    "pubtext": "Thu, 31 Oct 2024 23:56:09 GMT",
+    "published_utc": "2024-10-31T23:56:09+00:00",
+    "normalized": "Thu, 31 Oct 2024 23:56:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/TDD70PUu-ALGOA-Markov-Chains-Library-by-metacamaleo/",
+    "pubtext": "Mon, 09 Sep 2024 23:42:03 GMT",
+    "published_utc": "2024-09-09T23:42:03+00:00",
+    "normalized": "Mon, 09 Sep 2024 23:42:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/MK6wrJik-Candlestick-patterns/",
+    "pubtext": "Sat, 07 Sep 2024 20:18:57 GMT",
+    "published_utc": "2024-09-07T20:18:57+00:00",
+    "normalized": "Sat, 07 Sep 2024 20:18:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/AvoJSmyu/",
+    "pubtext": "Sat, 07 Sep 2024 10:57:26 GMT",
+    "published_utc": "2024-09-07T10:57:26+00:00",
+    "normalized": "Sat, 07 Sep 2024 10:57:26 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/xIjhqeib-Color-Library-AlgoFyre/",
+    "pubtext": "Wed, 02 Oct 2024 07:37:49 GMT",
+    "published_utc": "2024-10-02T07:37:49+00:00",
+    "normalized": "Wed, 02 Oct 2024 07:37:49 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/n6Ke1ZlV-StyleLibrary/",
+    "pubtext": "Thu, 13 Nov 2025 22:57:39 GMT",
+    "published_utc": "2025-11-13T22:57:39+00:00",
+    "normalized": "Thu, 13 Nov 2025 22:57:39 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/T4Pmcxkq-Waves/",
+    "pubtext": "Sun, 24 Nov 2024 15:55:10 GMT",
+    "published_utc": "2024-11-24T15:55:10+00:00",
+    "normalized": "Sun, 24 Nov 2024 15:55:10 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/UIsJdaBj-Drawing/",
+    "pubtext": "Sat, 12 Jul 2025 04:24:48 GMT",
+    "published_utc": "2025-07-12T04:24:48+00:00",
+    "normalized": "Sat, 12 Jul 2025 04:24:48 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/GzXtLRHR-lib-no-delay/",
+    "pubtext": "Fri, 07 Mar 2025 07:25:58 GMT",
+    "published_utc": "2025-03-07T07:25:58+00:00",
+    "normalized": "Fri, 07 Mar 2025 07:25:58 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/1EfRGZ8G-ToClrToStr/",
+    "pubtext": "Tue, 17 Sep 2024 20:40:00 GMT",
+    "published_utc": "2024-09-17T20:40:00+00:00",
+    "normalized": "Tue, 17 Sep 2024 20:40:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/FdlYa5os-Time-Zone-Corrector/",
+    "pubtext": "Mon, 26 Aug 2024 17:19:00 GMT",
+    "published_utc": "2024-08-26T17:19:00+00:00",
+    "normalized": "Mon, 26 Aug 2024 17:19:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/eNriRBjF-Session/",
+    "pubtext": "Tue, 18 Nov 2025 14:18:10 GMT",
+    "published_utc": "2025-11-18T14:18:10+00:00",
+    "normalized": "Tue, 18 Nov 2025 14:18:10 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/GbHCpfMX/",
+    "pubtext": "Wed, 21 Aug 2024 04:45:26 GMT",
+    "published_utc": "2024-08-21T04:45:26+00:00",
+    "normalized": "Wed, 21 Aug 2024 04:45:26 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/rjhuiEBf-whook/",
+    "pubtext": "Mon, 26 Aug 2024 16:41:33 GMT",
+    "published_utc": "2024-08-26T16:41:33+00:00",
+    "normalized": "Mon, 26 Aug 2024 16:41:33 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/cdXxa1QN-csv-series-library/",
+    "pubtext": "Thu, 15 Aug 2024 23:59:55 GMT",
+    "published_utc": "2024-08-15T23:59:55+00:00",
+    "normalized": "Thu, 15 Aug 2024 23:59:55 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/h8jg8nlR/",
+    "pubtext": "Wed, 14 Aug 2024 09:35:31 GMT",
+    "published_utc": "2024-08-14T09:35:31+00:00",
+    "normalized": "Wed, 14 Aug 2024 09:35:31 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/AKZarshT-LibraryBitwiseOperands/",
+    "pubtext": "Mon, 12 Aug 2024 08:41:16 GMT",
+    "published_utc": "2024-08-12T08:41:16+00:00",
+    "normalized": "Mon, 12 Aug 2024 08:41:16 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/CAxFWG3U-Order-Block-Overlapping-Drawing-TradingFinder/",
+    "pubtext": "Sun, 11 Aug 2024 15:36:59 GMT",
+    "published_utc": "2024-08-11T15:36:59+00:00",
+    "normalized": "Sun, 11 Aug 2024 15:36:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/8FfhF3Iz-CandleAnalysis/",
+    "pubtext": "Sat, 13 Jul 2024 17:00:47 GMT",
+    "published_utc": "2024-07-13T17:00:47+00:00",
+    "normalized": "Sat, 13 Jul 2024 17:00:47 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/KpRTVUeu-offline-detection-Library/",
+    "pubtext": "Sat, 03 Aug 2024 21:51:55 GMT",
+    "published_utc": "2024-08-03T21:51:55+00:00",
+    "normalized": "Sat, 03 Aug 2024 21:51:55 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/C7knJc1m-Spectrum/",
+    "pubtext": "Sat, 03 Aug 2024 19:03:25 GMT",
+    "published_utc": "2024-08-03T19:03:25+00:00",
+    "normalized": "Sat, 03 Aug 2024 19:03:25 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/3InyAMLT-COMET-Scanner-Library-FINAL/",
+    "pubtext": "Thu, 03 Apr 2025 17:37:22 GMT",
+    "published_utc": "2025-04-03T17:37:22+00:00",
+    "normalized": "Thu, 03 Apr 2025 17:37:22 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/8zig3pIv-COM-Scanner-Library/",
+    "pubtext": "Thu, 01 Aug 2024 19:28:35 GMT",
+    "published_utc": "2024-08-01T19:28:35+00:00",
+    "normalized": "Thu, 01 Aug 2024 19:28:35 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/hcjaoLUM-JSONWebhooks/",
+    "pubtext": "Tue, 10 Dec 2024 16:26:27 GMT",
+    "published_utc": "2024-12-10T16:26:27+00:00",
+    "normalized": "Tue, 10 Dec 2024 16:26:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/W5FQI3Jz-LightyearWebhook/",
+    "pubtext": "Wed, 31 Jul 2024 09:00:03 GMT",
+    "published_utc": "2024-07-31T09:00:03+00:00",
+    "normalized": "Wed, 31 Jul 2024 09:00:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Qq3p7ZLF-CRSI/",
+    "pubtext": "Sun, 28 Jul 2024 06:24:42 GMT",
+    "published_utc": "2024-07-28T06:24:42+00:00",
+    "normalized": "Sun, 28 Jul 2024 06:24:42 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/DvPNEAlE-PubLibUtility/",
+    "pubtext": "Sun, 04 May 2025 15:54:59 GMT",
+    "published_utc": "2025-05-04T15:54:59+00:00",
+    "normalized": "Sun, 04 May 2025 15:54:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/gktUKXwo-Graph/",
+    "pubtext": "Sun, 28 Jul 2024 14:38:18 GMT",
+    "published_utc": "2024-07-28T14:38:18+00:00",
+    "normalized": "Sun, 28 Jul 2024 14:38:18 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/XfjNiefz-PubLibPattern/",
+    "pubtext": "Mon, 05 May 2025 01:37:58 GMT",
+    "published_utc": "2025-05-05T01:37:58+00:00",
+    "normalized": "Mon, 05 May 2025 01:37:58 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/WBDx1Txr-PubLibTrend/",
+    "pubtext": "Mon, 05 May 2025 00:46:27 GMT",
+    "published_utc": "2025-05-05T00:46:27+00:00",
+    "normalized": "Mon, 05 May 2025 00:46:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/wMTRS80V-PubLibSwing/",
+    "pubtext": "Sun, 04 May 2025 15:40:04 GMT",
+    "published_utc": "2025-05-04T15:40:04+00:00",
+    "normalized": "Sun, 04 May 2025 15:40:04 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ltGDkotd-PubLibCandleTrend/",
+    "pubtext": "Sun, 04 May 2025 15:11:24 GMT",
+    "published_utc": "2025-05-04T15:11:24+00:00",
+    "normalized": "Sun, 04 May 2025 15:11:24 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/0Wp90s6X-InsertionSort/",
+    "pubtext": "Sat, 30 Nov 2024 13:45:38 GMT",
+    "published_utc": "2024-11-30T13:45:38+00:00",
+    "normalized": "Sat, 30 Nov 2024 13:45:38 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/PW4YzCX2/",
+    "pubtext": "Tue, 23 Jul 2024 00:01:08 GMT",
+    "published_utc": "2024-07-23T00:01:08+00:00",
+    "normalized": "Tue, 23 Jul 2024 00:01:08 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/fntrGof5-Harmonic-Patterns-Library-TradingFinder/",
+    "pubtext": "Wed, 22 Jan 2025 10:04:36 GMT",
+    "published_utc": "2025-01-22T10:04:36+00:00",
+    "normalized": "Wed, 22 Jan 2025 10:04:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/8RVty9Ci-MyLibrary001/",
+    "pubtext": "Fri, 20 Sep 2024 01:46:51 GMT",
+    "published_utc": "2024-09-20T01:46:51+00:00",
+    "normalized": "Fri, 20 Sep 2024 01:46:51 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/1gEuhX73-Objects/",
+    "pubtext": "Sat, 13 Jul 2024 17:02:50 GMT",
+    "published_utc": "2024-07-13T17:02:50+00:00",
+    "normalized": "Sat, 13 Jul 2024 17:02:50 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/TTqKBRT9-MarketAnalysis/",
+    "pubtext": "Sat, 13 Jul 2024 16:55:46 GMT",
+    "published_utc": "2024-07-13T16:55:46+00:00",
+    "normalized": "Sat, 13 Jul 2024 16:55:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/xG5rrK3c-MarcosLibrary/",
+    "pubtext": "Tue, 09 Jul 2024 19:44:46 GMT",
+    "published_utc": "2024-07-09T19:44:46+00:00",
+    "normalized": "Tue, 09 Jul 2024 19:44:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/c1pPR2kI/",
+    "pubtext": "Sat, 06 Jul 2024 21:17:35 GMT",
+    "published_utc": "2024-07-06T21:17:35+00:00",
+    "normalized": "Sat, 06 Jul 2024 21:17:35 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/lpsRtEEo-lib-dates/",
+    "pubtext": "Fri, 05 Jul 2024 19:14:19 GMT",
+    "published_utc": "2024-07-05T19:14:19+00:00",
+    "normalized": "Fri, 05 Jul 2024 19:14:19 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/cLD5ps6x-Dark-Light-Theme-TradingFinder-Switching-Colors-Library/",
+    "pubtext": "Wed, 03 Jul 2024 15:56:27 GMT",
+    "published_utc": "2024-07-03T15:56:27+00:00",
+    "normalized": "Wed, 03 Jul 2024 15:56:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ySlU3Hvg-VandelayIndicatorLib/",
+    "pubtext": "Wed, 03 Jul 2024 15:34:23 GMT",
+    "published_utc": "2024-07-03T15:34:23+00:00",
+    "normalized": "Wed, 03 Jul 2024 15:34:23 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/IOJcbkWO-Complex/",
+    "pubtext": "Mon, 01 Jul 2024 17:46:17 GMT",
+    "published_utc": "2024-07-01T17:46:17+00:00",
+    "normalized": "Mon, 01 Jul 2024 17:46:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Y4iBUs6Q-lib-session-gaps/",
+    "pubtext": "Mon, 01 Jul 2024 10:21:14 GMT",
+    "published_utc": "2024-07-01T10:21:14+00:00",
+    "normalized": "Mon, 01 Jul 2024 10:21:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/VB5qapcC-Crypto/",
+    "pubtext": "Sun, 23 Jun 2024 19:26:44 GMT",
+    "published_utc": "2024-06-23T19:26:44+00:00",
+    "normalized": "Sun, 23 Jun 2024 19:26:44 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/sbkyGqfh-Binary/",
+    "pubtext": "Sat, 22 Jun 2024 21:20:14 GMT",
+    "published_utc": "2024-06-22T21:20:14+00:00",
+    "normalized": "Sat, 22 Jun 2024 21:20:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/CVJoh8Ne/",
+    "pubtext": "Thu, 20 Jun 2024 14:13:47 GMT",
+    "published_utc": "2024-06-20T14:13:47+00:00",
+    "normalized": "Thu, 20 Jun 2024 14:13:47 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/FW2Un7By/",
+    "pubtext": "Thu, 03 Apr 2025 19:58:09 GMT",
+    "published_utc": "2025-04-03T19:58:09+00:00",
+    "normalized": "Thu, 03 Apr 2025 19:58:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/DSQQh8E3-JohtiLiquidity/",
+    "pubtext": "Wed, 19 Jun 2024 10:25:44 GMT",
+    "published_utc": "2024-06-19T10:25:44+00:00",
+    "normalized": "Wed, 19 Jun 2024 10:25:44 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/k8K5rHXb-SessionBox/",
+    "pubtext": "Fri, 06 Dec 2024 03:44:00 GMT",
+    "published_utc": "2024-12-06T03:44:00+00:00",
+    "normalized": "Fri, 06 Dec 2024 03:44:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/hFufCLPz-time-library/",
+    "pubtext": "Mon, 17 Jun 2024 08:06:00 GMT",
+    "published_utc": "2024-06-17T08:06:00+00:00",
+    "normalized": "Mon, 17 Jun 2024 08:06:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/3FCxmP9q-MathTransform/",
+    "pubtext": "Fri, 16 Jan 2026 11:53:03 GMT",
+    "published_utc": "2026-01-16T11:53:03+00:00",
+    "normalized": "Fri, 16 Jan 2026 11:53:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/I96EuOMV-MyLibrary/",
+    "pubtext": "Sat, 15 Jun 2024 18:15:57 GMT",
+    "published_utc": "2024-06-15T18:15:57+00:00",
+    "normalized": "Sat, 15 Jun 2024 18:15:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/S5JAKuXE/",
+    "pubtext": "Sat, 15 Jun 2024 17:59:09 GMT",
+    "published_utc": "2024-06-15T17:59:09+00:00",
+    "normalized": "Sat, 15 Jun 2024 17:59:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/oOgZRqiM-RiskMetrics/",
+    "pubtext": "Wed, 26 Mar 2025 11:53:23 GMT",
+    "published_utc": "2025-03-26T11:53:23+00:00",
+    "normalized": "Wed, 26 Mar 2025 11:53:23 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/nLyvLduD-TimeFilter/",
+    "pubtext": "Wed, 12 Jun 2024 22:42:46 GMT",
+    "published_utc": "2024-06-12T22:42:46+00:00",
+    "normalized": "Wed, 12 Jun 2024 22:42:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/wvvpsplg-FunctionTimeFrequency/",
+    "pubtext": "Tue, 11 Jun 2024 08:53:17 GMT",
+    "published_utc": "2024-06-11T08:53:17+00:00",
+    "normalized": "Tue, 11 Jun 2024 08:53:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/SKs63xc9-ALGOA-Autofibo/",
+    "pubtext": "Sun, 10 Nov 2024 13:42:40 GMT",
+    "published_utc": "2024-11-10T13:42:40+00:00",
+    "normalized": "Sun, 10 Nov 2024 13:42:40 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/BXVj1kBS-ColourUtilities/",
+    "pubtext": "Thu, 15 Jan 2026 13:45:51 GMT",
+    "published_utc": "2026-01-15T13:45:51+00:00",
+    "normalized": "Thu, 15 Jan 2026 13:45:51 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/3HADOJcS-VolumeSpreadAnalysis/",
+    "pubtext": "Sat, 01 Jun 2024 04:51:58 GMT",
+    "published_utc": "2024-06-01T04:51:58+00:00",
+    "normalized": "Sat, 01 Jun 2024 04:51:58 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/gpaO2Il8-TRIG/",
+    "pubtext": "Sun, 19 May 2024 21:52:20 GMT",
+    "published_utc": "2024-05-19T21:52:20+00:00",
+    "normalized": "Sun, 19 May 2024 21:52:20 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/VnyhVjEv-ALGEBRA/",
+    "pubtext": "Sun, 19 May 2024 17:42:40 GMT",
+    "published_utc": "2024-05-19T17:42:40+00:00",
+    "normalized": "Sun, 19 May 2024 17:42:40 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/KHAOZTZ4-ImrLibrary/",
+    "pubtext": "Fri, 26 Jul 2024 08:26:39 GMT",
+    "published_utc": "2024-07-26T08:26:39+00:00",
+    "normalized": "Fri, 26 Jul 2024 08:26:39 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/gJNmwNup-stats/",
+    "pubtext": "Thu, 16 May 2024 23:55:43 GMT",
+    "published_utc": "2024-05-16T23:55:43+00:00",
+    "normalized": "Thu, 16 May 2024 23:55:43 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/OWp78ZNN/",
+    "pubtext": "Tue, 14 May 2024 21:58:00 GMT",
+    "published_utc": "2024-05-14T21:58:00+00:00",
+    "normalized": "Tue, 14 May 2024 21:58:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/0xVwqThR-colorLab/",
+    "pubtext": "Thu, 16 May 2024 06:05:36 GMT",
+    "published_utc": "2024-05-16T06:05:36+00:00",
+    "normalized": "Thu, 16 May 2024 06:05:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/xkUpiNa6-TradersPost-WebhookMessage-Library-Automatically-Build-JSON/",
+    "pubtext": "Thu, 23 May 2024 10:35:54 GMT",
+    "published_utc": "2024-05-23T10:35:54+00:00",
+    "normalized": "Thu, 23 May 2024 10:35:54 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/LCi3kz1L/",
+    "pubtext": "Wed, 15 May 2024 01:49:05 GMT",
+    "published_utc": "2024-05-15T01:49:05+00:00",
+    "normalized": "Wed, 15 May 2024 01:49:05 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/dheAoCLg/",
+    "pubtext": "Wed, 15 May 2024 01:47:06 GMT",
+    "published_utc": "2024-05-15T01:47:06+00:00",
+    "normalized": "Wed, 15 May 2024 01:47:06 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ch32rGwZ/",
+    "pubtext": "Wed, 15 May 2024 01:46:12 GMT",
+    "published_utc": "2024-05-15T01:46:12+00:00",
+    "normalized": "Wed, 15 May 2024 01:46:12 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/XtXx0Z42/",
+    "pubtext": "Wed, 15 May 2024 01:45:01 GMT",
+    "published_utc": "2024-05-15T01:45:01+00:00",
+    "normalized": "Wed, 15 May 2024 01:45:01 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/KKEZ5Mon/",
+    "pubtext": "Wed, 15 May 2024 01:43:49 GMT",
+    "published_utc": "2024-05-15T01:43:49+00:00",
+    "normalized": "Wed, 15 May 2024 01:43:49 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/tDoFQJ6X/",
+    "pubtext": "Wed, 15 May 2024 01:42:59 GMT",
+    "published_utc": "2024-05-15T01:42:59+00:00",
+    "normalized": "Wed, 15 May 2024 01:42:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Fsc6jAqD/",
+    "pubtext": "Wed, 15 May 2024 01:41:00 GMT",
+    "published_utc": "2024-05-15T01:41:00+00:00",
+    "normalized": "Wed, 15 May 2024 01:41:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5c2Zja9O/",
+    "pubtext": "Wed, 15 May 2024 01:40:00 GMT",
+    "published_utc": "2024-05-15T01:40:00+00:00",
+    "normalized": "Wed, 15 May 2024 01:40:00 GMT"
+  }
+]

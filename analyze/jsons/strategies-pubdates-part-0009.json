@@ -1,0 +1,602 @@
+[
+  {
+    "url": "https://www.tradingview.com/script/VTDjMpbp-Supertrend-EMA-Vol-Strategy-V5/",
+    "pubtext": "Thu, 14 Aug 2025 04:15:44 GMT",
+    "published_utc": "2025-08-14T04:15:44+00:00",
+    "normalized": "Thu, 14 Aug 2025 04:15:44 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/JOQQewBU-trend-impulse-tester-trend-impulse-no-chop-in-development/",
+    "pubtext": "Mon, 11 Aug 2025 05:11:54 GMT",
+    "published_utc": "2025-08-11T05:11:54+00:00",
+    "normalized": "Mon, 11 Aug 2025 05:11:54 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/vTxtzNVy-Nova-Futures-PRO-SAFE-v6-HTF-Choppiness-Cooldown/",
+    "pubtext": "Mon, 11 Aug 2025 02:21:30 GMT",
+    "published_utc": "2025-08-11T02:21:30+00:00",
+    "normalized": "Mon, 11 Aug 2025 02:21:30 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Miqk1J6W/",
+    "pubtext": "Mon, 11 Aug 2025 01:28:34 GMT",
+    "published_utc": "2025-08-11T01:28:34+00:00",
+    "normalized": "Mon, 11 Aug 2025 01:28:34 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/VqBprNkf-Estrategia-de-NY-ORB-por-CP/",
+    "pubtext": "Sun, 10 Aug 2025 19:38:10 GMT",
+    "published_utc": "2025-08-10T19:38:10+00:00",
+    "normalized": "Sun, 10 Aug 2025 19:38:10 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/HhOK1RVm-zapteam-pro-strategy-v6-ema/",
+    "pubtext": "Sun, 10 Aug 2025 13:10:29 GMT",
+    "published_utc": "2025-08-10T13:10:29+00:00",
+    "normalized": "Sun, 10 Aug 2025 13:10:29 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/IQy5gWhR-CP-Strat-ORB/",
+    "pubtext": "Sun, 10 Aug 2025 00:43:33 GMT",
+    "published_utc": "2025-08-10T00:43:33+00:00",
+    "normalized": "Sun, 10 Aug 2025 00:43:33 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/HxAZurpN-Engulfing-Pin-Bar-Breakout-Strategy/",
+    "pubtext": "Sat, 09 Aug 2025 19:21:24 GMT",
+    "published_utc": "2025-08-09T19:21:24+00:00",
+    "normalized": "Sat, 09 Aug 2025 19:21:24 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/kDqCYgkN-Hammer-Shooting-Star-Strategy/",
+    "pubtext": "Sat, 09 Aug 2025 18:49:30 GMT",
+    "published_utc": "2025-08-09T18:49:30+00:00",
+    "normalized": "Sat, 09 Aug 2025 18:49:30 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/RRGaqakN-RSI-Adaptive-T3-ChartPrime-Strategy-Long-Only-1D/",
+    "pubtext": "Sat, 09 Aug 2025 18:35:17 GMT",
+    "published_utc": "2025-08-09T18:35:17+00:00",
+    "normalized": "Sat, 09 Aug 2025 18:35:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/HaBQiJKd-BB-RSI-Trailing-Stop-Strategy/",
+    "pubtext": "Mon, 11 Aug 2025 16:55:14 GMT",
+    "published_utc": "2025-08-11T16:55:14+00:00",
+    "normalized": "Mon, 11 Aug 2025 16:55:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Spu9dNSo-Gemini-Trend-Following-System/",
+    "pubtext": "Fri, 08 Aug 2025 23:56:35 GMT",
+    "published_utc": "2025-08-08T23:56:35+00:00",
+    "normalized": "Fri, 08 Aug 2025 23:56:35 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/m99D8MgQ-RSI-MACD-Long-Only-Strategy/",
+    "pubtext": "Fri, 08 Aug 2025 23:32:14 GMT",
+    "published_utc": "2025-08-08T23:32:14+00:00",
+    "normalized": "Fri, 08 Aug 2025 23:32:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/GLBJdTNC-Keltner-Channel-Based-Grid-Strategy/",
+    "pubtext": "Fri, 08 Aug 2025 17:45:06 GMT",
+    "published_utc": "2025-08-08T17:45:06+00:00",
+    "normalized": "Fri, 08 Aug 2025 17:45:06 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/t3UuM5DI-Mutanabby-AI-Algo-Pro-Strategy/",
+    "pubtext": "Fri, 08 Aug 2025 15:03:03 GMT",
+    "published_utc": "2025-08-08T15:03:03+00:00",
+    "normalized": "Fri, 08 Aug 2025 15:03:03 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/UbiYgrSE-Canuck-Trading-Traders-Strategy-Candle-Entropy-Edition/",
+    "pubtext": "Wed, 13 Aug 2025 23:37:57 GMT",
+    "published_utc": "2025-08-13T23:37:57+00:00",
+    "normalized": "Wed, 13 Aug 2025 23:37:57 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Cdow1AiT-Energy-Advanced-Policy-Strategy/",
+    "pubtext": "Thu, 07 Aug 2025 21:19:05 GMT",
+    "published_utc": "2025-08-07T21:19:05+00:00",
+    "normalized": "Thu, 07 Aug 2025 21:19:05 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/63cLqNPV-PS-Breakout-Strategy-Nifty-BN-only-at-15-min-Timeframe/",
+    "pubtext": "Mon, 04 Aug 2025 19:39:11 GMT",
+    "published_utc": "2025-08-04T19:39:11+00:00",
+    "normalized": "Mon, 04 Aug 2025 19:39:11 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4Ls8h2oq-MK-Custome-Adaptive-SuperTrend-Strategy-HalfSquatch/",
+    "pubtext": "Thu, 07 Aug 2025 19:50:23 GMT",
+    "published_utc": "2025-08-07T19:50:23+00:00",
+    "normalized": "Thu, 07 Aug 2025 19:50:23 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/FSnDSqnr-MomentumSync-PSAR-RSI-ADX-Filtered-3-Tier-Exit-Strategy/",
+    "pubtext": "Thu, 07 Aug 2025 19:21:18 GMT",
+    "published_utc": "2025-08-07T19:21:18+00:00",
+    "normalized": "Thu, 07 Aug 2025 19:21:18 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/1ImoLZMu/",
+    "pubtext": "Thu, 07 Aug 2025 10:00:53 GMT",
+    "published_utc": "2025-08-07T10:00:53+00:00",
+    "normalized": "Thu, 07 Aug 2025 10:00:53 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/RAOFpp0y-Strat%C3%A9gia-VWAP-Mean-Magnet-v9-Simple-Alert/",
+    "pubtext": "Thu, 07 Aug 2025 09:05:17 GMT",
+    "published_utc": "2025-08-07T09:05:17+00:00",
+    "normalized": "Thu, 07 Aug 2025 09:05:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/hCW6XnvF-5-EMA-No-Touch-Breakout-1-3-Only-5m/",
+    "pubtext": "Thu, 07 Aug 2025 06:03:40 GMT",
+    "published_utc": "2025-08-07T06:03:40+00:00",
+    "normalized": "Thu, 07 Aug 2025 06:03:40 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Or6cVC5f/",
+    "pubtext": "Thu, 07 Aug 2025 05:45:25 GMT",
+    "published_utc": "2025-08-07T05:45:25+00:00",
+    "normalized": "Thu, 07 Aug 2025 05:45:25 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/fOZ1gdW6/",
+    "pubtext": "Thu, 07 Aug 2025 05:24:20 GMT",
+    "published_utc": "2025-08-07T05:24:20+00:00",
+    "normalized": "Thu, 07 Aug 2025 05:24:20 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/S9hY3huK-VWAP-RSI-Scalper-FINAL-v1/",
+    "pubtext": "Thu, 07 Aug 2025 01:44:37 GMT",
+    "published_utc": "2025-08-07T01:44:37+00:00",
+    "normalized": "Thu, 07 Aug 2025 01:44:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/f0EqNMhP-Parabolic-SAR-with-Early-Buy-MA-Based-Exit-Strategy/",
+    "pubtext": "Wed, 06 Aug 2025 21:58:49 GMT",
+    "published_utc": "2025-08-06T21:58:49+00:00",
+    "normalized": "Wed, 06 Aug 2025 21:58:49 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/4wpplfPo-Parabolic-SAR-with-Early-Buy-MA-Based-Exit-Strategy/",
+    "pubtext": "Wed, 06 Aug 2025 21:41:13 GMT",
+    "published_utc": "2025-08-06T21:41:13+00:00",
+    "normalized": "Wed, 06 Aug 2025 21:41:13 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/awytlKC5-Parabolic-SAR-Strategy-with-MACD-Confirmation-Trend-Zone-Highl/",
+    "pubtext": "Wed, 06 Aug 2025 21:21:56 GMT",
+    "published_utc": "2025-08-06T21:21:56+00:00",
+    "normalized": "Wed, 06 Aug 2025 21:21:56 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/zYOKFIxD-RSI-Strategy/",
+    "pubtext": "Wed, 06 Aug 2025 20:57:17 GMT",
+    "published_utc": "2025-08-06T20:57:17+00:00",
+    "normalized": "Wed, 06 Aug 2025 20:57:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/WQhkt6AO/",
+    "pubtext": "Wed, 06 Aug 2025 16:24:20 GMT",
+    "published_utc": "2025-08-06T16:24:20+00:00",
+    "normalized": "Wed, 06 Aug 2025 16:24:20 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/TlCUJRcP-8-30-SMA-Pullback-ATR-Exits-Crypto/",
+    "pubtext": "Wed, 06 Aug 2025 16:07:16 GMT",
+    "published_utc": "2025-08-06T16:07:16+00:00",
+    "normalized": "Wed, 06 Aug 2025 16:07:16 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Z47J8qQz-XAUUSD-Simple-20-Profit-100-Loss-Strategy/",
+    "pubtext": "Wed, 06 Aug 2025 03:17:19 GMT",
+    "published_utc": "2025-08-06T03:17:19+00:00",
+    "normalized": "Wed, 06 Aug 2025 03:17:19 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/TGCD7xyF-Swing-Breakout-Strategy-PRO/",
+    "pubtext": "Wed, 06 Aug 2025 03:16:31 GMT",
+    "published_utc": "2025-08-06T03:16:31+00:00",
+    "normalized": "Wed, 06 Aug 2025 03:16:31 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/iU0DPQi9-AUD-USD-1-Min-Scalping-Strategy-with-Labels/",
+    "pubtext": "Tue, 05 Aug 2025 10:34:33 GMT",
+    "published_utc": "2025-08-05T10:34:33+00:00",
+    "normalized": "Tue, 05 Aug 2025 10:34:33 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Z1hPmH0q-Manadi-Buy-Sell-Strategy-EMA-MACD-RSI-Alerts/",
+    "pubtext": "Tue, 05 Aug 2025 09:51:27 GMT",
+    "published_utc": "2025-08-05T09:51:27+00:00",
+    "normalized": "Tue, 05 Aug 2025 09:51:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ct88NzIm-Options-Strategy-V2-0/",
+    "pubtext": "Tue, 05 Aug 2025 07:43:34 GMT",
+    "published_utc": "2025-08-05T07:43:34+00:00",
+    "normalized": "Tue, 05 Aug 2025 07:43:34 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/3d5SHKRW-AI-Williams-Alligator-Strategy-ATR-Stop-Loss-Alerts/",
+    "pubtext": "Tue, 05 Aug 2025 02:50:32 GMT",
+    "published_utc": "2025-08-05T02:50:32+00:00",
+    "normalized": "Tue, 05 Aug 2025 02:50:32 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/2zFQot2h-BASELINE2/",
+    "pubtext": "Mon, 04 Aug 2025 17:05:00 GMT",
+    "published_utc": "2025-08-04T17:05:00+00:00",
+    "normalized": "Mon, 04 Aug 2025 17:05:00 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/uCP85KPf-Test-Bot-Bearish-Buy-Bullish-Sell/",
+    "pubtext": "Mon, 04 Aug 2025 13:20:37 GMT",
+    "published_utc": "2025-08-04T13:20:37+00:00",
+    "normalized": "Mon, 04 Aug 2025 13:20:37 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/1F66QJ5V-SuperTrend-Strategy-with-Trend-Based-Exits/",
+    "pubtext": "Mon, 04 Aug 2025 13:12:50 GMT",
+    "published_utc": "2025-08-04T13:12:50+00:00",
+    "normalized": "Mon, 04 Aug 2025 13:12:50 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Q9inSrqb-stonbsb/",
+    "pubtext": "Mon, 04 Aug 2025 12:53:48 GMT",
+    "published_utc": "2025-08-04T12:53:48+00:00",
+    "normalized": "Mon, 04 Aug 2025 12:53:48 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/3J7vrQ0w/",
+    "pubtext": "Thu, 31 Jul 2025 08:37:54 GMT",
+    "published_utc": "2025-07-31T08:37:54+00:00",
+    "normalized": "Thu, 31 Jul 2025 08:37:54 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5GmLg5FG/",
+    "pubtext": "Mon, 04 Aug 2025 12:01:15 GMT",
+    "published_utc": "2025-08-04T12:01:15+00:00",
+    "normalized": "Mon, 04 Aug 2025 12:01:15 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/gofnAfR7/",
+    "pubtext": "Mon, 04 Aug 2025 11:35:26 GMT",
+    "published_utc": "2025-08-04T11:35:26+00:00",
+    "normalized": "Mon, 04 Aug 2025 11:35:26 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/oVoigpVw-Fisher-Crossover-Strategy/",
+    "pubtext": "Mon, 04 Aug 2025 06:02:34 GMT",
+    "published_utc": "2025-08-04T06:02:34+00:00",
+    "normalized": "Mon, 04 Aug 2025 06:02:34 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/JKPBOOqR-Day-Trading-Strategy-With-Risk-Management/",
+    "pubtext": "Mon, 04 Aug 2025 05:22:14 GMT",
+    "published_utc": "2025-08-04T05:22:14+00:00",
+    "normalized": "Mon, 04 Aug 2025 05:22:14 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/n45dOuob-Ultimate-Scalping-Strategy-v2/",
+    "pubtext": "Sat, 01 Nov 2025 22:15:16 GMT",
+    "published_utc": "2025-11-01T22:15:16+00:00",
+    "normalized": "Sat, 01 Nov 2025 22:15:16 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/b6zu2RjR-Bollinger-Bands-SMA-20-2-Strategy/",
+    "pubtext": "Sun, 03 Aug 2025 17:33:22 GMT",
+    "published_utc": "2025-08-03T17:33:22+00:00",
+    "normalized": "Sun, 03 Aug 2025 17:33:22 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/sTTX8Eay-Professional-ORB-Strategy-BUY-Sell-signal-Ganesh-Selvarayar/",
+    "pubtext": "Sun, 03 Aug 2025 15:50:46 GMT",
+    "published_utc": "2025-08-03T15:50:46+00:00",
+    "normalized": "Sun, 03 Aug 2025 15:50:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/EX4dbPiN/",
+    "pubtext": "Sun, 03 Aug 2025 09:21:01 GMT",
+    "published_utc": "2025-08-03T09:21:01+00:00",
+    "normalized": "Sun, 03 Aug 2025 09:21:01 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/uRMXfwkP-safa-bot-alert/",
+    "pubtext": "Sat, 02 Aug 2025 19:16:26 GMT",
+    "published_utc": "2025-08-02T19:16:26+00:00",
+    "normalized": "Sat, 02 Aug 2025 19:16:26 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/0pCTApxH-TOT-Strategy-The-ORB-Titan-Configurable/",
+    "pubtext": "Sat, 02 Aug 2025 22:06:16 GMT",
+    "published_utc": "2025-08-02T22:06:16+00:00",
+    "normalized": "Sat, 02 Aug 2025 22:06:16 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/HiTIaLW9-Linear-Mean-Reversion-Strategy/",
+    "pubtext": "Sat, 02 Aug 2025 23:17:53 GMT",
+    "published_utc": "2025-08-02T23:17:53+00:00",
+    "normalized": "Sat, 02 Aug 2025 23:17:53 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/lmsqoYZo-BACKTEST-UT-Bot-RSI/",
+    "pubtext": "Sat, 02 Aug 2025 03:17:17 GMT",
+    "published_utc": "2025-08-02T03:17:17+00:00",
+    "normalized": "Sat, 02 Aug 2025 03:17:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/DqMilyEL-BTC-1m-Chop-Top-Bottom-Reversal-Stable-Entries/",
+    "pubtext": "Fri, 26 Sep 2025 04:38:56 GMT",
+    "published_utc": "2025-09-26T04:38:56+00:00",
+    "normalized": "Fri, 26 Sep 2025 04:38:56 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/q3ARxlfz-EMA-Crossover-with-Volume-Stacked-TP-Trailing-SL/",
+    "pubtext": "Fri, 01 Aug 2025 15:42:54 GMT",
+    "published_utc": "2025-08-01T15:42:54+00:00",
+    "normalized": "Fri, 01 Aug 2025 15:42:54 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/R3jnWCNP-Advanced-Supertrend-Strategy/",
+    "pubtext": "Wed, 13 Aug 2025 17:14:05 GMT",
+    "published_utc": "2025-08-13T17:14:05+00:00",
+    "normalized": "Wed, 13 Aug 2025 17:14:05 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/wtLXQs0t-Smoothed-Heiken-Ashi/",
+    "pubtext": "Fri, 01 Aug 2025 14:12:15 GMT",
+    "published_utc": "2025-08-01T14:12:15+00:00",
+    "normalized": "Fri, 01 Aug 2025 14:12:15 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5faCztjr/",
+    "pubtext": "Fri, 01 Aug 2025 08:16:25 GMT",
+    "published_utc": "2025-08-01T08:16:25+00:00",
+    "normalized": "Fri, 01 Aug 2025 08:16:25 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/tnK7dvZj-Trailing-TP-Bot/",
+    "pubtext": "Fri, 08 Aug 2025 18:53:11 GMT",
+    "published_utc": "2025-08-08T18:53:11+00:00",
+    "normalized": "Fri, 08 Aug 2025 18:53:11 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/VF2hMz40-XRP-AI-15-m-Adaptive-v3-1/",
+    "pubtext": "Thu, 31 Jul 2025 21:06:05 GMT",
+    "published_utc": "2025-07-31T21:06:05+00:00",
+    "normalized": "Thu, 31 Jul 2025 21:06:05 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/57kcWmbf-Intra-Bullish-Strategy-Profit-Ping-v4-0/",
+    "pubtext": "Thu, 31 Jul 2025 15:08:47 GMT",
+    "published_utc": "2025-07-31T15:08:47+00:00",
+    "normalized": "Thu, 31 Jul 2025 15:08:47 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/YUB9WqZQ-1EMA-1MACD-1RSI-Crypto-Strategy-AB-092/",
+    "pubtext": "Thu, 31 Jul 2025 06:25:04 GMT",
+    "published_utc": "2025-07-31T06:25:04+00:00",
+    "normalized": "Thu, 31 Jul 2025 06:25:04 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/iC2DLdXl-Dubic-EMA-Strategy/",
+    "pubtext": "Wed, 30 Jul 2025 22:52:53 GMT",
+    "published_utc": "2025-07-30T22:52:53+00:00",
+    "normalized": "Wed, 30 Jul 2025 22:52:53 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/JcemHFWo/",
+    "pubtext": "Wed, 30 Jul 2025 22:13:11 GMT",
+    "published_utc": "2025-07-30T22:13:11+00:00",
+    "normalized": "Wed, 30 Jul 2025 22:13:11 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/FcdNputf-Strat%C3%A9gia-VWAP-Mean-Magnet-v2-VolSz%C5%B1r%C5%91/",
+    "pubtext": "Wed, 30 Jul 2025 19:00:15 GMT",
+    "published_utc": "2025-07-30T19:00:15+00:00",
+    "normalized": "Wed, 30 Jul 2025 19:00:15 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/HRJDdgFz-Tri-Monthly-BTC-Swing-Strategy/",
+    "pubtext": "Tue, 29 Jul 2025 06:47:42 GMT",
+    "published_utc": "2025-07-29T06:47:42+00:00",
+    "normalized": "Tue, 29 Jul 2025 06:47:42 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/DtZCYzNP-TPC-Strategy-XAUUSD-M5-with-Fixed-SL-TP/",
+    "pubtext": "Wed, 30 Jul 2025 17:44:06 GMT",
+    "published_utc": "2025-07-30T17:44:06+00:00",
+    "normalized": "Wed, 30 Jul 2025 17:44:06 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ANWxAWqY-4H-Bollinger-Breakout-Strategy/",
+    "pubtext": "Wed, 30 Jul 2025 17:33:51 GMT",
+    "published_utc": "2025-07-30T17:33:51+00:00",
+    "normalized": "Wed, 30 Jul 2025 17:33:51 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/bru7wpGx-Combo-2-20-EMA-Bandpass-Filter-by-Tamarok/",
+    "pubtext": "Wed, 30 Jul 2025 14:51:07 GMT",
+    "published_utc": "2025-07-30T14:51:07+00:00",
+    "normalized": "Wed, 30 Jul 2025 14:51:07 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/fkcimtDk-EUR-USD-Multi-Layer-Statistical-Regression-Strategy/",
+    "pubtext": "Fri, 19 Sep 2025 15:02:59 GMT",
+    "published_utc": "2025-09-19T15:02:59+00:00",
+    "normalized": "Fri, 19 Sep 2025 15:02:59 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/OTfw8b2a-Trading-Report-Generator-from-CSV/",
+    "pubtext": "Thu, 31 Jul 2025 13:00:40 GMT",
+    "published_utc": "2025-07-31T13:00:40+00:00",
+    "normalized": "Thu, 31 Jul 2025 13:00:40 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/kP7HmAzw-NQ-Phantom-Scalper-Pro/",
+    "pubtext": "Thu, 31 Jul 2025 15:57:09 GMT",
+    "published_utc": "2025-07-31T15:57:09+00:00",
+    "normalized": "Thu, 31 Jul 2025 15:57:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/eSLYwn8O/",
+    "pubtext": "Thu, 28 Aug 2025 09:37:17 GMT",
+    "published_utc": "2025-08-28T09:37:17+00:00",
+    "normalized": "Thu, 28 Aug 2025 09:37:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/8vjWAdLN-Opening-Range-Breakout/",
+    "pubtext": "Wed, 30 Jul 2025 05:13:46 GMT",
+    "published_utc": "2025-07-30T05:13:46+00:00",
+    "normalized": "Wed, 30 Jul 2025 05:13:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/5SjdNbWQ-Supertrend-Strategy-nitin/",
+    "pubtext": "Wed, 30 Jul 2025 02:48:51 GMT",
+    "published_utc": "2025-07-30T02:48:51+00:00",
+    "normalized": "Wed, 30 Jul 2025 02:48:51 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/QyKgDuns/",
+    "pubtext": "Wed, 30 Jul 2025 00:33:09 GMT",
+    "published_utc": "2025-07-30T00:33:09+00:00",
+    "normalized": "Wed, 30 Jul 2025 00:33:09 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/itrqFcIl/",
+    "pubtext": "Tue, 29 Jul 2025 20:23:36 GMT",
+    "published_utc": "2025-07-29T20:23:36+00:00",
+    "normalized": "Tue, 29 Jul 2025 20:23:36 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/NjAplKew-World-Class-Crypto-Strategy-version-9-BTC-ETH-SOL-XRP-ML/",
+    "pubtext": "Tue, 29 Jul 2025 19:43:32 GMT",
+    "published_utc": "2025-07-29T19:43:32+00:00",
+    "normalized": "Tue, 29 Jul 2025 19:43:32 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/W2wKH8K6-Max-Profit-Min-Loss-Options-Strategy/",
+    "pubtext": "Tue, 29 Jul 2025 17:10:35 GMT",
+    "published_utc": "2025-07-29T17:10:35+00:00",
+    "normalized": "Tue, 29 Jul 2025 17:10:35 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/0S8jQcA5-200-SMA-5-3-Buffer-for-SPY-QQQ/",
+    "pubtext": "Tue, 29 Jul 2025 16:36:38 GMT",
+    "published_utc": "2025-07-29T16:36:38+00:00",
+    "normalized": "Tue, 29 Jul 2025 16:36:38 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/amG6G65I-SwingTrade-ADX-Strategy-v6/",
+    "pubtext": "Tue, 29 Jul 2025 15:16:46 GMT",
+    "published_utc": "2025-07-29T15:16:46+00:00",
+    "normalized": "Tue, 29 Jul 2025 15:16:46 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/hcisjuB2-Supertrend-Long-Only-Strategy-for-QQQ/",
+    "pubtext": "Tue, 29 Jul 2025 14:28:19 GMT",
+    "published_utc": "2025-07-29T14:28:19+00:00",
+    "normalized": "Tue, 29 Jul 2025 14:28:19 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/lyCTgr1L/",
+    "pubtext": "Tue, 29 Jul 2025 14:21:53 GMT",
+    "published_utc": "2025-07-29T14:21:53+00:00",
+    "normalized": "Tue, 29 Jul 2025 14:21:53 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/u7yQBp8o/",
+    "pubtext": "Tue, 29 Jul 2025 11:40:27 GMT",
+    "published_utc": "2025-07-29T11:40:27+00:00",
+    "normalized": "Tue, 29 Jul 2025 11:40:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/3a0iBTkB-strategy1/",
+    "pubtext": "Tue, 29 Jul 2025 16:58:13 GMT",
+    "published_utc": "2025-07-29T16:58:13+00:00",
+    "normalized": "Tue, 29 Jul 2025 16:58:13 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/KnJy50Bd-EMA-Grid-Martingale-Strategy-Long-Only-with-Cooldown/",
+    "pubtext": "Mon, 28 Jul 2025 20:37:19 GMT",
+    "published_utc": "2025-07-28T20:37:19+00:00",
+    "normalized": "Mon, 28 Jul 2025 20:37:19 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/yGMK7ibd-Setup-Smooth-Gaussian-Adaptive-Supertrend-Manual-Vol/",
+    "pubtext": "Mon, 28 Jul 2025 16:59:27 GMT",
+    "published_utc": "2025-07-28T16:59:27+00:00",
+    "normalized": "Mon, 28 Jul 2025 16:59:27 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/dr6tkRL7/",
+    "pubtext": "Mon, 28 Jul 2025 11:33:44 GMT",
+    "published_utc": "2025-07-28T11:33:44+00:00",
+    "normalized": "Mon, 28 Jul 2025 11:33:44 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/Rh22T8sl/",
+    "pubtext": "Mon, 28 Jul 2025 01:28:17 GMT",
+    "published_utc": "2025-07-28T01:28:17+00:00",
+    "normalized": "Mon, 28 Jul 2025 01:28:17 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/yFRb4ao7-MVO-MA-Signal-Strategy/",
+    "pubtext": "Sun, 27 Jul 2025 21:26:18 GMT",
+    "published_utc": "2025-07-27T21:26:18+00:00",
+    "normalized": "Sun, 27 Jul 2025 21:26:18 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/FgwP9BhA/",
+    "pubtext": "Wed, 23 Jul 2025 22:52:41 GMT",
+    "published_utc": "2025-07-23T22:52:41+00:00",
+    "normalized": "Wed, 23 Jul 2025 22:52:41 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/h6sguTQU-30M-Scalping-Strategy-with-Debug-Logs/",
+    "pubtext": "Sun, 27 Jul 2025 21:02:44 GMT",
+    "published_utc": "2025-07-27T21:02:44+00:00",
+    "normalized": "Sun, 27 Jul 2025 21:02:44 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/J4suAVs5-Enhanced-Market-Structure-Strategy/",
+    "pubtext": "Sun, 27 Jul 2025 12:25:38 GMT",
+    "published_utc": "2025-07-27T12:25:38+00:00",
+    "normalized": "Sun, 27 Jul 2025 12:25:38 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ldybvdO5-Intraday-Momentum-Strategy/",
+    "pubtext": "Sun, 27 Jul 2025 01:54:18 GMT",
+    "published_utc": "2025-07-27T01:54:18+00:00",
+    "normalized": "Sun, 27 Jul 2025 01:54:18 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/ZjaPtLo8-Refined-MA-Engulfing-M5-Confirmed-Structure-Break/",
+    "pubtext": "Sat, 26 Jul 2025 21:11:12 GMT",
+    "published_utc": "2025-07-26T21:11:12+00:00",
+    "normalized": "Sat, 26 Jul 2025 21:11:12 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/o1YzHrin/",
+    "pubtext": "Sat, 26 Jul 2025 11:26:31 GMT",
+    "published_utc": "2025-07-26T11:26:31+00:00",
+    "normalized": "Sat, 26 Jul 2025 11:26:31 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/40sDcbdD-US-Index-First-30m-Candle-Strategy-10m-Chart/",
+    "pubtext": "Fri, 25 Jul 2025 03:57:25 GMT",
+    "published_utc": "2025-07-25T03:57:25+00:00",
+    "normalized": "Fri, 25 Jul 2025 03:57:25 GMT"
+  },
+  {
+    "url": "https://www.tradingview.com/script/m8Vxw0hQ-HSI1-First-30m-Candle-Strategy-15m-Chart/",
+    "pubtext": "Thu, 24 Jul 2025 17:32:47 GMT",
+    "published_utc": "2025-07-24T17:32:47+00:00",
+    "normalized": "Thu, 24 Jul 2025 17:32:47 GMT"
+  }
+]

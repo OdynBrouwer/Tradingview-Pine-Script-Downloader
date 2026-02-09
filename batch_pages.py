@@ -16,6 +16,7 @@ def main():
     p.add_argument("--start", type=int, required=True, help="Start page number (e.g., 10)")
     p.add_argument("--end", type=int, required=True, help="End page number (inclusive, e.g., 20)")
     p.add_argument("--force", action="store_true", help="Force re-download even if .pine files exist")
+    p.add_argument("--no-check-updates", action="store_true", help="Disable check of remote Published date when skipping existing scripts")
     p.add_argument("--suppress-diagnostics", action="store_true", help="Suppress diagnostic sidecar files (useful for scheduled runs)")
     p.add_argument("--positional-click", action="store_true", help="Use positional click mode for copy extraction (useful for headless/scheduled runs)")
     args = p.parse_args()
@@ -57,6 +58,9 @@ def main():
             cmd = [sys.executable, "download_from_json.py", str(json_path)]
             if args.force:
                 cmd.append("--force")
+            # Default behavior: enable update checks unless user supplied --no-check-updates
+            if not args.no_check_updates:
+                cmd.append("--check-updates")
             if args.suppress_diagnostics:
                 cmd.append("--suppress-diagnostics")
             if args.positional_click:

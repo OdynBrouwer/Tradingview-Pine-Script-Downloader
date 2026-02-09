@@ -14,6 +14,8 @@ This version includes:
 
 import argparse
 import asyncio
+import email.utils
+import urllib.request
 import json
 import os
 import random
@@ -21,7 +23,7 @@ import re
 import sys
 import codecs
 import unicodedata
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
@@ -609,6 +611,152 @@ class EnhancedTVScraper:
         
 
 
+    async def extract_exact_publish_date(self):
+        """Extract exact publish date using advanced scraping techniques from scrape_pubdates.py."""
+        # Try multiple selectors and fallbacks similar to scrape_pubdates.py
+        pubtext = await self.page.evaluate("""() => {
+            // 0) special handling for <relative-time> which often exposes attributes like event-time / ssr-time
+            const relTime = document.querySelector('relative-time');
+            if(relTime) {
+                const attrs = ['event-time','ssr-time','datetime','title'];
+                for(const attr of attrs) {
+                    const val = relTime.getAttribute(attr);
+                    if(val) return val;
+                }
+                return relTime.textContent ? relTime.textContent.trim() : '';
+            }
+
+            // 1) <time> element
+            const timeEl = document.querySelector('time');
+            if(timeEl) {
+                return timeEl.textContent.trim();
+            }
+
+            // 2) explicit 'ago' search: return the matching relative substring (e.g. '6 days ago') when present
+            const nodes = Array.from(document.querySelectorAll('div, span, p, li, small, a'));
+            for (const n of nodes) {
+                const t = (n.textContent||'').trim();
+                if (/(\\b|_)ago(\\b|_)/i.test(t)) {
+                    const m = t.match(/\\d+\\s+(?:second|minute|hour|day|week|month|year)s?\\s+ago/i);
+                    return m ? m[0] : t;
+                }
+            }
+
+            // 3) header small/date element near title: find any element that looks like a date (month names, 'ago')
+            const dateNodes = Array.from(document.querySelectorAll('div, span, p'));
+            for (const n of dateNodes) {
+                const t = n.textContent || '';
+                if(t && /\\b(ago|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\b/i.test(t)) {
+                    return t.trim();
+                }
+            }
+
+            // 4) meta tags
+            const meta = document.querySelector('meta[property="article:published_time"]') ||
+                        document.querySelector('meta[name="pubdate"]') ||
+                        document.querySelector('meta[name="date"]');
+            if (meta) {
+                return meta.getAttribute('content') || meta.getAttribute('value') || meta.content || '';
+            }
+
+            return '';
+        }""")
+
+        # Debug output to see what text we extracted
+        print(f"[DEBUG] Raw pubtext extracted: '{pubtext}'")
+
+        # Parse the pubtext using similar logic as in scrape_pubdates.py
+        if not pubtext:
+            print("[DEBUG] No pubtext found, returning None")
+            return None
+
+        # Regular expressions from scrape_pubdates.py
+        REL_RE = re.compile(r"(?P<num>\d+)\s+(?P<unit>second|minute|hour|day|week|month|year)s?\s+ago", re.I)
+        ABS_MONTH_DAY_YEAR = re.compile(r"^(?P<mon>\w{3,9})\s+(?P<day>\d{1,2}),\s*(?P<year>\d{4})$")
+
+        s = pubtext.strip()
+        # Common relative form like '6 days ago' or '6 days ago' with extra text
+        m = REL_RE.search(s)
+        now = datetime.now(timezone.utc)
+        if m:
+            num = int(m.group('num'))
+            unit = m.group('unit').lower()
+            if unit.startswith('second'):
+                dt = now - timedelta(seconds=num)
+            elif unit.startswith('minute'):
+                dt = now - timedelta(minutes=num)
+            elif unit.startswith('hour'):
+                dt = now - timedelta(hours=num)
+            elif unit.startswith('day'):
+                dt = now - timedelta(days=num)
+            elif unit.startswith('week'):
+                dt = now - timedelta(weeks=num)
+            elif unit.startswith('month'):
+                # approximate month as 30 days
+                dt = now - timedelta(days=30 * num)
+            elif unit.startswith('year'):
+                dt = now - timedelta(days=365 * num)
+            else:
+                print(f"[DEBUG] Unknown time unit: {unit}, returning original text")
+                return pubtext
+            result = dt.astimezone(timezone.utc).isoformat()
+            print(f"[DEBUG] Parsed relative time '{s}' as: {result}")
+            return result
+
+        # Absolute like 'Dec 3, 2025' or 'Sep 4, 2025'
+        m2 = ABS_MONTH_DAY_YEAR.match(s)
+        if m2:
+            mon = m2.group('mon')[:3].title()
+            day = int(m2.group('day'))
+            year = int(m2.group('year'))
+            # Map full month names too
+            month_num = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,'Jul':7,'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12}
+            if mon in month_num:
+                dt = datetime(year, month_num[mon], day, tzinfo=timezone.utc)
+                result = dt.isoformat()
+                print(f"[DEBUG] Parsed absolute time '{s}' as: {result}")
+                return result
+
+        # ISO-like strings
+        try:
+            dt = datetime.fromisoformat(s)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            result = dt.astimezone(timezone.utc).isoformat()
+            print(f"[DEBUG] Parsed ISO time '{s}' as: {result}")
+            return result
+        except Exception:
+            pass
+
+        # RFC-2822 / HTTP-date forms like 'Tue, 27 Jan 2026 17:08:30 GMT'
+        try:
+            dt = email.utils.parsedate_to_datetime(s)
+            if dt is not None:
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                result = dt.astimezone(timezone.utc).isoformat()
+                print(f"[DEBUG] Parsed RFC-2822 time '{s}' as: {result}")
+                return result
+        except Exception:
+            pass
+
+        # Some pages show just '6 days ago' or 'Today' or 'Yesterday'
+        s_low = s.lower()
+        if s_low.startswith('today'):
+            dt = datetime.now(timezone.utc)
+            result = dt.isoformat()
+            print(f"[DEBUG] Parsed 'today' as: {result}")
+            return result
+        if s_low.startswith('yesterday'):
+            dt = (datetime.now(timezone.utc) - timedelta(days=1))
+            result = dt.isoformat()
+            print(f"[DEBUG] Parsed 'yesterday' as: {result}")
+            return result
+
+        # Return the original text if no parsing worked
+        print(f"[DEBUG] Could not parse '{s}', returning original text")
+        return pubtext
+
     async def extract_pine_source(self, script_url: str, isolated: bool = False) -> dict:
         """
         Extract Pine Script source code using multiple strategies.
@@ -726,8 +874,79 @@ class EnhancedTVScraper:
                 return meta;
             }''')
 
+            # First try the enhanced exact publish date extraction
+            exact_published_date = await self.extract_exact_publish_date()
+
+            # Debug output to see what dates we're getting
+            print(f"[DEBUG] Original published_date: {extended_meta.get('published_date', '')}")
+            print(f"[DEBUG] Exact published_date: {exact_published_date}")
+
             # Merge extended metadata
-            result['published_date'] = extended_meta.get('published_date', '')
+            # Use the exact date if available, otherwise fall back to the original method
+            result['published_date'] = exact_published_date or extended_meta.get('published_date', '')
+            # Normalize published_date to ISO+TZ when possible
+            try:
+                pd = result.get('published_date')
+                if pd:
+                    from email.utils import parsedate_to_datetime
+                    def _normalize_pub(s):
+                        s = s.strip()
+                        # try iso
+                        try:
+                            dt = datetime.fromisoformat(s)
+                            if dt.tzinfo is None:
+                                dt = dt.replace(tzinfo=timezone.utc)
+                            return dt.astimezone(timezone.utc).isoformat()
+                        except Exception:
+                            pass
+                        # try rfc
+                        try:
+                            dt = parsedate_to_datetime(s)
+                            if dt.tzinfo is None:
+                                dt = dt.replace(tzinfo=timezone.utc)
+                            return dt.astimezone(timezone.utc).isoformat()
+                        except Exception:
+                            pass
+                        # try simple month day, year
+                        m = ABS_MONTH_DAY_YEAR.match(s)
+                        if m:
+                            mon = m.group('mon')[:3].title()
+                            day = int(m.group('day'))
+                            year = int(m.group('year'))
+                            if mon in MONTHS:
+                                dt = datetime(year, MONTHS[mon], day, tzinfo=timezone.utc)
+                                return dt.isoformat()
+                        # relative times like '6 days ago'
+                        m2 = REL_RE.search(s)
+                        if m2:
+                            num = int(m2.group('num'))
+                            unit = m2.group('unit').lower()
+                            now = datetime.utcnow().replace(tzinfo=timezone.utc)
+                            if unit.startswith('second'):
+                                dt = now - timedelta(seconds=num)
+                            elif unit.startswith('minute'):
+                                dt = now - timedelta(minutes=num)
+                            elif unit.startswith('hour'):
+                                dt = now - timedelta(hours=num)
+                            elif unit.startswith('day'):
+                                dt = now - timedelta(days=num)
+                            elif unit.startswith('week'):
+                                dt = now - timedelta(weeks=num)
+                            elif unit.startswith('month'):
+                                dt = now - timedelta(days=30*num)
+                            elif unit.startswith('year'):
+                                dt = now - timedelta(days=365*num)
+                            else:
+                                dt = None
+                            if dt:
+                                return dt.astimezone(timezone.utc).isoformat()
+                        return None
+                    norm = _normalize_pub(pd)
+                    if norm:
+                        result['published_date'] = norm
+            except Exception:
+                pass
+
             result['description'] = extended_meta.get('description', '')
             result['tags'] = extended_meta.get('tags', [])
             result['boosts'] = extended_meta.get('boosts', 0)
@@ -1176,7 +1395,7 @@ class EnhancedTVScraper:
                 source = codecs.decode(source, 'unicode_escape')
             except Exception:
                 source = source.replace('\\n', '\n').replace('\\r', '\r').replace('\\t', '\t')
-                source = source.replace('\"', '"').replace('\/', '/')
+                source = source.replace('\"', '"').replace(r'\/', '/')
         # Normalize line endings
         source = source.replace('\r\n', '\n').replace('\r', '\n')
         return source
@@ -1756,6 +1975,14 @@ class EnhancedTVScraper:
         """Visit a single script URL and print diagnostics for copy-button capture attempts."""
         await self.setup()
         try:
+            # Extract the exact publish date before injecting copy-capture helpers
+            await self.page.goto(url, wait_until='networkidle', timeout=60000)
+            await self.page.wait_for_timeout(800)
+
+            # Extract exact publish date for use in header
+            exact_published_date = await self.extract_exact_publish_date()
+            print(f"[DEBUG] Exact published date for header: {exact_published_date}")
+
             # Inject copy-capture helpers *before* any page scripts run
             await self.page.add_init_script(r'''() => {
                 window.__cv = window.__cv || { captures: [], mutations: [], logs: [] };
@@ -1792,8 +2019,6 @@ class EnhancedTVScraper:
             }''')
             print('   [debug] Injected copy-capture init script')
             print(f"Diagnostics: visiting {url}")
-            await self.page.goto(url, wait_until='networkidle', timeout=60000)
-            await self.page.wait_for_timeout(800)
 
             # try to open source tab so copy-button inside source becomes visible
             try:
@@ -1940,7 +2165,9 @@ class EnhancedTVScraper:
                         # Always save final via save_script
                         title = await self.page.evaluate("() => { const h = document.querySelector('h1'); return h ? h.textContent.trim() : ''; }")
                         author = await self.page.evaluate("() => { const a = document.querySelector('a[href^=\"/u/\"]'); return a ? a.textContent.trim().replace('by ', '') : ''; }")
-                        lc = (chosen or '').lower()
+
+                        # Use the exact published date we extracted earlier
+                        chosen_lower = (chosen or '').lower()
                         res = {
                             'url': url,
                             'script_id': sid,
@@ -1948,11 +2175,12 @@ class EnhancedTVScraper:
                             'source_code': chosen,
                             'version': (re.search(r'//@version=(\d+)', chosen) or [None, ''])[1] or '',
                             'author': author or '',
+                            'published_date': exact_published_date,  # Use the exact date we extracted
                             'tags': [],
                             'boosts': 0,
                             'source_origin': 'clipboard',
-                            'is_library': ('library(' in lc) or (' library ' in lc),
-                            'is_strategy': 'strategy(' in lc
+                            'is_library': ('library(' in chosen_lower) or (' library ' in chosen_lower),
+                            'is_strategy': 'strategy(' in chosen_lower
                         }
                         saved = self.save_script(res, sid, force_flat=True)
                         print(f"[DEBUG] Also saved via save_script: {saved}", flush=True)
@@ -1978,6 +2206,8 @@ class EnhancedTVScraper:
                             try:
                                 title = await self.page.evaluate("() => { const h = document.querySelector('h1'); return h ? h.textContent.trim() : ''; }")
                                 author = await self.page.evaluate("() => { const a = document.querySelector('a[href^=\"/u/\"]'); return a ? a.textContent.trim().replace('by ', '') : ''; }")
+
+                                # Use the exact published date we extracted earlier
                                 pv_low = (page_visible or '').lower()
                                 res = {
                                     'url': url,
@@ -1986,6 +2216,7 @@ class EnhancedTVScraper:
                                     'source_code': page_visible,
                                     'version': (re.search(r'//@version=(\d+)', page_visible) or [None, ''])[1] or '',
                                     'author': author or '',
+                                    'published_date': exact_published_date,  # Use the exact date we extracted
                                     'tags': [],
                                     'boosts': 0,
                                     'source_origin': 'page_visible',
@@ -2065,6 +2296,8 @@ class EnhancedTVScraper:
                         try:
                             title = await self.page.evaluate("() => { const h = document.querySelector('h1'); return h ? h.textContent.trim() : ''; }")
                             author = await self.page.evaluate("() => { const a = document.querySelector('a[href^=\"/u/\"]'); return a ? a.textContent.trim().replace('by ', '') : ''; }")
+
+                            # Use the exact published date we extracted earlier
                             res = {
                                 'url': url,
                                 'script_id': sid,
@@ -2072,6 +2305,7 @@ class EnhancedTVScraper:
                                 'source_code': chosen,
                                 'version': (re.search(r'//@version=(\d+)', chosen) or [None, ''])[1] or '',
                                 'author': author or '',
+                                'published_date': exact_published_date,  # Use the exact date we extracted
                                 'tags': [],
                                 'boosts': 0,
                                 'source_origin': 'clipboard'
@@ -2208,6 +2442,143 @@ class EnhancedTVScraper:
             pass
         return found
 
+    def _find_local_file_for_url(self, url: str):
+        """Return the best matching local .pine Path for a given script URL or None."""
+        try:
+            # search meta.json sidecars first
+            for meta in self.output_dir.rglob('*.meta.json'):
+                try:
+                    with open(meta, 'r', encoding='utf-8') as mf:
+                        data = json.load(mf)
+                        if data.get('url') == url:
+                            # corresponding .pine has same base name
+                            p = meta.with_suffix('.pine')
+                            if p.exists():
+                                return p
+                except Exception:
+                    continue
+            # fallback: scan .pine headers
+            for p in self.output_dir.rglob('*.pine'):
+                try:
+                    with open(p, 'r', encoding='utf-8') as f:
+                        for _ in range(40):
+                            line = f.readline()
+                            if not line:
+                                break
+                            m = re.match(r'\s*//\s*URL:\s*(\S+)', line)
+                            if m and m.group(1).strip() == url:
+                                return p
+                except Exception:
+                    continue
+        except Exception:
+            pass
+        return None
+
+    def _parse_published_from_file(self, path: Path):
+        """Return datetime of the // Published: header in the given .pine file, or None."""
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                for _ in range(40):
+                    line = f.readline()
+                    if not line:
+                        break
+                    if 'Published:' in line:
+                        idx = line.find('Published:')
+                        val = line[idx+len('Published:'):].strip()
+                        try:
+                            if 'GMT' in val or ',' in val:
+                                return email.utils.parsedate_to_datetime(val)
+                            # try iso
+                            if val.endswith('Z'):
+                                val = val[:-1]
+                            return datetime.fromisoformat(val)
+                        except Exception:
+                            return None
+        except Exception:
+            return None
+        return None
+
+    def _fetch_remote_published(self, url: str, timeout: int = 8):
+        """Synchronous lightweight fetch of page HTML and attempt to parse a Published date.
+
+        Heuristics (in priority order):
+        1. JSON fields like "created_at" or "published_at" (ISO with timezone)
+        2. ISO datetime with timezone (e.g., 2026-02-09T07:37:12+00:00)
+        3. Look near a literal 'Published:' occurrence
+        4. RFC-2822 matches as a last resort (but prefer RFC that matches an ISO found above)
+        """
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                text = resp.read().decode('utf-8', errors='ignore')
+
+                # 1) JSON fields (created_at / published_at) - prefer these when present
+                m_json = re.search(r'"(?:created_at|published_at)"\s*:\s*"([0-9T:\.\-+Z]+)"', text)
+                if m_json:
+                    val = m_json.group(1)
+                    try:
+                        # Python's fromisoformat understands offsets like +00:00; replace trailing Z with +00:00
+                        if val.endswith('Z'):
+                            val = val[:-1] + '+00:00'
+                        return datetime.fromisoformat(val)
+                    except Exception:
+                        pass
+
+                # 2) ISO with explicit timezone
+                m_iso_tz = re.search(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})', text)
+                if m_iso_tz:
+                    val = m_iso_tz.group(0)
+                    try:
+                        if val.endswith('Z'):
+                            val = val[:-1] + '+00:00'
+                        return datetime.fromisoformat(val)
+                    except Exception:
+                        pass
+
+                # 3) ISO without tz (assume UTC) - still useful if present and no tz ones matched
+                m_iso = re.search(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', text)
+                if m_iso:
+                    try:
+                        val = m_iso.group(0)
+                        return datetime.fromisoformat(val)
+                    except Exception:
+                        pass
+
+                # 4) Look near 'Published:' literal
+                idx = text.find('Published:')
+                if idx != -1:
+                    snippet = text[idx:idx+200]
+                    m3 = re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})?", snippet)
+                    if m3:
+                        val = m3.group(0)
+                        try:
+                            if val.endswith('Z'):
+                                val = val[:-1] + '+00:00'
+                            return datetime.fromisoformat(val)
+                        except Exception:
+                            pass
+
+                # 5) RFC-2822 matches as last resort. If multiple found, try to prefer one that matches any ISO time hours/minutes
+                rfc_matches = re.findall(r"[A-Za-z]{3},\s*\d{1,2}\s+\w{3}\s+\d{4}\s+\d{2}:\d{2}:\d{2}\s+GMT", text)
+                if rfc_matches:
+                    # If we also found an ISO time earlier, try to match the RFC with the same HMS
+                    if m_iso:
+                        iso_hms = m_iso.group(0)[11:19]  # 'HH:MM:SS'
+                        for r in rfc_matches:
+                            if iso_hms in r:
+                                try:
+                                    return email.utils.parsedate_to_datetime(r)
+                                except Exception:
+                                    continue
+                    # else return the first RFC match
+                    try:
+                        return email.utils.parsedate_to_datetime(rfc_matches[0])
+                    except Exception:
+                        pass
+        except Exception:
+            return None
+        return None
+
     def save_script(self, result: dict, category: str, force_flat: bool = False) -> Path:
         """Save Pine Script to file with metadata."""
         print(f"[DEBUG] save_script called: script_id={result.get('script_id')} title={result.get('title')} category={category} force_flat={force_flat}", flush=True)
@@ -2270,7 +2641,7 @@ class EnhancedTVScraper:
                         except Exception as e:
                             print(f"[ERROR] unicode_escape decode: {e}")
                             source = source.replace('\\n','\n').replace('\\r','\r').replace('\\t','\t')
-                            source = source.replace('\\"','"').replace('\\/','/')
+                            source = source.replace('\\"','"').replace(r'\/','/')
                     source = source.strip('\n')
                 except Exception as e:
                     print(f"[ERROR] source string handling: {e}")
@@ -2369,8 +2740,69 @@ class EnhancedTVScraper:
                 if completed:
                     print(f"Resuming: found {len(completed)} existing scripts to skip")
 
-            # Filter scripts and prepare worklist
-            worklist = [s for s in scripts if s['url'] not in completed]
+            # Check for updates on the scripts we're about to skip (only for the scripts on this listing)
+            force_redownload = set()
+            if resume and completed:
+                print('Checking for updates on existing scripts (comparing published dates) ...')
+                for s in scripts:
+                    url = s.get('url')
+                    if not url or url not in completed:
+                        continue
+                    local_p = self._find_local_file_for_url(url)
+                    local_dt = None
+                    if local_p:
+                        local_dt = self._parse_published_from_file(local_p)
+                    remote_dt = self._fetch_remote_published(url)
+                    # Normalize timezone awareness: treat naive datetimes as UTC and compare in UTC
+                    if remote_dt:
+                        if remote_dt.tzinfo is None:
+                            remote_dt = remote_dt.replace(tzinfo=timezone.utc)
+                        else:
+                            remote_dt = remote_dt.astimezone(timezone.utc)
+                    if local_dt:
+                        if local_dt.tzinfo is None:
+                            local_dt = local_dt.replace(tzinfo=timezone.utc)
+                        else:
+                            local_dt = local_dt.astimezone(timezone.utc)
+                    elif remote_dt and (local_dt is None):
+                        # remote has date, local missing -> treat as updated
+                        pass
+
+                    # Log normalized values for debugging
+                    print(f"  [check-updates] normalized remote={remote_dt} local={local_dt}")
+
+                    # Decide by truncating microseconds — compare whole seconds deterministically
+                    try:
+                        is_updated = False
+                        if remote_dt and local_dt:
+                            # truncate microseconds for both datetimes
+                            remote_s = remote_dt.replace(microsecond=0)
+                            local_s = local_dt.replace(microsecond=0)
+                            delta = (remote_s - local_s).total_seconds()
+                            print(f"  [check-updates] normalized_utc remote_s={remote_s} local_s={local_s} delta_seconds={delta:+.6f}")
+                            is_updated = (remote_s > local_s)
+                        elif remote_dt and (local_dt is None):
+                            # remote has date, local missing -> treat as updated
+                            is_updated = True
+
+                        if is_updated:
+                            if 'delta' in locals():
+                                print(f"  Update detected: {url} (remote={remote_s}, local={local_s}, delta={delta:+.6f}s)")
+                            else:
+                                print(f"  Update detected: {url} (remote={remote_dt}, local={local_dt})")
+                            force_redownload.add(url)
+                        else:
+                            if remote_dt and local_dt:
+                                print(f"  [check-updates] No update (delta={delta:+.6f}s) - skipping {url}")
+                            else:
+                                print(f"  [check-updates] No update detected; skipping {url}")
+
+                    except Exception:
+                        # if comparison fails for timezone issues, ignore and continue
+                        continue
+
+            # Filter scripts and prepare worklist (include forced redownloads)
+            worklist = [s for s in scripts if (s['url'] not in completed) or (s['url'] in force_redownload)]
             if not worklist:
                 print("No new scripts to download.")
                 return

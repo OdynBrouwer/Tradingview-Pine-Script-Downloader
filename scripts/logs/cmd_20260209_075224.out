@@ -1,0 +1,39 @@
+
+======================================================================
+  BATCH DOWNLOAD
+  Processing 3 URLs
+======================================================================
+
+
+[1/3] Processing: https://www.tradingview.com/scripts/page-01/?script_type=indicators&sort=recent_extended&page=1
+
+----------------------------------------------------------------------
+[setup] launching browser; headless=True user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+[setup] browser launched
+   Found 21 scripts... (clicks 0)   Found 21 scripts... (clicks 0)
+   Found 21 scripts on page. Saved to pinescript_downloads\indicators\page-01-urls.json
+[setup] Page close event detected
+
+Waiting before next URL...
+
+[2/3] Processing: https://www.tradingview.com/scripts/page-02/?script_type=indicators&sort=recent_extended&page=2
+
+----------------------------------------------------------------------
+[setup] launching browser; headless=True user_agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15
+[setup] browser launched
+   Found 24 scripts... (clicks 0)   Found 24 scripts... (clicks 0)
+   Found 24 scripts on page. Saved to pinescript_downloads\indicators\page-02-urls.json
+[setup] Page close event detected
+
+Waiting before next URL...
+
+[3/3] Processing: https://www.tradingview.com/scripts/page-03/?script_type=indicators&sort=recent_extended&page=3
+
+----------------------------------------------------------------------
+[setup] launching browser; headless=True user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+[setup] browser launched
+   Found 24 scripts... (clicks 0)   Found 24 scripts... (clicks 0)
+   Found 24 scripts on page. Saved to pinescript_downloads\indicators\page-03-urls.json
+[setup] Page close event detected
+
+Klaar met verzamelen van URLs per pagina. Je kunt nu per map downloaden.

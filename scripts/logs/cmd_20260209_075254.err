@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "C:\GIT\Tradingview-Pine-Script-Downloader\tv_downloader_enhanced.py", line 3074, in <module>
+    asyncio.run(main())
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\GIT\Tradingview-Pine-Script-Downloader\tv_downloader_enhanced.py", line 2946, in main
+    await scraper.dump_copy_diagnostics(args.url)
+  File "C:\GIT\Tradingview-Pine-Script-Downloader\tv_downloader_enhanced.py", line 1978, in dump_copy_diagnostics
+    await self.page.goto(url, wait_until='networkidle', timeout=60000)
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\async_api\_generated.py", line 9041, in goto
+    await self._impl_obj.goto(
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_page.py", line 552, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py", line 153, in goto
+    await self._channel.send(
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\info\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TargetClosedError: Page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.tradingview.com/script/frTDeuJf-Chitranjan-Shastri-Fixed-Ultra-Clear-Pilot/", waiting until "networkidle"
+
+C:\GIT\Tradingview-Pine-Script-Downloader\tv_downloader_enhanced.py:1395: DeprecationWarning: invalid escape sequence '\D'
+  source = codecs.decode(source, 'unicode_escape')

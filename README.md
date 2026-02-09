@@ -90,6 +90,12 @@ Kleine code-opmerking:
 - Logs: `scripts/logs/` (per run timestamped)
 - Suggestie: toevoeging van `scripts/cleanup_duplicates.py` (dry-run) voor duplicaat-detectie en veilige opruiming.
 
+💡 **Update-detectie:** Update-detectie wordt nu standaard uitgevoerd tijdens downloads (in `download_from_json.py` / `batch_pages.py`). Het vergelijkt remote `created_at`/`published_at` (voorkeur voor ISO met timezone) met de lokale `// Published:` header; datums worden genormaliseerd naar UTC en vergeleken op seconden (microseconden worden weggegooid) om valse her-downloads te voorkomen. Gebruik `--no-check-updates` om dit uit te schakelen.
+
+⚠️ **Scheduler timeout:** `scripts/run_periodic_collection.ps1` hanteert nu een per-opdracht timeout (standaard 30 minuten) en probeert vastgelopen child-processes netjes te stoppen en eventueel geforceerd te killen; logs staan in `scripts/logs/`.
+
+🧹 **Automatische logopschoning:** `scripts/cleanup_logs.ps1` verwijdert automatisch logbestanden ouder dan 24 uur uit `scripts/logs/` (inclusief `*.log`, `*.out`, en `*.err`). De runner (`scripts/run_periodic_collection.ps1`) roept dit script aan aan het eind van elke run en logt welke bestanden zijn verwijderd. Gebruik `scripts/cleanup_logs.ps1 -DryRun` om eerst te zien welke bestanden zouden worden verwijderd.
+
 ---
 
 ## Bijdragen & support

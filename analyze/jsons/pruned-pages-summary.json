@@ -1,0 +1,1506 @@
+{
+  "timestamp": "20260204090807",
+  "files": [
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-08-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/YkJcaziL-TradeAxis-Trendlines-Full-Range/",
+        "https://www.tradingview.com/script/Hc5oH9Ts-Delta-Power-Zones/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-104-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/7WxSk7Bb-US30-Optimal-Trade-Time/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-11-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/I29vLtEO/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-118-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/OsxJDzXf-Weekly-ATR-Bounds/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-121-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/D7oxU2xq-Chainbey-Ai-Liquidity-Zones-Pivot-Sweeps-Chain-Style/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-125-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/SBXf40Fa-Chainbey-Ai-HTF-Trend-Matrix-Clean/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-127-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/kzJyHIo7-Chainbey-AI-Pattern-Memory-Table-v2/",
+        "https://www.tradingview.com/script/7AtDowFy-Chainbey-Ai-Swing-High-Low-Range/",
+        "https://www.tradingview.com/script/mt5swqMS-Chainbey-Ai-Previous-Day-High-Low/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-13-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/cZxHOr3M-Buyside-Sellside-Liquidity-5m-15m/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-135-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/D6vnaW6a-Wedge-Pattern-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-140-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/NOgX3Wnk-Dynamic-Stoch200-MACD-Gann-Confluence-Cardinal-Ordinal/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-141-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/KQB1H1JA-ICT-Concepts-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-144-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/zoY5ey1s-Liquidity-Sweeps-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-146-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/n453DNF1-3D-Isometric-MFI-Christmas-Edition-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-15-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/BW2JA9se/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-150-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/kYDaZQI1-Hurst-Optimized-Adaptive-Channel-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-154-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/irJbG8Vs-Golden-Zone-Structure-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-16-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/KDwec7dn-ST-ATR-Trailing-Stop/",
+        "https://www.tradingview.com/script/4XsBWU77-ST-TICK-Bars/",
+        "https://www.tradingview.com/script/CBsViYSa-ST-TTM-Squeeze/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-160-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/XEfw1eR7-SMT-Divergence-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-162-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/LSZLk5vJ-ICT-Unicorn-Model-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-165-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ufMDZ62H-Quasimodo-QML-Pattern-Kodexius/",
+        "https://www.tradingview.com/script/zPmMhOom-RSI-Distribution-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-172-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/r0YSmrQP-Harmonic-Patterns-Experimental-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-175-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/UUbv0TN9-Daily-Levels-cryptalent/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-178-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/1YkflwQD-Jurik-Angle-Flow-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-182-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/kBhPHqPI-TDI-Fibonacci-Volatility-Bands-Candle-Coloring-cryptalent/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-183-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/R7DRiW77-Fair-Value-Gap-Signals-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-199-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Ej2W3Uch-RSI-Profile-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-205-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/mKxZoBfp-Volumetric-Inverse-Fair-Value-Gap-IFVG-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-206-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/hAklGidK-MFI-Volume-Profile-Kodexius/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-21-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/JXPoCu1p-covenant-1/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-239-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/OgPGWj4x-13-26-52-SMA-Overlay/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-24-urls.json",
+      "orig": 24,
+      "new": 13,
+      "removed": 11,
+      "removed_urls": [
+        "https://www.tradingview.com/script/zlDtq5On-CDC-ActionZone-V3-RSI-Divergences/",
+        "https://www.tradingview.com/script/kvCffbAg/",
+        "https://www.tradingview.com/script/SY3BJ5DK/",
+        "https://www.tradingview.com/script/qS08ulhW-Triple-SMMA-11-21/",
+        "https://www.tradingview.com/script/TWsHlAIu-Triple-RSI-Multi-Timeframe-6-Levels/",
+        "https://www.tradingview.com/script/dajjtfZs-TXG-Wick-Detector/",
+        "https://www.tradingview.com/script/RqqZiSWB-Smart-Position-Calculator-Risk-Margin-Ticks/",
+        "https://www.tradingview.com/script/I7UCwf4I-Absorption-Call/",
+        "https://www.tradingview.com/script/NZHrnlTQ-Multi-Timeframe-Moving-Average-Tracker/",
+        "https://www.tradingview.com/script/FeFEI9Wl/",
+        "https://www.tradingview.com/script/QaVfDRhj-Nifty-Velocity-Leader-Sovereign/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-240-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/tJ0e8drH-Yesterday-s-OHLC-O-H-L-C-with-Labels/",
+        "https://www.tradingview.com/script/daEZk1jB-Yesterday-s-OHLC-O-H-L-C-WITH-Labels/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-244-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/4A6lUO75-Daily-vs-Monthly-VWAP-Crossover/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-245-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/0EwWVvIq-Close-vs-10-EMA-Spread-with-colors/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-25-urls.json",
+      "orig": 24,
+      "new": 19,
+      "removed": 5,
+      "removed_urls": [
+        "https://www.tradingview.com/script/SZVv8TtG-Koko-s-Capital-Flow-Channel/",
+        "https://www.tradingview.com/script/Dafxe0VS/",
+        "https://www.tradingview.com/script/BrcnGbY7/",
+        "https://www.tradingview.com/script/eN1Ovjl3/",
+        "https://www.tradingview.com/script/TEyWBT66-3Y-Rolling-Correlation-vs-SPY-Daily/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-317-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/nbOoz6JF-CHOCH-FVG-Signals-30m-Optimized/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-34-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/1rw1kKC6/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-35-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/5r5ZkYUx/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-353-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/1RRz3Ne5-Smooth-Cloud-ZigZag-VPOC-CORE-v6/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-419-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/gxzrFdvp-Third-Eye-ORB-Pro-0915-0930-IST-no-plot/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-423-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/yj2AcmsT-Goldbach-Time-Indicator/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-424-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/HOzbB74f-Signal-Hunter-Pro-GKDXL/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-425-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ZFTDs8OW-Volume-Weighted-Average-Price-HPS/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-43-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/KWmMjDp2-Full-Width-S-R-Locked-Levels/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-44-urls.json",
+      "orig": 24,
+      "new": 20,
+      "removed": 4,
+      "removed_urls": [
+        "https://www.tradingview.com/script/KWmMjDp2-Full-Width-S-R-Locked-Levels/",
+        "https://www.tradingview.com/script/iyakkThw-psp-with-color-themes/",
+        "https://www.tradingview.com/script/kCOzPXv6-psp-candles/",
+        "https://www.tradingview.com/script/YOIY5CgI-Anchor-Pulse-Wave/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-450-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/tsZKQovZ-Wickless-Tap-Signals/",
+        "https://www.tradingview.com/script/vANYPLjo-U-Table-LITE/",
+        "https://www.tradingview.com/script/DDZPXXet-Trishul-Tap-Signals-v6-Liquidity-Sweep-Imbalanced-Retest/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-451-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/tsZKQovZ-Wickless-Tap-Signals/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-47-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/lRHGJY8f-smt-bos-rr/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-477-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/U1YFmDEH-3-EMA-trong-1-NTT-CAPITAL/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-485-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/c1VG0qJJ/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-494-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/g7LGGE3Y-Rogue-BTC-Dominance-BTC-Price-Monitor/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-50-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ONuaExsx-Real-Deviation-Strength-RDS-ALPHA/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-500-urls.json",
+      "orig": 197,
+      "new": 196,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/g7LGGE3Y-Rogue-BTC-Dominance-BTC-Price-Monitor/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-73-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/NJUg6crE-Macro-FVG-with-Quarter-Theory-CE-Alerts/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-76-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/vaXtiUaV-Median-Anchor-Oscillator-ALPHA/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\indicators\\page-89-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/UgLe5Rqw-David-s-Macro-FVG-v6/",
+        "https://www.tradingview.com/script/yuMSHGkF-adx-diplus-di-minus/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\libraries\\page-09-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/XlOp0jWW/",
+        "https://www.tradingview.com/script/hT9AwTiN/",
+        "https://www.tradingview.com/script/tldCs8GH/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\libraries\\page-16-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/27ba1u04-JsonAlert/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\libraries\\page-32-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/6lIWLH3E-rsnpsd/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-04-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/9H3brvve-ORBit/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-100-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/MtvROUAk-robotrading-body-limit/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-103-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/YF4olFdu-robotrading-zerocci/",
+        "https://www.tradingview.com/script/3BCn3EJ4-robotrading-linreg/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-104-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/1OX9Wu8g-Instrument-Z-3Commas-Bot/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-105-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/6Nayl7hU/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-106-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/OXDJ6Bdd/",
+        "https://www.tradingview.com/script/Qwy0Fi3g/",
+        "https://www.tradingview.com/script/H1PyG6AX-Juicy-Trend/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-108-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/vziSE13p-PSAR-EMA-TEMA-RSI-OBV/",
+        "https://www.tradingview.com/script/zUaR3Vbb-robotrading-body/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-111-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/TzCa3XcU-Date-Range-Demonstration/",
+        "https://www.tradingview.com/script/ZON6m4qu-TEMA-MAMA-Cross/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-113-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/JuOqMfBq-ADX-RSI-Strategy-by-Trade-Rush-created-by-SirPoggy/",
+        "https://www.tradingview.com/script/oLBYs6KB-robotrading-trendweek/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-119-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/iyNlFPJF-ratings/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-122-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Vbwo4hZX-Excitement-Crypto-Surfer-v1/",
+        "https://www.tradingview.com/script/P93CsDY0-Bollinger-DCA-v1/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-125-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/6vefGGyk-Bollinger-bubble-Forex-edition/",
+        "https://www.tradingview.com/script/Wkz8ol2L-Bollinger-bubble-Stock-Edition/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-126-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/d0FZtMLp/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-128-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/XNhHlCE6-Advanced-Bollinger-Bands-Strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-129-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/UEbrJcmh-donchian-channel-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-132-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/futPZepe/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-133-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Mc2wPUg2-Pinescript-v4-The-Holy-Grail-Trailing-Stop/",
+        "https://www.tradingview.com/script/PS8RkcfQ-noro-s-srsi-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-135-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/EaBACrDi/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-136-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Q5TPHHLs/",
+        "https://www.tradingview.com/script/1952PBhO/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-137-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/AkLrIlan-ETF-Stocks-Crypto-DCA-Strategy-v1/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-138-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ekUY41fE-PineScript-v4-Forex-Pin-Bar-Trading-Strategy/",
+        "https://www.tradingview.com/script/1kEpR229-The-Lazy-Trader-Index-ETF-Trend-Following-Robot/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-141-urls.json",
+      "orig": 24,
+      "new": 19,
+      "removed": 5,
+      "removed_urls": [
+        "https://www.tradingview.com/script/6nASafZA-noro-s-riskchannel-strategy/",
+        "https://www.tradingview.com/script/JHBIDlp8-noro-s-riskdonchian-strategy/",
+        "https://www.tradingview.com/script/cUBda2di-noro-s-riskturtle-strategy/",
+        "https://www.tradingview.com/script/tnFHknMz-EMA-Crossover-Strategy/",
+        "https://www.tradingview.com/script/SsiA8TNL-noro-s-simpleturtle-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-142-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ASswCSKm-noro-s-turtles-strategy/",
+        "https://www.tradingview.com/script/j5rUYNN1-Bollinger-Band-Breakout/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-143-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/3kMUl7fJ/",
+        "https://www.tradingview.com/script/HeRJBY0A-noro-s-donchian-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-145-urls.json",
+      "orig": 24,
+      "new": 20,
+      "removed": 4,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Pdisufy1-eha-Moving-Averages-Strategy/",
+        "https://www.tradingview.com/script/tOPhJYcd-Mean-Reversion-w-Bollinger-Bands/",
+        "https://www.tradingview.com/script/12DtNLFY-noro-s-channel-close-strategy/",
+        "https://www.tradingview.com/script/BRDFaufy-noro-s-trendma-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-146-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/o0CWk20n-STRAT-STEMWAP/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-149-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/d3VaCs8a-kurdistan-MACD-RSI-EMA/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-150-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/w61dAHV7/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-151-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/XWuHQCUp-YJ-Mean-Reversion/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-152-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ia49d7a0/",
+        "https://www.tradingview.com/script/tSixyE0W-noro-s-crosslimit/",
+        "https://www.tradingview.com/script/CDahf1uS/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-153-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/OOBWuKih-noro-s-bands-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-154-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/GhIu10zW/",
+        "https://www.tradingview.com/script/ma6lj5WR/",
+        "https://www.tradingview.com/script/f0NnKUwv-STEM-MATCS-BTC-STRATEGY/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-156-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/yY7GH7OG-robot-whitebox-channel/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-158-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/aWVio6dp-noro-s-zz-4-strategy/",
+        "https://www.tradingview.com/script/oR7vPyoS-robot-whitebox-stopma/",
+        "https://www.tradingview.com/script/BJxmNjRC-strategy-based-on-the-principles-of-price-action/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-159-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/QyrNCxvj-open-close-cross-strategy-pinescript-v4/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-161-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/RJTt6SxM/",
+        "https://www.tradingview.com/script/8FdTBZHD-noro-s-ichimoku-stop-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-163-urls.json",
+      "orig": 24,
+      "new": 20,
+      "removed": 4,
+      "removed_urls": [
+        "https://www.tradingview.com/script/jJmg1sbp-simple-momentum/",
+        "https://www.tradingview.com/script/SK4l04qm-noro-s-dex-strategy/",
+        "https://www.tradingview.com/script/NlIIByhz-noro-s-ddl-strategy/",
+        "https://www.tradingview.com/script/m2a04xmb-noro-s-shiftma-tp-sl-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-164-urls.json",
+      "orig": 24,
+      "new": 19,
+      "removed": 5,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Oty9KQiu-robot-whitebox-iceberg/",
+        "https://www.tradingview.com/script/51EIXTQe-noro-s-trailing-stop-strategy/",
+        "https://www.tradingview.com/script/8FNK60U9/",
+        "https://www.tradingview.com/script/CtS3bsvy/",
+        "https://www.tradingview.com/script/p2y7o8RN-robot-whitebox-multima/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-166-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/qI4J1ejC-noro-s-shiftma-multi-strategy-v1-1/",
+        "https://www.tradingview.com/script/iKnhl9mI-noro-s-shiftma-multi-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-167-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Wmch7RYL-noro-s-ma-atr-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-169-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/QFC5tySs-noro-s-di-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-170-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/NKcpZG9n-noro-s-trendtrader-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-171-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/FbU0bYzj-noro-s-shiftex-strategy-v2-0/",
+        "https://www.tradingview.com/script/uY3LjKGG-noro-s-shiftex-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-172-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/KaVuuDJx-noro-s-dd-strategy/",
+        "https://www.tradingview.com/script/JXKgN7WF-noro-s-revbar-strategy/",
+        "https://www.tradingview.com/script/1XqXYO1S-noro-s-alligator-strategy-by-bill-williams/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-173-urls.json",
+      "orig": 24,
+      "new": 18,
+      "removed": 6,
+      "removed_urls": [
+        "https://www.tradingview.com/script/lXFsQFBb-noro-s-supertrend-strategy-v2-0-limit/",
+        "https://www.tradingview.com/script/ZuhkhFfS-noro-s-3bars-strategy-by-larry-williams/",
+        "https://www.tradingview.com/script/TuV2Aqh6-noro-s-zz-3-strategy/",
+        "https://www.tradingview.com/script/pXh4yqtC-noro-s-brakeout-strategy-v2-0/",
+        "https://www.tradingview.com/script/5iEQqicE-noro-s-singapore-strategy/",
+        "https://www.tradingview.com/script/fbORILRB/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-174-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/2LsLKtlc-On-Balance-Volume-w-MA-Strat/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-175-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/Pcav6Ztg-noro-s-kama-strategy/",
+        "https://www.tradingview.com/script/W4maFatM-SARSI-Reversal-Strategy/",
+        "https://www.tradingview.com/script/BHom43Zt-noro-s-fishnet-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-176-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/4rEgaYGB-Silent-Trader/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-177-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/P9r4mHUb-noro-s-hullma-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-178-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/EDiy3P4V-noro-s-zigtrend-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-179-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/fODSrLvL-noro-s-pcma-strategy-v1-0/",
+        "https://www.tradingview.com/script/9KvLceQ9-robot-whitebox-shiftma/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-180-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/NfjOgmGi-noro-s-supertrend-strategy-v1-0/",
+        "https://www.tradingview.com/script/ldigP6yG/",
+        "https://www.tradingview.com/script/WSmycbDG-TDI-Traders-Dynamic-Index-Roshan-Mehdi/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-181-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/RwRhnOgw-noro-s-bb-rsi-strategy-v1-0/",
+        "https://www.tradingview.com/script/Xn30EZXW-noro-s-shift-close-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-182-urls.json",
+      "orig": 24,
+      "new": 19,
+      "removed": 5,
+      "removed_urls": [
+        "https://www.tradingview.com/script/gEktwpNZ-noro-s-volty-strategy-v1-0/",
+        "https://www.tradingview.com/script/QeY3dcYy-noro-s-bitfinex-long-shorts-strategy-v1-0/",
+        "https://www.tradingview.com/script/CiBoe8ql/",
+        "https://www.tradingview.com/script/sA1hEpCP-TurtleBC-Strategy-review-by-V-Troussel/",
+        "https://www.tradingview.com/script/g8cS0CS6-noro-s-aroon-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-183-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/3OsygWhP/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-184-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/danSWA85-coding-lesson-2/",
+        "https://www.tradingview.com/script/NU1RGYCF-coding-lesson-1/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-185-urls.json",
+      "orig": 24,
+      "new": 20,
+      "removed": 4,
+      "removed_urls": [
+        "https://www.tradingview.com/script/AHMm9ctU-sma-cf-str/",
+        "https://www.tradingview.com/script/kJUsuQzr-bb-mfi-rsi/",
+        "https://www.tradingview.com/script/S2h62R4N-noro-s-extremum-strategy-v1-0/",
+        "https://www.tradingview.com/script/6VfA6sTZ-noro-s-zz-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-186-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/hbtRC9zs-noro-s-levels-rsi-strategy-v1-0/",
+        "https://www.tradingview.com/script/Ny1Sus0t-noro-s-symphony-strategy-v1-1/",
+        "https://www.tradingview.com/script/BOQabwim-noro-s-symphony-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-187-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/QJxCUlsC-noro-s-advanced-bollinger-bands-strategy-v1-0/",
+        "https://www.tradingview.com/script/qoAh5AYy/",
+        "https://www.tradingview.com/script/kgHNqZB2-noro-s-multima-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-188-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/StYrq9xc-robot-bitmex-fast-rsi-v1-0-overlay/",
+        "https://www.tradingview.com/script/pyT5mvLO/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-191-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/WComo2P9-noro-s-anti-rsi-strategy-v1-0/",
+        "https://www.tradingview.com/script/1KTILGrF-noro-s-wizard-strategy-v1-0/",
+        "https://www.tradingview.com/script/bUWKJjQ1-noro-s-fast-rsi-strategy-v2-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-192-urls.json",
+      "orig": 24,
+      "new": 13,
+      "removed": 11,
+      "removed_urls": [
+        "https://www.tradingview.com/script/YEsQ8gri-noro-s-brakeout-strategy-v1-0/",
+        "https://www.tradingview.com/script/6camlPpU-noro-s-transient-zones-strategy-v1-0/",
+        "https://www.tradingview.com/script/AohN8CVy-noro-s-bollinger-strategy-v1-4/",
+        "https://www.tradingview.com/script/WjANy7UB-noro-s-connors-rsi-strategy-v1-0/",
+        "https://www.tradingview.com/script/D6f016Bx-noro-s-distance-strategy-v1-0/",
+        "https://www.tradingview.com/script/1qqqlLB4-noro-s-wavetrender-strategy-v1-0/",
+        "https://www.tradingview.com/script/tUQcbV7X-noro-s-fast-rsi-strategy-v1-7/",
+        "https://www.tradingview.com/script/2GWcpQfq-noro-s-ichimoku-strategy-v1-0/",
+        "https://www.tradingview.com/script/LbUmtya9-noro-s-stochastic-strategy-v1-3/",
+        "https://www.tradingview.com/script/JZK2IQU5-noro-s-stochastic-strategy-v1-2/",
+        "https://www.tradingview.com/script/hEEZqD7l-MarketBottom/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-193-urls.json",
+      "orig": 24,
+      "new": 12,
+      "removed": 12,
+      "removed_urls": [
+        "https://www.tradingview.com/script/y2vumXmK-noro-s-week-strategy-v1-0/",
+        "https://www.tradingview.com/script/QTnrNj6i-Pivot-Reversal-Strategy-TimeFramed/",
+        "https://www.tradingview.com/script/ApQBTeGZ-noro-s-candlemodels-tests/",
+        "https://www.tradingview.com/script/fNuNMeMG-noro-s-stochastic-strategy-v1-1/",
+        "https://www.tradingview.com/script/IclxiWxx-noro-s-stochastic-strategy-v1-0/",
+        "https://www.tradingview.com/script/ndHWwreK-noro-s-pricechannel-strategy-v1-2/",
+        "https://www.tradingview.com/script/DmmbIaTz-noro-s-hundred-strategy-v1-0/",
+        "https://www.tradingview.com/script/f7qRawxg-noro-s-harami-strategy-v1-0/",
+        "https://www.tradingview.com/script/RdlEedpB-noro-s-correlation-strategy-v1-0/",
+        "https://www.tradingview.com/script/m2DLFuZQ-MACD-RSI-Strategy-Updated/",
+        "https://www.tradingview.com/script/jNSyNRNT-MACD-RSI-Strategy/",
+        "https://www.tradingview.com/script/tq5DLFBC-Pivot-Profit-Taker-Strategy-With-TimeFrames/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-194-urls.json",
+      "orig": 24,
+      "new": 14,
+      "removed": 10,
+      "removed_urls": [
+        "https://www.tradingview.com/script/BwuDGqy6-ChannelBreakOutStrategy-With-Time-Frames/",
+        "https://www.tradingview.com/script/Yfhs6o49-noro-s-fast-rsi-strategy-v1-5/",
+        "https://www.tradingview.com/script/Uok9nlIR-noro-s-vixfix-rsi-strategy-v1-0/",
+        "https://www.tradingview.com/script/6CvAmvTm-noro-s-pricechannel-for-d1-v1-0/",
+        "https://www.tradingview.com/script/ttaXHsrU-noro-s-squeeze-momentum-strategy-v1-1/",
+        "https://www.tradingview.com/script/KSFgvPHJ-noro-s-triple-rsi-top-bottom-v1-1/",
+        "https://www.tradingview.com/script/HdZwtkEJ-noro-s-double-rsi-strategy-1-0/",
+        "https://www.tradingview.com/script/wMtESAgD-noro-s-price-channel-strategy-v1-1/",
+        "https://www.tradingview.com/script/TjgVJNbq-noro-s-price-channel-strategy-v1-0/",
+        "https://www.tradingview.com/script/umDxcIGE-noro-s-fast-rsi-strategy-v1-6/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-195-urls.json",
+      "orig": 24,
+      "new": 16,
+      "removed": 8,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ffv2jtEM-noro-s-trend-mas-strategy-v2-3/",
+        "https://www.tradingview.com/script/pNH656Qn-noro-s-fast-rsi-strategy-v1-4/",
+        "https://www.tradingview.com/script/tjW0QkIW-noro-s-bollinger-strategy-v1-3/",
+        "https://www.tradingview.com/script/mnEjDglM-noro-s-bollinger-strategy-v1-2/",
+        "https://www.tradingview.com/script/UDCdmbqO-noro-s-martingale-strategy-v1-0/",
+        "https://www.tradingview.com/script/v2vUUwu5-noro-s-fast-rsi-strategy-v1-3/",
+        "https://www.tradingview.com/script/hA8ML2Q4-noro-s-squeeze-momentum-strategy-v1-0/",
+        "https://www.tradingview.com/script/ACPcJ8nn-noro-s-fast-rsi-strategy-v1-2/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-196-urls.json",
+      "orig": 24,
+      "new": 19,
+      "removed": 5,
+      "removed_urls": [
+        "https://www.tradingview.com/script/JJ0wPsOe-noro-s-fast-rsi-strategy-v1-1/",
+        "https://www.tradingview.com/script/QKZRoNxo-noro-s-fast-rsi-strategy-v1-0/",
+        "https://www.tradingview.com/script/Y7ZufUM0-noro-s-bollinger-strategy-v1-1/",
+        "https://www.tradingview.com/script/WjofwDDo-noro-s-locomotive-strategy-v1-0/",
+        "https://www.tradingview.com/script/pbiU7h30-noro-s-primitive-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-197-urls.json",
+      "orig": 24,
+      "new": 9,
+      "removed": 15,
+      "removed_urls": [
+        "https://www.tradingview.com/script/wIdn4b1R-noro-s-colorbar-strategy-v1-0/",
+        "https://www.tradingview.com/script/Mg9VTYf2-noro-s-bollinger-strategy-v1-0/",
+        "https://www.tradingview.com/script/STH56j0F-noro-s-bands-strategy-v1-5/",
+        "https://www.tradingview.com/script/hSbL7WiX-noro-s-color-strategy-v1-1/",
+        "https://www.tradingview.com/script/nWSGZciA-noro-s-bands-scalper-strategy-v1-6/",
+        "https://www.tradingview.com/script/OWofkCNG-noro-s-mas-cross-tests-v1-0/",
+        "https://www.tradingview.com/script/zr0UB5FC-noro-s-candles-strategy-v1-0/",
+        "https://www.tradingview.com/script/HLiMJNkP-noro-s-color-strategy-v1-0/",
+        "https://www.tradingview.com/script/kzBdTlyZ-noro-s-bands-scalper-strategy-v1-5/",
+        "https://www.tradingview.com/script/uLjnNDkU-noro-s-bands-scalper-strategy-v1-4/",
+        "https://www.tradingview.com/script/jzrewuLN-noro-s-bands-scalper-strategy-v1-3/",
+        "https://www.tradingview.com/script/NJ669po0-noro-s-bands-day-strategy-v1-0/",
+        "https://www.tradingview.com/script/1dfm60F7-noro-s-bands-scalper-strategy-v1-2/",
+        "https://www.tradingview.com/script/jYUnE48W-noro-s-bands-scalper-strategy-v1-1/",
+        "https://www.tradingview.com/script/B8MQIXUJ-noro-s-bands-scalper-strategy-v1-0/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-198-urls.json",
+      "orig": 24,
+      "new": 17,
+      "removed": 7,
+      "removed_urls": [
+        "https://www.tradingview.com/script/W2rS2jZK-noro-s-minmax-tests/",
+        "https://www.tradingview.com/script/l7xivrLX-noro-s-trend-mas-strategy-v1-9-extreme/",
+        "https://www.tradingview.com/script/2nWGBclu-noro-s-bands-strategy-v1-3/",
+        "https://www.tradingview.com/script/b2VRNxUl-noro-s-bands-strategy-v1-2/",
+        "https://www.tradingview.com/script/uLFXYtqX-noro-s-bands-strategy-v1-1/",
+        "https://www.tradingview.com/script/ZaHXEfsM-noro-s-bands-strategy-v1-0/",
+        "https://www.tradingview.com/script/XPTuU99H-noro-s-mas-tests-v1-1/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-199-urls.json",
+      "orig": 24,
+      "new": 11,
+      "removed": 13,
+      "removed_urls": [
+        "https://www.tradingview.com/script/9wx0Sprc-noro-s-candles-test/",
+        "https://www.tradingview.com/script/0IuavTKP-noro-s-macd-strategy-v1-0/",
+        "https://www.tradingview.com/script/o6r7AKho-noro-s-trend-mas-strategy-v1-8/",
+        "https://www.tradingview.com/script/6we1SGKz-noro-s-trend-mas-strategy-v1-7/",
+        "https://www.tradingview.com/script/Ni3lNAwb-noro-s-trend-mas-strategy-v1-6/",
+        "https://www.tradingview.com/script/Ku9NSS1l-noro-s-trend-mas-strategy-1-5/",
+        "https://www.tradingview.com/script/V2GDe7Z5-noro-s-mas-tests/",
+        "https://www.tradingview.com/script/FBko9iQV-noro-s-cryptobottom-strategy/",
+        "https://www.tradingview.com/script/DejDfmGq-noro-s-trend-sma-strategy-v1-4/",
+        "https://www.tradingview.com/script/DhXzIAb6-noro-s-trend-sma-strategy-v1-3/",
+        "https://www.tradingview.com/script/TGfJbNsp-noro-s-trend-sma-strategy-v1-2/",
+        "https://www.tradingview.com/script/MuEmSvnL-noro-s-trend-sma-strategy-v1-1/",
+        "https://www.tradingview.com/script/TgQ5WK4S-noro-s-trend-sma-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-201-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/lr30aANv/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-202-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/q2sXF38I-MACD-Strategy-Script-Example-how-to-use-SL-in-your-script/",
+        "https://www.tradingview.com/script/fkw91bYx-Bat-MACD/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-203-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/zvElHKiQ-Wavefinder/",
+        "https://www.tradingview.com/script/37zbgteK-vdub-fx-snipervx3-strategy-v3/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-204-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/FDCf5Nus-noro-s-wavetrend-strategy-v1-0/",
+        "https://www.tradingview.com/script/qVvld2ti-noro-s-sila-v1-6l-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-206-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/QNLBstQJ-LONG-TERM-INVESTMENT-TECHNICAL-STRATEGY-SCRIPT/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-207-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/uRbwIkyf-Shadow-Trading/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-209-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/9JoYuVLt-PerfectStrategy/",
+        "https://www.tradingview.com/script/SAZM7jRJ-Exponential-Bollinger-Band-Strategy/",
+        "https://www.tradingview.com/script/z5QiBRBc-EMAMA-strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-210-urls.json",
+      "orig": 24,
+      "new": 21,
+      "removed": 3,
+      "removed_urls": [
+        "https://www.tradingview.com/script/syRkfqhT-Swing-Hull-rsi-EMA-Strategy/",
+        "https://www.tradingview.com/script/Dyk8sfYS-ARGO-BAND-STRATEGY/",
+        "https://www.tradingview.com/script/L30FDRXH-Optimized-Moving-Average-Strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-31-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/PFVymIwZ-EMA-1-8-Cross-Fixed-Pip-TP-SL/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-49-urls.json",
+      "orig": 24,
+      "new": 22,
+      "removed": 2,
+      "removed_urls": [
+        "https://www.tradingview.com/script/yvuKGEbS-Optimized-Auto-Detect-Strategy-MA-ATR-Trend-RSI/",
+        "https://www.tradingview.com/script/HhSwguVI-Trend-Vanguard-Strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-51-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/HkbggSLP-JMA-Quantum-Edge-Adaptive-Precision-Trading-System/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-58-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/LxrgnsTO-XAUUSD-10-Minute-Strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-60-urls.json",
+      "orig": 24,
+      "new": 20,
+      "removed": 4,
+      "removed_urls": [
+        "https://www.tradingview.com/script/jcBpu44W-Exponantial-Spread-Strategy/",
+        "https://www.tradingview.com/script/CcA86JkG-Adaptive-MA-Scalping-Strategy/",
+        "https://www.tradingview.com/script/tzg05DpR-KAMA-Cloud-ST/",
+        "https://www.tradingview.com/script/dzhi1xb7-Fibonacci-Swing-Trading-Bot/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-62-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/M9mByw1M-Fractal-Proximity-MA-Aligment-Scalping-Strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-64-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/lLM6rAZr-Versatile-Moving-Average-Strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-76-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/8FsO4OyJ-Moving-Average-Trap-Strategy-by-D-Brigaglia/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-77-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/kUncyS8L-Ema-Scalp/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-83-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/ekQPU4LF-Fake-Strategy/"
+      ]
+    },
+    {
+      "path": "C:\\GIT\\Tradingview-Pine-Script-Downloader\\pinescript_downloads\\strategies\\page-99-urls.json",
+      "orig": 24,
+      "new": 23,
+      "removed": 1,
+      "removed_urls": [
+        "https://www.tradingview.com/script/jCFatPh6-bollinger-stop-strategy/"
+      ]
+    }
+  ],
+  "total_removed": 324
+}

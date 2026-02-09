@@ -114,6 +114,8 @@ python tv_downloader_enhanced.py \
   --visible
 
 # Resume interrupted download
+
+Note: When resuming batch downloads the tool will now check remote publication dates for scripts that are already present locally. If the remote script has a newer published date (or the local file lacks a Published header), the downloader will force a re-download of that script even when `--resume` is enabled. This ensures updated scripts are not silently skipped.
 python tv_downloader_enhanced.py --url "https://..." 
 # (resume is enabled by default; use --no-resume to start fresh)
 ```

@@ -15,6 +15,7 @@ This version includes:
 import argparse
 import asyncio
 import email.utils
+import urllib.request
 import json
 import os
 import random
@@ -2441,6 +2442,143 @@ class EnhancedTVScraper:
             pass
         return found
 
+    def _find_local_file_for_url(self, url: str):
+        """Return the best matching local .pine Path for a given script URL or None."""
+        try:
+            # search meta.json sidecars first
+            for meta in self.output_dir.rglob('*.meta.json'):
+                try:
+                    with open(meta, 'r', encoding='utf-8') as mf:
+                        data = json.load(mf)
+                        if data.get('url') == url:
+                            # corresponding .pine has same base name
+                            p = meta.with_suffix('.pine')
+                            if p.exists():
+                                return p
+                except Exception:
+                    continue
+            # fallback: scan .pine headers
+            for p in self.output_dir.rglob('*.pine'):
+                try:
+                    with open(p, 'r', encoding='utf-8') as f:
+                        for _ in range(40):
+                            line = f.readline()
+                            if not line:
+                                break
+                            m = re.match(r'\s*//\s*URL:\s*(\S+)', line)
+                            if m and m.group(1).strip() == url:
+                                return p
+                except Exception:
+                    continue
+        except Exception:
+            pass
+        return None
+
+    def _parse_published_from_file(self, path: Path):
+        """Return datetime of the // Published: header in the given .pine file, or None."""
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                for _ in range(40):
+                    line = f.readline()
+                    if not line:
+                        break
+                    if 'Published:' in line:
+                        idx = line.find('Published:')
+                        val = line[idx+len('Published:'):].strip()
+                        try:
+                            if 'GMT' in val or ',' in val:
+                                return email.utils.parsedate_to_datetime(val)
+                            # try iso
+                            if val.endswith('Z'):
+                                val = val[:-1]
+                            return datetime.fromisoformat(val)
+                        except Exception:
+                            return None
+        except Exception:
+            return None
+        return None
+
+    def _fetch_remote_published(self, url: str, timeout: int = 8):
+        """Synchronous lightweight fetch of page HTML and attempt to parse a Published date.
+
+        Heuristics (in priority order):
+        1. JSON fields like "created_at" or "published_at" (ISO with timezone)
+        2. ISO datetime with timezone (e.g., 2026-02-09T07:37:12+00:00)
+        3. Look near a literal 'Published:' occurrence
+        4. RFC-2822 matches as a last resort (but prefer RFC that matches an ISO found above)
+        """
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                text = resp.read().decode('utf-8', errors='ignore')
+
+                # 1) JSON fields (created_at / published_at) - prefer these when present
+                m_json = re.search(r'"(?:created_at|published_at)"\s*:\s*"([0-9T:\.\-+Z]+)"', text)
+                if m_json:
+                    val = m_json.group(1)
+                    try:
+                        # Python's fromisoformat understands offsets like +00:00; replace trailing Z with +00:00
+                        if val.endswith('Z'):
+                            val = val[:-1] + '+00:00'
+                        return datetime.fromisoformat(val)
+                    except Exception:
+                        pass
+
+                # 2) ISO with explicit timezone
+                m_iso_tz = re.search(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})', text)
+                if m_iso_tz:
+                    val = m_iso_tz.group(0)
+                    try:
+                        if val.endswith('Z'):
+                            val = val[:-1] + '+00:00'
+                        return datetime.fromisoformat(val)
+                    except Exception:
+                        pass
+
+                # 3) ISO without tz (assume UTC) - still useful if present and no tz ones matched
+                m_iso = re.search(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', text)
+                if m_iso:
+                    try:
+                        val = m_iso.group(0)
+                        return datetime.fromisoformat(val)
+                    except Exception:
+                        pass
+
+                # 4) Look near 'Published:' literal
+                idx = text.find('Published:')
+                if idx != -1:
+                    snippet = text[idx:idx+200]
+                    m3 = re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})?", snippet)
+                    if m3:
+                        val = m3.group(0)
+                        try:
+                            if val.endswith('Z'):
+                                val = val[:-1] + '+00:00'
+                            return datetime.fromisoformat(val)
+                        except Exception:
+                            pass
+
+                # 5) RFC-2822 matches as last resort. If multiple found, try to prefer one that matches any ISO time hours/minutes
+                rfc_matches = re.findall(r"[A-Za-z]{3},\s*\d{1,2}\s+\w{3}\s+\d{4}\s+\d{2}:\d{2}:\d{2}\s+GMT", text)
+                if rfc_matches:
+                    # If we also found an ISO time earlier, try to match the RFC with the same HMS
+                    if m_iso:
+                        iso_hms = m_iso.group(0)[11:19]  # 'HH:MM:SS'
+                        for r in rfc_matches:
+                            if iso_hms in r:
+                                try:
+                                    return email.utils.parsedate_to_datetime(r)
+                                except Exception:
+                                    continue
+                    # else return the first RFC match
+                    try:
+                        return email.utils.parsedate_to_datetime(rfc_matches[0])
+                    except Exception:
+                        pass
+        except Exception:
+            return None
+        return None
+
     def save_script(self, result: dict, category: str, force_flat: bool = False) -> Path:
         """Save Pine Script to file with metadata."""
         print(f"[DEBUG] save_script called: script_id={result.get('script_id')} title={result.get('title')} category={category} force_flat={force_flat}", flush=True)
@@ -2602,8 +2740,69 @@ class EnhancedTVScraper:
                 if completed:
                     print(f"Resuming: found {len(completed)} existing scripts to skip")
 
-            # Filter scripts and prepare worklist
-            worklist = [s for s in scripts if s['url'] not in completed]
+            # Check for updates on the scripts we're about to skip (only for the scripts on this listing)
+            force_redownload = set()
+            if resume and completed:
+                print('Checking for updates on existing scripts (comparing published dates) ...')
+                for s in scripts:
+                    url = s.get('url')
+                    if not url or url not in completed:
+                        continue
+                    local_p = self._find_local_file_for_url(url)
+                    local_dt = None
+                    if local_p:
+                        local_dt = self._parse_published_from_file(local_p)
+                    remote_dt = self._fetch_remote_published(url)
+                    # Normalize timezone awareness: treat naive datetimes as UTC and compare in UTC
+                    if remote_dt:
+                        if remote_dt.tzinfo is None:
+                            remote_dt = remote_dt.replace(tzinfo=timezone.utc)
+                        else:
+                            remote_dt = remote_dt.astimezone(timezone.utc)
+                    if local_dt:
+                        if local_dt.tzinfo is None:
+                            local_dt = local_dt.replace(tzinfo=timezone.utc)
+                        else:
+                            local_dt = local_dt.astimezone(timezone.utc)
+                    elif remote_dt and (local_dt is None):
+                        # remote has date, local missing -> treat as updated
+                        pass
+
+                    # Log normalized values for debugging
+                    print(f"  [check-updates] normalized remote={remote_dt} local={local_dt}")
+
+                    # Decide by truncating microseconds — compare whole seconds deterministically
+                    try:
+                        is_updated = False
+                        if remote_dt and local_dt:
+                            # truncate microseconds for both datetimes
+                            remote_s = remote_dt.replace(microsecond=0)
+                            local_s = local_dt.replace(microsecond=0)
+                            delta = (remote_s - local_s).total_seconds()
+                            print(f"  [check-updates] normalized_utc remote_s={remote_s} local_s={local_s} delta_seconds={delta:+.6f}")
+                            is_updated = (remote_s > local_s)
+                        elif remote_dt and (local_dt is None):
+                            # remote has date, local missing -> treat as updated
+                            is_updated = True
+
+                        if is_updated:
+                            if 'delta' in locals():
+                                print(f"  Update detected: {url} (remote={remote_s}, local={local_s}, delta={delta:+.6f}s)")
+                            else:
+                                print(f"  Update detected: {url} (remote={remote_dt}, local={local_dt})")
+                            force_redownload.add(url)
+                        else:
+                            if remote_dt and local_dt:
+                                print(f"  [check-updates] No update (delta={delta:+.6f}s) - skipping {url}")
+                            else:
+                                print(f"  [check-updates] No update detected; skipping {url}")
+
+                    except Exception:
+                        # if comparison fails for timezone issues, ignore and continue
+                        continue
+
+            # Filter scripts and prepare worklist (include forced redownloads)
+            worklist = [s for s in scripts if (s['url'] not in completed) or (s['url'] in force_redownload)]
             if not worklist:
                 print("No new scripts to download.")
                 return

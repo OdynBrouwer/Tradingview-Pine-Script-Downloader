@@ -1,0 +1,2090 @@
+[cleanup] Removed diagnostic artifacts from: pinescript_downloads\indicators
+[setup] launching browser; headless=False user_agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+[setup] browser launched
+[DEBUG] Raw pubtext extracted: 'Mon, 09 Feb 2026 11:15:35 GMT'
+[DEBUG] Parsed RFC-2822 time 'Mon, 09 Feb 2026 11:15:35 GMT' as: 2026-02-09T11:15:35+00:00
+[DEBUG] Exact published date for header: 2026-02-09T11:15:35+00:00
+   [debug] Injected copy-capture init script
+Diagnostics: visiting https://www.tradingview.com/script/AcD0BFSj/
+   [debug] Clicked Source code tab for diagnostics
+[BUTTON] [class*="copy"] idx=0 text= nearby_sample=1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=1 text=English
+
+Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 F nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=2 text=Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 FactSet Re nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[CAPTURE 0] '//@version=6\nindicator("EMA System ", overlay=true, max_labels_count=500)\n\n// =====================================================\n// Inputs\n// =====================================================\ngrpEma = "EMAs"\nlen9   = input.int(9,   "EMA 9",   minval=1, group=grpEma)\nlen21  = input.int(21,  "EMA 21",  minval=1, group=grpEma)\nlen50  = input.int(50,  "EMA 50",  minval=1, group=grpEma)\nlen200 = input.int(200, "EMA 200", minval=1, group=grpEma)\n\ngrpSetup = "Setup (Pullback + Volume)"\nuseATRProximity = input.bool(true, "Proximidad por ATR (recomendado)", group=grpSetup)\natrLen          = input.int(14, "ATR Length", minval=1, group=grpSetup)\natrMult         = input.float(0.30, "Distancia a EMA21 (ATR x)", step=0.05, group=grpSetup)\npctProximity    = input.float(0.25, "Distancia a EMA21 (%) si no usas ATR", step=0.05, group=grpSetup)\n\nvolLen          = input.int(20, "Vol SMA Length", minval=1, group=grpSetup)\nvolDryFactor    = input.float(0.80, "Volumen \'se seca\' si Vol < SMA *", step=0.05, group=grpSetup)\n\ngrpSignals = "Señales"\nbullishMode = input.string("Close>Open", "Confirmación vela alcista",\n     options=["Close>Open", "Close>HighPrev"], group=grpSignals)\nshowLabels  = input.bool(true, "Mostrar etiquetas", group=grpSignals)\nshowBg      = input.bool(true, "Fondo (régimen)", group=grpSignals)\n\n// =====================================================\n// Core calculations\n// =====================================================\nema9   = ta.ema(close, len9)\nema21  = ta.ema(close, len21)\nema50  = ta.ema(close, len50)\nema200 = ta.ema(close, len200)\n\natr = ta.atr(atrLen)\nvolSma = ta.sma(volume, volLen)\n\n// =====================================================\n// Regime filters (fiel a la lámina)\n// =====================================================\n// Long-only filter: Price above EMA200\nlongOnly = close > ema200\n\n// Trend valid: EMA21 above EMA50\ntrendValid = ema21 > ema50\n\n// No buys if below EMA50 (tal cual recuadro)\nnoBuys = close < ema50\n\n// Market control (contexto simple): price above EMA -> buyers control, below -> sellers control\nbuyersControl = close > ema21\nsellersControl = close < ema21\n\n// =====================================================\n// Pullback toward EMA21 (definición objetiva)\n// =====================================================\ndistTo21 = math.abs(close - ema21)\nnear21_atr = distTo21 <= (atr * atrMult)\nnear21_pct = distTo21 <= (close * (pctProximity / 100.0))\nnear21 = useATRProximity ? near21_atr : near21_pct\n\n// Volume dries up on pullback\nvolDriesUp = volume < (volSma * volDryFactor)\n\n// Bullish candle near EMA21 (trigger)\nbullishCandle =\n     bullishMode == "Close>Open" ? (close > open) :\n     (close > high[1])\n\n// High-probability setup (la checklist inicial)\nsetupReady = longOnly and trendValid and not noBuys and near21 and volDriesUp\n\n// Entry signal (buy only on bullish candle near 21 EMA)\nbuySignal = setupReady and bullishCandle\n\n// =====================================================\n// Plot EMAs\n// =====================================================\nplot(ema9,   "EMA 9",   linewidth=1)\nplot(ema21,  "EMA 21",  linewidth=2)\nplot(ema50,  "EMA 50",  linewidth=2)\nplot(ema200, "EMA 200", linewidth=2)\n\n// =====================================================\n// Visual regime cues\n// =====================================================\nbgOk   = longOnly and trendValid and not noBuys\nbgWarn = longOnly and (not trendValid) and not noBuys\nbgBad  = (not longOnly) or noBuys\n\nbgcolor(showBg ? (bgOk ? color.new(color.green, 88) : bgWarn ? color.new(color.orange, 88) : color.new(color.red, 88)) : na)\n\n// =====================================================\n// Labels / Markers\n// =====================================================\nplotshape(setupReady, title="Setup Ready", style=shape.circle, size=size.tiny, text="SET", location=location.belowbar, color=color.new(color.blue, 0))\nplotshape(buySignal,  title="BUY Signal",  style=shape.labelup, size=size.small, text="BUY", location=location.belowbar, color=color.new(color.lime, 0))\n\nif showLabels and buySignal\n    label.new(bar_index, low, "V6 BUY\\n(200↑ + 21>50 + Pullback 21 + Vol↓ + Bull)", style=label.style_label_up, textcolor=color.black)\n\n// =====================================================\n// Alerts\n// =====================================================\nalertcondition(setupReady, title="V6 Setup Ready", message="EMA System V6: Setup listo (200 filtro + 21>50 + near 21 + vol se seca).")\nalertcondition(buySignal,  title="V6 BUY Signal",  message="EMA System V6: Señal BUY (setup + vela alcista cerca de EMA21).")\n\n// =====================================================\n// Optional: Tiny status table (minimal)\n// =====================================================\ngrpUI = "UI"\nshowStatus = input.bool(true, "Mostrar estado (esquina)", group=grpUI)\nvar table t = table.new(position.top_right, 1, 5)\n\nif showStatus and barstate.islast\n    table.cell(t, 0, 0, longOnly ? "Long-only: ON" : "Long-only: OFF", text_color=color.white, bgcolor=longOnly ? color.new(color.green, 0) : color.new(color.red, 0))\n    table.cell(t, 0, 1, trendValid ? "Trend valid: 21>50" : "Trend: NO (21<=50)", text_color=color.white, bgcolor=trendValid ? color.new(color.green, 0) : color.new(color.orange, 0))\n    table.cell(t, 0, 2, near21 ? "Pullback: near 21" : "Pullback: lejos", text_color=color.white, bgcolor=near21 ? color.new(color.blue, 0) : color.new(color.gray, 40))\n    table.cell(t, 0, 3, volDriesUp ? "Volume: dries up" : "Volume: no", text_color=color.white, bgcolor=volDriesUp ? color.new(color.blue, 0) : color.new(color.gray, 40))\n    table.cell(t, 0, 4, noBuys ? "NO BUYS (below 50)" : "Buys OK (above 50)", text_color=color.white, bgcolor=noBuys ? color.new(color.red, 0) : color.new(color.green, 0))\n'
+[CAPTURE 1] '//@version=6\nindicator("EMA System ", overlay=true, max_labels_count=500)\n\n// =====================================================\n// Inputs\n// =====================================================\ngrpEma = "EMAs"\nlen9   = input.int(9,   "EMA 9",   minval=1, group=grpEma)\nlen21  = input.int(21,  "EMA 21",  minval=1, group=grpEma)\nlen50  = input.int(50,  "EMA 50",  minval=1, group=grpEma)\nlen200 = input.int(200, "EMA 200", minval=1, group=grpEma)\n\ngrpSetup = "Setup (Pullback + Volume)"\nuseATRProximity = input.bool(true, "Proximidad por ATR (recomendado)", group=grpSetup)\natrLen          = input.int(14, "ATR Length", minval=1, group=grpSetup)\natrMult         = input.float(0.30, "Distancia a EMA21 (ATR x)", step=0.05, group=grpSetup)\npctProximity    = input.float(0.25, "Distancia a EMA21 (%) si no usas ATR", step=0.05, group=grpSetup)\n\nvolLen          = input.int(20, "Vol SMA Length", minval=1, group=grpSetup)\nvolDryFactor    = input.float(0.80, "Volumen \'se seca\' si Vol < SMA *", step=0.05, group=grpSetup)\n\ngrpSignals = "Señales"\nbullishMode = input.string("Close>Open", "Confirmación vela alcista",\n     options=["Close>Open", "Close>HighPrev"], group=grpSignals)\nshowLabels  = input.bool(true, "Mostrar etiquetas", group=grpSignals)\nshowBg      = input.bool(true, "Fondo (régimen)", group=grpSignals)\n\n// =====================================================\n// Core calculations\n// =====================================================\nema9   = ta.ema(close, len9)\nema21  = ta.ema(close, len21)\nema50  = ta.ema(close, len50)\nema200 = ta.ema(close, len200)\n\natr = ta.atr(atrLen)\nvolSma = ta.sma(volume, volLen)\n\n// =====================================================\n// Regime filters (fiel a la lámina)\n// =====================================================\n// Long-only filter: Price above EMA200\nlongOnly = close > ema200\n\n// Trend valid: EMA21 above EMA50\ntrendValid = ema21 > ema50\n\n// No buys if below EMA50 (tal cual recuadro)\nnoBuys = close < ema50\n\n// Market control (contexto simple): price above EMA -> buyers control, below -> sellers control\nbuyersControl = close > ema21\nsellersControl = close < ema21\n\n// =====================================================\n// Pullback toward EMA21 (definición objetiva)\n// =====================================================\ndistTo21 = math.abs(close - ema21)\nnear21_atr = distTo21 <= (atr * atrMult)\nnear21_pct = distTo21 <= (close * (pctProximity / 100.0))\nnear21 = useATRProximity ? near21_atr : near21_pct\n\n// Volume dries up on pullback\nvolDriesUp = volume < (volSma * volDryFactor)\n\n// Bullish candle near EMA21 (trigger)\nbullishCandle =\n     bullishMode == "Close>Open" ? (close > open) :\n     (close > high[1])\n\n// High-probability setup (la checklist inicial)\nsetupReady = longOnly and trendValid and not noBuys and near21 and volDriesUp\n\n// Entry signal (buy only on bullish candle near 21 EMA)\nbuySignal = setupReady and bullishCandle\n\n// =====================================================\n// Plot EMAs\n// =====================================================\nplot(ema9,   "EMA 9",   linewidth=1)\nplot(ema21,  "EMA 21",  linewidth=2)\nplot(ema50,  "EMA 50",  linewidth=2)\nplot(ema200, "EMA 200", linewidth=2)\n\n// =====================================================\n// Visual regime cues\n// =====================================================\nbgOk   = longOnly and trendValid and not noBuys\nbgWarn = longOnly and (not trendValid) and not noBuys\nbgBad  = (not longOnly) or noBuys\n\nbgcolor(showBg ? (bgOk ? color.new(color.green, 88) : bgWarn ? color.new(color.orange, 88) : color.new(color.red, 88)) : na)\n\n// =====================================================\n// Labels / Markers\n// =====================================================\nplotshape(setupReady, title="Setup Ready", style=shape.circle, size=size.tiny, text="SET", location=location.belowbar, color=color.new(color.blue, 0))\nplotshape(buySignal,  title="BUY Signal",  style=shape.labelup, size=size.small, text="BUY", location=location.belowbar, color=color.new(color.lime, 0))\n\nif showLabels and buySignal\n    label.new(bar_index, low, "V6 BUY\\n(200↑ + 21>50 + Pullback 21 + Vol↓ + Bull)", style=label.style_label_up, textcolor=color.black)\n\n// =====================================================\n// Alerts\n// =====================================================\nalertcondition(setupReady, title="V6 Setup Ready", message="EMA System V6: Setup listo (200 filtro + 21>50 + near 21 + vol se seca).")\nalertcondition(buySignal,  title="V6 BUY Signal",  message="EMA System V6: Señal BUY (setup + vela alcista cerca de EMA21).")\n\n// =====================================================\n// Optional: Tiny status table (minimal)\n// =====================================================\ngrpUI = "UI"\nshowStatus = input.bool(true, "Mostrar estado (esquina)", group=grpUI)\nvar table t = table.new(position.top_right, 1, 5)\n\nif showStatus and barstate.islast\n    table.cell(t, 0, 0, longOnly ? "Long-only: ON" : "Long-only: OFF", text_color=color.white, bgcolor=longOnly ? color.new(color.green, 0) : color.new(color.red, 0))\n    table.cell(t, 0, 1, trendValid ? "Trend valid: 21>50" : "Trend: NO (21<=50)", text_color=color.white, bgcolor=trendValid ? color.new(color.green, 0) : color.new(color.orange, 0))\n    table.cell(t, 0, 2, near21 ? "Pullback: near 21" : "Pullback: lejos", text_color=color.white, bgcolor=near21 ? color.new(color.blue, 0) : color.new(color.gray, 40))\n    table.cell(t, 0, 3, volDriesUp ? "Volume: dries up" : "Volume: no", text_color=color.white, bgcolor=volDriesUp ? color.new(color.blue, 0) : color.new(color.gray, 40))\n    table.cell(t, 0, 4, noBuys ? "NO BUYS (below 50)" : "Buys OK (above 50)", text_color=color.white, bgcolor=noBuys ? color.new(color.red, 0) : color.new(color.green, 0))\n'
+[CAPTURE 2] '//@version=6\nindicator("EMA System ", overlay=true, max_labels_count=500)\n\n// =====================================================\n// Inputs\n// =====================================================\ngrpEma = "EMAs"\nlen9   = input.int(9,   "EMA 9",   minval=1, group=grpEma)\nlen21  = input.int(21,  "EMA 21",  minval=1, group=grpEma)\nlen50  = input.int(50,  "EMA 50",  minval=1, group=grpEma)\nlen200 = input.int(200, "EMA 200", minval=1, group=grpEma)\n\ngrpSetup = "Setup (Pullback + Volume)"\nuseATRProximity = input.bool(true, "Proximidad por ATR (recomendado)", group=grpSetup)\natrLen          = input.int(14, "ATR Length", minval=1, group=grpSetup)\natrMult         = input.float(0.30, "Distancia a EMA21 (ATR x)", step=0.05, group=grpSetup)\npctProximity    = input.float(0.25, "Distancia a EMA21 (%) si no usas ATR", step=0.05, group=grpSetup)\n\nvolLen          = input.int(20, "Vol SMA Length", minval=1, group=grpSetup)\nvolDryFactor    = input.float(0.80, "Volumen \'se seca\' si Vol < SMA *", step=0.05, group=grpSetup)\n\ngrpSignals = "Señales"\nbullishMode = input.string("Close>Open", "Confirmación vela alcista",\n     options=["Close>Open", "Close>HighPrev"], group=grpSignals)\nshowLabels  = input.bool(true, "Mostrar etiquetas", group=grpSignals)\nshowBg      = input.bool(true, "Fondo (régimen)", group=grpSignals)\n\n// =====================================================\n// Core calculations\n// =====================================================\nema9   = ta.ema(close, len9)\nema21  = ta.ema(close, len21)\nema50  = ta.ema(close, len50)\nema200 = ta.ema(close, len200)\n\natr = ta.atr(atrLen)\nvolSma = ta.sma(volume, volLen)\n\n// =====================================================\n// Regime filters (fiel a la lámina)\n// =====================================================\n// Long-only filter: Price above EMA200\nlongOnly = close > ema200\n\n// Trend valid: EMA21 above EMA50\ntrendValid = ema21 > ema50\n\n// No buys if below EMA50 (tal cual recuadro)\nnoBuys = close < ema50\n\n// Market control (contexto simple): price above EMA -> buyers control, below -> sellers control\nbuyersControl = close > ema21\nsellersControl = close < ema21\n\n// =====================================================\n// Pullback toward EMA21 (definición objetiva)\n// =====================================================\ndistTo21 = math.abs(close - ema21)\nnear21_atr = distTo21 <= (atr * atrMult)\nnear21_pct = distTo21 <= (close * (pctProximity / 100.0))\nnear21 = useATRProximity ? near21_atr : near21_pct\n\n// Volume dries up on pullback\nvolDriesUp = volume < (volSma * volDryFactor)\n\n// Bullish candle near EMA21 (trigger)\nbullishCandle =\n     bullishMode == "Close>Open" ? (close > open) :\n     (close > high[1])\n\n// High-probability setup (la checklist inicial)\nsetupReady = longOnly and trendValid and not noBuys and near21 and volDriesUp\n\n// Entry signal (buy only on bullish candle near 21 EMA)\nbuySignal = setupReady and bullishCandle\n\n// =====================================================\n// Plot EMAs\n// =====================================================\nplot(ema9,   "EMA 9",   linewidth=1)\nplot(ema21,  "EMA 21",  linewidth=2)\nplot(ema50,  "EMA 50",  linewidth=2)\nplot(ema200, "EMA 200", linewidth=2)\n\n// =====================================================\n// Visual regime cues\n// =====================================================\nbgOk   = longOnly and trendValid and not noBuys\nbgWarn = longOnly and (not trendValid) and not noBuys\nbgBad  = (not longOnly) or noBuys\n\nbgcolor(showBg ? (bgOk ? color.new(color.green, 88) : bgWarn ? color.new(color.orange, 88) : color.new(color.red, 88)) : na)\n\n// =====================================================\n// Labels / Markers\n// =====================================================\nplotshape(setupReady, title="Setup Ready", style=shape.circle, size=size.tiny, text="SET", location=location.belowbar, color=color.new(color.blue, 0))\nplotshape(buySignal,  title="BUY Signal",  style=shape.labelup, size=size.small, text="BUY", location=location.belowbar, color=color.new(color.lime, 0))\n\nif showLabels and buySignal\n    label.new(bar_index, low, "V6 BUY\\n(200↑ + 21>50 + Pullback 21 + Vol↓ + Bull)", style=label.style_label_up, textcolor=color.black)\n\n// =====================================================\n// Alerts\n// =====================================================\nalertcondition(setupReady, title="V6 Setup Ready", message="EMA System V6: Setup listo (200 filtro + 21>50 + near 21 + vol se seca).")\nalertcondition(buySignal,  title="V6 BUY Signal",  message="EMA System V6: Señal BUY (setup + vela alcista cerca de EMA21).")\n\n// =====================================================\n// Optional: Tiny status table (minimal)\n// =====================================================\ngrpUI = "UI"\nshowStatus = input.bool(true, "Mostrar estado (esquina)", group=grpUI)\nvar table t = table.new(position.top_right, 1, 5)\n\nif showStatus and barstate.islast\n    table.cell(t, 0, 0, longOnly ? "Long-only: ON" : "Long-only: OFF", text_color=color.white, bgcolor=longOnly ? color.new(color.green, 0) : color.new(color.red, 0))\n    table.cell(t, 0, 1, trendValid ? "Trend valid: 21>50" : "Trend: NO (21<=50)", text_color=color.white, bgcolor=trendValid ? color.new(color.green, 0) : color.new(color.orange, 0))\n    table.cell(t, 0, 2, near21 ? "Pullback: near 21" : "Pullback: lejos", text_color=color.white, bgcolor=near21 ? color.new(color.blue, 0) : color.new(color.gray, 40))\n    table.cell(t, 0, 3, volDriesUp ? "Volume: dries up" : "Volume: no", text_color=color.white, bgcolor=volDriesUp ? color.new(color.blue, 0) : color.new(color.gray, 40))\n    table.cell(t, 0, 4, noBuys ? "NO BUYS (below 50)" : "Buys OK (above 50)", text_color=color.white, bgcolor=noBuys ? color.new(color.red, 0) : color.new(color.green, 0))\n'
+[DEBUG] save_script called: script_id=AcD0BFSj title=EMA System category=AcD0BFSj force_flat=True
+[DEBUG] Writing script to: pinescript_downloads\indicators\AcD0BFSj_EMA_System.pine
+[DEBUG] Marker written to: pinescript_downloads\indicators\.last_saved.txt
+[DEBUG] Also saved via save_script: pinescript_downloads\indicators\AcD0BFSj_EMA_System.pine
+[INJECTED CAPTURES] []
+[INJECTED MUTATIONS] []
+[setup] Page close event detected
+[cleanup] Removed diagnostic artifacts from: pinescript_downloads\indicators
+[setup] launching browser; headless=False user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+[setup] browser launched
+[DEBUG] Raw pubtext extracted: 'Mon, 09 Feb 2026 11:11:43 GMT'
+[DEBUG] Parsed RFC-2822 time 'Mon, 09 Feb 2026 11:11:43 GMT' as: 2026-02-09T11:11:43+00:00
+[DEBUG] Exact published date for header: 2026-02-09T11:11:43+00:00
+   [debug] Injected copy-capture init script
+Diagnostics: visiting https://www.tradingview.com/script/HHwGQ9H4/
+   [debug] Clicked Source code tab for diagnostics
+[BUTTON] [class*="copy"] idx=0 text= nearby_sample=1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=1 text=English
+
+Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 F nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=2 text=Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 FactSet Re nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[CAPTURE 0] '//@version=6\nindicator("TS Pressure Oscillator", overlay=false, max_labels_count=500)\n\n// ───── Inputs base ─────\nlen15    = input.int(30, "Ventana base M15 (barras)", minval=5, maxval=200)\nemaN     = input.int(5,  "Suavizado EMA (raw)", minval=1, maxval=50)\n\nw15      = input.float(0.60, "Peso M15", step=0.05)\nw5       = input.float(0.30, "Peso M5",  step=0.05)\nw1       = input.float(0.10, "Peso M1",  step=0.05)\n\n// Zona / score\nkZone    = input.int(50, "Lookback zona (HH/LL)", minval=10, maxval=500)\nzoneHi   = input.float(0.80, "Zona alta", minval=0.50, maxval=0.99, step=0.01)\nzoneLo   = input.float(0.20, "Zona baja", minval=0.01, maxval=0.50, step=0.01)\n\natrLen   = input.int(14, "ATR len (score)", minval=2, maxval=100)\ncapW     = input.float(2.0, "Cap mecha/ATR", step=0.1)\ncapB     = input.float(2.0, "Cap cuerpo/ATR", step=0.1)\n\nbaseline = input.float(1.0, "Baseline normalización", minval=0.1, step=0.1)\n\n// Normalización\nmode     = input.string("Normalized", "Modo", options=["Raw","Normalized"])\nnormLen  = input.int(100, "Norm len (stdev)", minval=20, maxval=500)\nzThr     = input.float(1.5, "Umbral Z (señal)", step=0.1)\n\n// Panel\nshowPanel = input.bool(true, "Mostrar panel")\npanelPos  = input.string("Top Right", "Posición panel", options=["Top Right","Top Left","Bottom Right","Bottom Left"])\n\n// ───── Longitudes equivalentes ─────\nlen5 = len15 * 3\nlen1 = len15 * 15\n\n// ───── Utils ─────\nf_clamp(float x, float lo, float hi) =>\n    math.max(lo, math.min(hi, x))\n\nf_pos(string p) =>\n    pos = position.top_right\n    if p == "Top Left"\n        pos := position.top_left\n    else if p == "Bottom Right"\n        pos := position.bottom_right\n    else if p == "Bottom Left"\n        pos := position.bottom_left\n    pos\n\n// ───── TS + zona + score ─────\nf_tsBear() => high > high[1] and close < open and close < high[1]\nf_tsBull() => low < low[1]  and close > open and close > low[1]\n\nf_zoneZ(int K) =>\n    hh = ta.highest(high, K)\n    ll = ta.lowest(low, K)\n    rng = hh - ll\n    rng == 0 ? 0.5 : (close - ll) / rng\n\nf_scoreBear(int atrN) =>\n    wick = high - math.max(open, close)\n    body = math.abs(close - open)\n    a = ta.atr(atrN)\n    a == 0 ? 0.0 : f_clamp(wick / a, 0.0, capW) * f_clamp(body / a, 0.0, capB)\n\nf_scoreBull(int atrN) =>\n    wick = math.min(open, close) - low\n    body = math.abs(close - open)\n    a = ta.atr(atrN)\n    a == 0 ? 0.0 : f_clamp(wick / a, 0.0, capW) * f_clamp(body / a, 0.0, capB)\n\nf_sumWin(float x, int L) => ta.sma(x, L) * L\n\nf_bearBarScore() =>\n    z = f_zoneZ(kZone)\n    inHigh = z >= zoneHi\n    ts = f_tsBear()\n    sc = f_scoreBear(atrLen)\n    (ts and inHigh) ? sc : 0.0\n\nf_bullBarScore() =>\n    z = f_zoneZ(kZone)\n    inLow = z <= zoneLo\n    ts = f_tsBull()\n    sc = f_scoreBull(atrLen)\n    (ts and inLow) ? sc : 0.0\n\nf_bearScoreWin(simple string tf, int L) =>\n    request.security(syminfo.tickerid, tf, f_sumWin(f_bearBarScore(), L),\n        gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)\n\nf_bullScoreWin(simple string tf, int L) =>\n    request.security(syminfo.tickerid, tf, f_sumWin(f_bullBarScore(), L),\n        gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)\n\n// ───── TF scores ─────\nbear15S = f_bearScoreWin("15", len15)\nbull15S = f_bullScoreWin("15", len15)\nbear5S  = f_bearScoreWin("5",  len5)\nbull5S  = f_bullScoreWin("5",  len5)\nbear1S  = f_bearScoreWin("1",  len1)\nbull1S  = f_bullScoreWin("1",  len1)\n\n// balances con baseline (anti-saturación)\nbal15 = (bear15S - bull15S) / (bear15S + bull15S + baseline)\nbal5  = (bear5S  - bull5S ) / (bear5S  + bull5S  + baseline)\nbal1  = (bear1S  - bull1S ) / (bear1S  + bull1S  + baseline)\n\n// RAW [-100,+100]\nraw = 100 * (w15 * bal15 + w5 * bal5 + w1 * bal1)\nema = ta.ema(raw, emaN)\n\n// Impulse (aceleración)\nimp = raw - ema\n\n// Normalized Z-score (FIX: EMA fuera del ternario)\nst        = ta.stdev(raw, normLen)\nrawEmaN   = ta.ema(raw, normLen)              // <- SIEMPRE se calcula\nz         = st == 0 ? 0.0 : (raw - rawEmaN) / st\n\n// Escala Z a -100..100 (cap)\nzScaled = f_clamp(z * 50.0, -100.0, 100.0)\nzEma    = ta.ema(zScaled, emaN)\nimpZ    = zScaled - zEma\n\n// ───── Mostrar según modo ─────\nseriesMain = mode == "Raw" ? raw : zScaled\nseriesEma  = mode == "Raw" ? ema : zEma\nseriesImp  = mode == "Raw" ? imp : impZ\n\nthrUp = mode == "Raw" ? 70.0 : (zThr * 50.0)\nthrDn = mode == "Raw" ? -70.0 : (-zThr * 50.0)\n\nhline(0, "0", linestyle=hline.style_dotted)\nhline(thrUp, "+Thr", linestyle=hline.style_dotted)\nhline(thrDn, "-Thr", linestyle=hline.style_dotted)\n\nplot(seriesMain, title="Main", linewidth=1)\nplot(seriesEma,  title="EMA",  linewidth=2)\nplot(seriesImp,  title="Impulse (Main-EMA)", linewidth=1)\n\n// Señales\nbearAligned = (bal15 > 0) and (bal5 > 0)\nbullAligned = (bal15 < 0) and (bal5 < 0)\n\nbearSignal = seriesEma > thrUp and bearAligned\nbullSignal = seriesEma < thrDn and bullAligned\n\nalertcondition(bearSignal, title="TS Pressure BEARISH", message="TS Pressure BEARISH en {{ticker}}")\nalertcondition(bullSignal, title="TS Pressure BULLISH", message="TS Pressure BULLISH en {{ticker}}")\n\n// Panel mini\nvar table t = table.new(f_pos(panelPos), 4, 5, border_width=1)\nif showPanel and barstate.islast\n    table.clear(t, 0, 0)\n    table.cell(t, 0, 0, "Mode")\n    table.cell(t, 1, 0, mode)\n    table.cell(t, 0, 1, "Main/EMA")\n    table.cell(t, 1, 1, str.tostring(seriesMain, "#.##") + " / " + str.tostring(seriesEma, "#.##"))\n    table.cell(t, 0, 2, "Impulse")\n    table.cell(t, 1, 2, str.tostring(seriesImp, "#.##"))\n    table.cell(t, 0, 3, "Align")\n    table.cell(t, 1, 3, bearAligned ? "BEAR" : bullAligned ? "BULL" : "MIX")\n    table.cell(t, 0, 4, "z")\n    table.cell(t, 1, 4, str.tostring(z, "#.##"))\n'
+[CAPTURE 1] '//@version=6\nindicator("TS Pressure Oscillator", overlay=false, max_labels_count=500)\n\n// ───── Inputs base ─────\nlen15    = input.int(30, "Ventana base M15 (barras)", minval=5, maxval=200)\nemaN     = input.int(5,  "Suavizado EMA (raw)", minval=1, maxval=50)\n\nw15      = input.float(0.60, "Peso M15", step=0.05)\nw5       = input.float(0.30, "Peso M5",  step=0.05)\nw1       = input.float(0.10, "Peso M1",  step=0.05)\n\n// Zona / score\nkZone    = input.int(50, "Lookback zona (HH/LL)", minval=10, maxval=500)\nzoneHi   = input.float(0.80, "Zona alta", minval=0.50, maxval=0.99, step=0.01)\nzoneLo   = input.float(0.20, "Zona baja", minval=0.01, maxval=0.50, step=0.01)\n\natrLen   = input.int(14, "ATR len (score)", minval=2, maxval=100)\ncapW     = input.float(2.0, "Cap mecha/ATR", step=0.1)\ncapB     = input.float(2.0, "Cap cuerpo/ATR", step=0.1)\n\nbaseline = input.float(1.0, "Baseline normalización", minval=0.1, step=0.1)\n\n// Normalización\nmode     = input.string("Normalized", "Modo", options=["Raw","Normalized"])\nnormLen  = input.int(100, "Norm len (stdev)", minval=20, maxval=500)\nzThr     = input.float(1.5, "Umbral Z (señal)", step=0.1)\n\n// Panel\nshowPanel = input.bool(true, "Mostrar panel")\npanelPos  = input.string("Top Right", "Posición panel", options=["Top Right","Top Left","Bottom Right","Bottom Left"])\n\n// ───── Longitudes equivalentes ─────\nlen5 = len15 * 3\nlen1 = len15 * 15\n\n// ───── Utils ─────\nf_clamp(float x, float lo, float hi) =>\n    math.max(lo, math.min(hi, x))\n\nf_pos(string p) =>\n    pos = position.top_right\n    if p == "Top Left"\n        pos := position.top_left\n    else if p == "Bottom Right"\n        pos := position.bottom_right\n    else if p == "Bottom Left"\n        pos := position.bottom_left\n    pos\n\n// ───── TS + zona + score ─────\nf_tsBear() => high > high[1] and close < open and close < high[1]\nf_tsBull() => low < low[1]  and close > open and close > low[1]\n\nf_zoneZ(int K) =>\n    hh = ta.highest(high, K)\n    ll = ta.lowest(low, K)\n    rng = hh - ll\n    rng == 0 ? 0.5 : (close - ll) / rng\n\nf_scoreBear(int atrN) =>\n    wick = high - math.max(open, close)\n    body = math.abs(close - open)\n    a = ta.atr(atrN)\n    a == 0 ? 0.0 : f_clamp(wick / a, 0.0, capW) * f_clamp(body / a, 0.0, capB)\n\nf_scoreBull(int atrN) =>\n    wick = math.min(open, close) - low\n    body = math.abs(close - open)\n    a = ta.atr(atrN)\n    a == 0 ? 0.0 : f_clamp(wick / a, 0.0, capW) * f_clamp(body / a, 0.0, capB)\n\nf_sumWin(float x, int L) => ta.sma(x, L) * L\n\nf_bearBarScore() =>\n    z = f_zoneZ(kZone)\n    inHigh = z >= zoneHi\n    ts = f_tsBear()\n    sc = f_scoreBear(atrLen)\n    (ts and inHigh) ? sc : 0.0\n\nf_bullBarScore() =>\n    z = f_zoneZ(kZone)\n    inLow = z <= zoneLo\n    ts = f_tsBull()\n    sc = f_scoreBull(atrLen)\n    (ts and inLow) ? sc : 0.0\n\nf_bearScoreWin(simple string tf, int L) =>\n    request.security(syminfo.tickerid, tf, f_sumWin(f_bearBarScore(), L),\n        gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)\n\nf_bullScoreWin(simple string tf, int L) =>\n    request.security(syminfo.tickerid, tf, f_sumWin(f_bullBarScore(), L),\n        gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)\n\n// ───── TF scores ─────\nbear15S = f_bearScoreWin("15", len15)\nbull15S = f_bullScoreWin("15", len15)\nbear5S  = f_bearScoreWin("5",  len5)\nbull5S  = f_bullScoreWin("5",  len5)\nbear1S  = f_bearScoreWin("1",  len1)\nbull1S  = f_bullScoreWin("1",  len1)\n\n// balances con baseline (anti-saturación)\nbal15 = (bear15S - bull15S) / (bear15S + bull15S + baseline)\nbal5  = (bear5S  - bull5S ) / (bear5S  + bull5S  + baseline)\nbal1  = (bear1S  - bull1S ) / (bear1S  + bull1S  + baseline)\n\n// RAW [-100,+100]\nraw = 100 * (w15 * bal15 + w5 * bal5 + w1 * bal1)\nema = ta.ema(raw, emaN)\n\n// Impulse (aceleración)\nimp = raw - ema\n\n// Normalized Z-score (FIX: EMA fuera del ternario)\nst        = ta.stdev(raw, normLen)\nrawEmaN   = ta.ema(raw, normLen)              // <- SIEMPRE se calcula\nz         = st == 0 ? 0.0 : (raw - rawEmaN) / st\n\n// Escala Z a -100..100 (cap)\nzScaled = f_clamp(z * 50.0, -100.0, 100.0)\nzEma    = ta.ema(zScaled, emaN)\nimpZ    = zScaled - zEma\n\n// ───── Mostrar según modo ─────\nseriesMain = mode == "Raw" ? raw : zScaled\nseriesEma  = mode == "Raw" ? ema : zEma\nseriesImp  = mode == "Raw" ? imp : impZ\n\nthrUp = mode == "Raw" ? 70.0 : (zThr * 50.0)\nthrDn = mode == "Raw" ? -70.0 : (-zThr * 50.0)\n\nhline(0, "0", linestyle=hline.style_dotted)\nhline(thrUp, "+Thr", linestyle=hline.style_dotted)\nhline(thrDn, "-Thr", linestyle=hline.style_dotted)\n\nplot(seriesMain, title="Main", linewidth=1)\nplot(seriesEma,  title="EMA",  linewidth=2)\nplot(seriesImp,  title="Impulse (Main-EMA)", linewidth=1)\n\n// Señales\nbearAligned = (bal15 > 0) and (bal5 > 0)\nbullAligned = (bal15 < 0) and (bal5 < 0)\n\nbearSignal = seriesEma > thrUp and bearAligned\nbullSignal = seriesEma < thrDn and bullAligned\n\nalertcondition(bearSignal, title="TS Pressure BEARISH", message="TS Pressure BEARISH en {{ticker}}")\nalertcondition(bullSignal, title="TS Pressure BULLISH", message="TS Pressure BULLISH en {{ticker}}")\n\n// Panel mini\nvar table t = table.new(f_pos(panelPos), 4, 5, border_width=1)\nif showPanel and barstate.islast\n    table.clear(t, 0, 0)\n    table.cell(t, 0, 0, "Mode")\n    table.cell(t, 1, 0, mode)\n    table.cell(t, 0, 1, "Main/EMA")\n    table.cell(t, 1, 1, str.tostring(seriesMain, "#.##") + " / " + str.tostring(seriesEma, "#.##"))\n    table.cell(t, 0, 2, "Impulse")\n    table.cell(t, 1, 2, str.tostring(seriesImp, "#.##"))\n    table.cell(t, 0, 3, "Align")\n    table.cell(t, 1, 3, bearAligned ? "BEAR" : bullAligned ? "BULL" : "MIX")\n    table.cell(t, 0, 4, "z")\n    table.cell(t, 1, 4, str.tostring(z, "#.##"))\n'
+[CAPTURE 2] '//@version=6\nindicator("TS Pressure Oscillator", overlay=false, max_labels_count=500)\n\n// ───── Inputs base ─────\nlen15    = input.int(30, "Ventana base M15 (barras)", minval=5, maxval=200)\nemaN     = input.int(5,  "Suavizado EMA (raw)", minval=1, maxval=50)\n\nw15      = input.float(0.60, "Peso M15", step=0.05)\nw5       = input.float(0.30, "Peso M5",  step=0.05)\nw1       = input.float(0.10, "Peso M1",  step=0.05)\n\n// Zona / score\nkZone    = input.int(50, "Lookback zona (HH/LL)", minval=10, maxval=500)\nzoneHi   = input.float(0.80, "Zona alta", minval=0.50, maxval=0.99, step=0.01)\nzoneLo   = input.float(0.20, "Zona baja", minval=0.01, maxval=0.50, step=0.01)\n\natrLen   = input.int(14, "ATR len (score)", minval=2, maxval=100)\ncapW     = input.float(2.0, "Cap mecha/ATR", step=0.1)\ncapB     = input.float(2.0, "Cap cuerpo/ATR", step=0.1)\n\nbaseline = input.float(1.0, "Baseline normalización", minval=0.1, step=0.1)\n\n// Normalización\nmode     = input.string("Normalized", "Modo", options=["Raw","Normalized"])\nnormLen  = input.int(100, "Norm len (stdev)", minval=20, maxval=500)\nzThr     = input.float(1.5, "Umbral Z (señal)", step=0.1)\n\n// Panel\nshowPanel = input.bool(true, "Mostrar panel")\npanelPos  = input.string("Top Right", "Posición panel", options=["Top Right","Top Left","Bottom Right","Bottom Left"])\n\n// ───── Longitudes equivalentes ─────\nlen5 = len15 * 3\nlen1 = len15 * 15\n\n// ───── Utils ─────\nf_clamp(float x, float lo, float hi) =>\n    math.max(lo, math.min(hi, x))\n\nf_pos(string p) =>\n    pos = position.top_right\n    if p == "Top Left"\n        pos := position.top_left\n    else if p == "Bottom Right"\n        pos := position.bottom_right\n    else if p == "Bottom Left"\n        pos := position.bottom_left\n    pos\n\n// ───── TS + zona + score ─────\nf_tsBear() => high > high[1] and close < open and close < high[1]\nf_tsBull() => low < low[1]  and close > open and close > low[1]\n\nf_zoneZ(int K) =>\n    hh = ta.highest(high, K)\n    ll = ta.lowest(low, K)\n    rng = hh - ll\n    rng == 0 ? 0.5 : (close - ll) / rng\n\nf_scoreBear(int atrN) =>\n    wick = high - math.max(open, close)\n    body = math.abs(close - open)\n    a = ta.atr(atrN)\n    a == 0 ? 0.0 : f_clamp(wick / a, 0.0, capW) * f_clamp(body / a, 0.0, capB)\n\nf_scoreBull(int atrN) =>\n    wick = math.min(open, close) - low\n    body = math.abs(close - open)\n    a = ta.atr(atrN)\n    a == 0 ? 0.0 : f_clamp(wick / a, 0.0, capW) * f_clamp(body / a, 0.0, capB)\n\nf_sumWin(float x, int L) => ta.sma(x, L) * L\n\nf_bearBarScore() =>\n    z = f_zoneZ(kZone)\n    inHigh = z >= zoneHi\n    ts = f_tsBear()\n    sc = f_scoreBear(atrLen)\n    (ts and inHigh) ? sc : 0.0\n\nf_bullBarScore() =>\n    z = f_zoneZ(kZone)\n    inLow = z <= zoneLo\n    ts = f_tsBull()\n    sc = f_scoreBull(atrLen)\n    (ts and inLow) ? sc : 0.0\n\nf_bearScoreWin(simple string tf, int L) =>\n    request.security(syminfo.tickerid, tf, f_sumWin(f_bearBarScore(), L),\n        gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)\n\nf_bullScoreWin(simple string tf, int L) =>\n    request.security(syminfo.tickerid, tf, f_sumWin(f_bullBarScore(), L),\n        gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)\n\n// ───── TF scores ─────\nbear15S = f_bearScoreWin("15", len15)\nbull15S = f_bullScoreWin("15", len15)\nbear5S  = f_bearScoreWin("5",  len5)\nbull5S  = f_bullScoreWin("5",  len5)\nbear1S  = f_bearScoreWin("1",  len1)\nbull1S  = f_bullScoreWin("1",  len1)\n\n// balances con baseline (anti-saturación)\nbal15 = (bear15S - bull15S) / (bear15S + bull15S + baseline)\nbal5  = (bear5S  - bull5S ) / (bear5S  + bull5S  + baseline)\nbal1  = (bear1S  - bull1S ) / (bear1S  + bull1S  + baseline)\n\n// RAW [-100,+100]\nraw = 100 * (w15 * bal15 + w5 * bal5 + w1 * bal1)\nema = ta.ema(raw, emaN)\n\n// Impulse (aceleración)\nimp = raw - ema\n\n// Normalized Z-score (FIX: EMA fuera del ternario)\nst        = ta.stdev(raw, normLen)\nrawEmaN   = ta.ema(raw, normLen)              // <- SIEMPRE se calcula\nz         = st == 0 ? 0.0 : (raw - rawEmaN) / st\n\n// Escala Z a -100..100 (cap)\nzScaled = f_clamp(z * 50.0, -100.0, 100.0)\nzEma    = ta.ema(zScaled, emaN)\nimpZ    = zScaled - zEma\n\n// ───── Mostrar según modo ─────\nseriesMain = mode == "Raw" ? raw : zScaled\nseriesEma  = mode == "Raw" ? ema : zEma\nseriesImp  = mode == "Raw" ? imp : impZ\n\nthrUp = mode == "Raw" ? 70.0 : (zThr * 50.0)\nthrDn = mode == "Raw" ? -70.0 : (-zThr * 50.0)\n\nhline(0, "0", linestyle=hline.style_dotted)\nhline(thrUp, "+Thr", linestyle=hline.style_dotted)\nhline(thrDn, "-Thr", linestyle=hline.style_dotted)\n\nplot(seriesMain, title="Main", linewidth=1)\nplot(seriesEma,  title="EMA",  linewidth=2)\nplot(seriesImp,  title="Impulse (Main-EMA)", linewidth=1)\n\n// Señales\nbearAligned = (bal15 > 0) and (bal5 > 0)\nbullAligned = (bal15 < 0) and (bal5 < 0)\n\nbearSignal = seriesEma > thrUp and bearAligned\nbullSignal = seriesEma < thrDn and bullAligned\n\nalertcondition(bearSignal, title="TS Pressure BEARISH", message="TS Pressure BEARISH en {{ticker}}")\nalertcondition(bullSignal, title="TS Pressure BULLISH", message="TS Pressure BULLISH en {{ticker}}")\n\n// Panel mini\nvar table t = table.new(f_pos(panelPos), 4, 5, border_width=1)\nif showPanel and barstate.islast\n    table.clear(t, 0, 0)\n    table.cell(t, 0, 0, "Mode")\n    table.cell(t, 1, 0, mode)\n    table.cell(t, 0, 1, "Main/EMA")\n    table.cell(t, 1, 1, str.tostring(seriesMain, "#.##") + " / " + str.tostring(seriesEma, "#.##"))\n    table.cell(t, 0, 2, "Impulse")\n    table.cell(t, 1, 2, str.tostring(seriesImp, "#.##"))\n    table.cell(t, 0, 3, "Align")\n    table.cell(t, 1, 3, bearAligned ? "BEAR" : bullAligned ? "BULL" : "MIX")\n    table.cell(t, 0, 4, "z")\n    table.cell(t, 1, 4, str.tostring(z, "#.##"))\n'
+[DEBUG] save_script called: script_id=HHwGQ9H4 title=TS Pressure Oscillator category=HHwGQ9H4 force_flat=True
+[DEBUG] Writing script to: pinescript_downloads\indicators\HHwGQ9H4_TS_Pressure_Oscillator.pine
+[DEBUG] Marker written to: pinescript_downloads\indicators\.last_saved.txt
+[DEBUG] Also saved via save_script: pinescript_downloads\indicators\HHwGQ9H4_TS_Pressure_Oscillator.pine
+[INJECTED CAPTURES] []
+[INJECTED MUTATIONS] []
+[setup] Page close event detected
+[cleanup] Removed diagnostic artifacts from: pinescript_downloads\indicators
+[setup] launching browser; headless=False user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+[setup] browser launched
+[DEBUG] Raw pubtext extracted: 'Mon, 09 Feb 2026 11:07:32 GMT'
+[DEBUG] Parsed RFC-2822 time 'Mon, 09 Feb 2026 11:07:32 GMT' as: 2026-02-09T11:07:32+00:00
+[DEBUG] Exact published date for header: 2026-02-09T11:07:32+00:00
+   [debug] Injected copy-capture init script
+Diagnostics: visiting https://www.tradingview.com/script/hUgchN6A/
+   [debug] Clicked Source code tab for diagnostics
+[BUTTON] [class*="copy"] idx=0 text= nearby_sample=1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=1 text=English
+
+Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 F nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=2 text=Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 FactSet Re nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[CAPTURE 0] '//@version=6\nindicator("Trend vs Balance + Alerts ", overlay=true, max_labels_count=50)\n\n//========================\n// Inputs\n//========================\ntfHTF = input.timeframe("D",   "TF Base (Daily)")\ntfLTF = input.timeframe("240", "TF Ajuste (H4)")\n\nlen            = input.int(20,     "Lookback bars", minval=10, maxval=200)\npivotLen       = input.int(3,      "Pivot length (HH/HL)", minval=2,  maxval=10)\nextremePct     = input.float(0.25, "Close near extreme (%)", minval=0.05, maxval=0.45, step=0.05)\n\noverlapTrendMax = input.float(0.50, "Max avg overlap for Trend",   minval=0.05, maxval=0.95, step=0.05)\noverlapBalMin   = input.float(0.65, "Min avg overlap for Balance", minval=0.05, maxval=0.95, step=0.05)\n\nimpulseFactor   = input.float(1.20, "Impulse factor (Trend)", minval=1.05, maxval=2.0, step=0.05)\nimbalanceBalMax = input.float(0.20, "Max imbalance for Balance", minval=0.05, maxval=0.5, step=0.05)\n\nholdBars     = input.int(3,    "Break acceptance (bars)", minval=2, maxval=10)\nminStrength  = input.int(60,   "Marca \'débil\' si < (%)",  minval=40, maxval=90)\n\n// Daily manda; H4 solo ajusta el % del Daily (no cambia el estado)\nh4Influence  = input.float(0.30, "H4 influence (0..1)", minval=0.0, maxval=1.0, step=0.05)\n\nshowTable = input.bool(true,  "Show table")\nshowBg    = input.bool(false, "Background tint (según COMBO)")\nshowLabel = input.bool(true,  "Show combo label")\n\n//========================\n// Alerts\n//========================\nenableComboAlert = input.bool(true,  "Enable alert: COMBO %")\ncomboAlertPct    = input.float(70.0, "COMBO alert threshold (%)", minval=0, maxval=100, step=1)\n\nenableTrendAlert = input.bool(true,  "Enable alert: TREND % (sin dirección)")\ntrendAlertPct    = input.float(80.0, "TREND alert threshold (%)", minval=0, maxval=100, step=1)\n\nalertMode = input.string("Cross Up", "Alert mode", options=["Cross Up", "Above"])\n\n// 🔒 Nueva opción anti-“repaint en alertas”\nalertsOnlyOnConfirmedTF = input.bool(true, "Alerts only on confirmed D & H4 closes")\n\n//========================\n// Helpers\n//========================\nf_bool_to_point(cond) => cond ? 1.0 : 0.0\nf_sum(_x, _len) => nz(ta.sma(_x, _len)) * _len\nf_count_true(_cond, _len) => nz(ta.sma(_cond ? 1.0 : 0.0, _len)) * _len\nf_clamp(x, lo, hi) => math.max(lo, math.min(hi, x))\n\n// Winner state (dir: +1 bull, -1 bear, 0 balance)\nf_winner(_bull, _bear, _bal) =>\n    if _bull >= _bear and _bull >= _bal\n        ["TENDENCIA ALCISTA", _bull,  1]\n    else if _bear >= _bull and _bear >= _bal\n        ["TENDENCIA BAJISTA", _bear, -1]\n    else\n        ["EQUILIBRIO", _bal, 0]\n\n//========================\n// Regime scoring per-TF\n//========================\nf_regime_scores(_len, _pivotLen, _extremePct, _overlapTrendMax, _overlapBalMin, _impulseFactor, _imbalanceBalMax, _holdBars) =>\n    ph = ta.pivothigh(high, _pivotLen, _pivotLen)\n    pl = ta.pivotlow(low,  _pivotLen, _pivotLen)\n\n    ph1 = ta.valuewhen(not na(ph), ph, 0)\n    ph2 = ta.valuewhen(not na(ph), ph, 1)\n    pl1 = ta.valuewhen(not na(pl), pl, 0)\n    pl2 = ta.valuewhen(not na(pl), pl, 1)\n\n    havePivots = not na(ph2) and not na(pl2)\n\n    structureBull = havePivots and ph1 > ph2 and pl1 > pl2\n    structureBear = havePivots and ph1 < ph2 and pl1 < pl2\n    noStructure   = havePivots and not structureBull and not structureBear\n\n    rng = math.max(high - low, syminfo.mintick)\n    closeTop = close >= high - rng * _extremePct\n    closeBot = close <= low  + rng * _extremePct\n\n    closesTopOk = f_count_true(closeTop, _len) >= 2\n    closesBotOk = f_count_true(closeBot, _len) >= 2\n\n    midBand = 0.35\n    closeMid = close > low + rng * midBand and close < high - rng * midBand\n    closesMidOk = f_count_true(closeMid, _len) >= math.round(_len * 0.5)\n\n    prevRng = math.max(high[1] - low[1], syminfo.mintick)\n    overlap = math.max(0.0, math.min(high, high[1]) - math.max(low, low[1]))\n    overlapRatio = overlap / prevRng\n    avgOverlap = nz(ta.sma(overlapRatio, _len))\n\n    lowOverlapOk  = avgOverlap <= _overlapTrendMax\n    highOverlapOk = avgOverlap >= _overlapBalMin\n\n    upStep = math.max(close - close[1], 0.0)\n    dnStep = math.max(close[1] - close, 0.0)\n\n    upMove = f_sum(upStep, _len)\n    dnMove = f_sum(dnStep, _len)\n\n    impulseBullOk = upMove > dnMove * _impulseFactor\n    impulseBearOk = dnMove > upMove * _impulseFactor\n\n    denom = upMove + dnMove\n    imbalance = denom > 0 ? math.abs(upMove - dnMove) / denom : 0.0\n    impulseBalOk = imbalance <= _imbalanceBalMax\n\n    lowestCloseHold  = ta.lowest(close, _holdBars)\n    highestCloseHold = ta.highest(close, _holdBars)\n\n    breakBullOk = havePivots and close > ph1 and lowestCloseHold > ph1\n    breakBearOk = havePivots and close < pl1 and highestCloseHold < pl1\n\n    failBreak = havePivots and ((high > ph1 and close < ph1) or (low < pl1 and close > pl1))\n    failBreakOk = f_count_true(failBreak, _len) >= 1\n\n    bullPts = f_bool_to_point(structureBull) + f_bool_to_point(closesTopOk) + f_bool_to_point(lowOverlapOk)  + f_bool_to_point(impulseBullOk) + f_bool_to_point(breakBullOk)\n    bearPts = f_bool_to_point(structureBear) + f_bool_to_point(closesBotOk) + f_bool_to_point(lowOverlapOk)  + f_bool_to_point(impulseBearOk) + f_bool_to_point(breakBearOk)\n    balPts  = f_bool_to_point(noStructure)   + f_bool_to_point(closesMidOk) + f_bool_to_point(highOverlapOk) + f_bool_to_point(impulseBalOk)  + f_bool_to_point(failBreakOk)\n\n    bullScore = bullPts / 5.0 * 100.0\n    bearScore = bearPts / 5.0 * 100.0\n    balScore  = balPts  / 5.0 * 100.0\n\n    [bullScore, bearScore, balScore]\n\n//========================\n// Pull scores from TFs\n//========================\n[bD, sD, balD] = request.security(syminfo.tickerid, tfHTF,\n    f_regime_scores(len, pivotLen, extremePct, overlapTrendMax, overlapBalMin, impulseFactor, imbalanceBalMax, holdBars),\n    barmerge.gaps_off, barmerge.lookahead_off)\n\n[b4, s4, bal4] = request.security(syminfo.tickerid, tfLTF,\n    f_regime_scores(len, pivotLen, extremePct, overlapTrendMax, overlapBalMin, impulseFactor, imbalanceBalMax, holdBars),\n    barmerge.gaps_off, barmerge.lookahead_off)\n\n// Confirm flags INSIDE each TF (para alertas seguras)\ndConfirmed  = request.security(syminfo.tickerid, tfHTF, barstate.isconfirmed, barmerge.gaps_off, barmerge.lookahead_off)\nh4Confirmed = request.security(syminfo.tickerid, tfLTF, barstate.isconfirmed, barmerge.gaps_off, barmerge.lookahead_off)\nalertsOK = not alertsOnlyOnConfirmedTF or (dConfirmed and h4Confirmed)\n\n//========================\n// Winners per TF\n//========================\n[stateD, strengthD, dirD] = f_winner(bD, sD, balD)\n[state4, strength4, dir4] = f_winner(b4, s4, bal4)\n\nstateD_txt = stateD + (strengthD < minStrength ? " (débil)" : "")\nstate4_txt = state4 + (strength4 < minStrength ? " (débil)" : "")\n\n//========================\n// COMBO (Daily manda)\n// H4 solo ajusta % del Daily\n//========================\nstring stateC = stateD\nint dirC = dirD\n\nfloat support = na\nfloat oppose  = na\n\nif stateD == "EQUILIBRIO"\n    support := bal4\n    oppose  := math.max(b4, s4)\nelse if stateD == "TENDENCIA ALCISTA"\n    support := b4\n    oppose  := math.max(s4, bal4)\nelse\n    support := s4\n    oppose  := math.max(b4, bal4)\n\nadj = h4Influence * (support - oppose)\nstrengthC = f_clamp(strengthD + adj, 0, 100)\n\n// Strong conflict warning\nconflict = (dirD != 0 and dir4 != 0 and dirD != dir4 and strength4 >= minStrength)\n\n//========================\n// Background (global scope)\n//========================\nbg = (stateC == "TENDENCIA ALCISTA") ? color.new(color.green, 90) :\n     (stateC == "TENDENCIA BAJISTA") ? color.new(color.red, 90) :\n     color.new(color.gray, 90)\n\nbgcolor(showBg ? bg : na)\n\n//========================\n// Table\n//========================\nvar table t = table.new(position.top_right, 3, 4, border_width=1)\n\nif showTable and barstate.islast\n    table.cell(t, 0, 0, "TF",     text_color=color.white, bgcolor=color.new(color.black, 0))\n    table.cell(t, 1, 0, "Estado", text_color=color.white, bgcolor=color.new(color.black, 0))\n    table.cell(t, 2, 0, "%",      text_color=color.white, bgcolor=color.new(color.black, 0))\n\n    table.cell(t, 0, 1, tfHTF)\n    table.cell(t, 1, 1, stateD_txt)\n    table.cell(t, 2, 1, str.tostring(math.round(strengthD)) + "%")\n\n    table.cell(t, 0, 2, tfLTF)\n    table.cell(t, 1, 2, state4_txt)\n    table.cell(t, 2, 2, str.tostring(math.round(strength4)) + "%")\n\n    table.cell(t, 0, 3, "COMBO")\n    table.cell(t, 1, 3, conflict ? (stateC + " ⚠️") : stateC)\n    table.cell(t, 2, 3, str.tostring(math.round(strengthC)) + "%")\n\n//========================\n// Combo label\n//========================\nvar label lbl = na\nif showLabel and barstate.islast\n    label.delete(lbl)\n    txt = "COMBO: " + (conflict ? (stateC + " ⚠️") : stateC) + "  " + str.tostring(math.round(strengthC)) + "%"\n    lbl := label.new(bar_index, high, txt, style=label.style_label_down, textcolor=color.white, color=color.new(color.black, 0))\n\n//========================\n// ALERT CONDITIONS\n// 1) COMBO reaches X% (any regime)\n// 2) TREND reaches X% (no direction: bull/bear both count)\n//========================\ncomboAbove   = strengthC >= comboAlertPct\ncomboCrossUp = comboAbove and strengthC[1] < comboAlertPct\n\ncomboAlertCond = enableComboAlert and (alertMode == "Cross Up" ? comboCrossUp : comboAbove) and alertsOK\n\ncomboIsTrend = (dirC != 0)  // Daily regime is trend (bull OR bear)\ntrendPct     = comboIsTrend ? strengthC : 0.0\n\ntrendAbove   = comboIsTrend and trendPct >= trendAlertPct\nprevTrendOk  = (comboIsTrend[1] and strengthC[1] >= trendAlertPct)\ntrendCrossUp = trendAbove and not prevTrendOk\n\ntrendAlertCond = enableTrendAlert and (alertMode == "Cross Up" ? trendCrossUp : trendAbove) and alertsOK\n\nalertcondition(comboAlertCond, title="COMBO reached threshold", message="COMBO reached your threshold.")\nalertcondition(trendAlertCond, title="TREND reached threshold (no direction)", message="TREND (bull/bear) reached your threshold.")\n'
+[CAPTURE 1] '//@version=6\nindicator("Trend vs Balance + Alerts ", overlay=true, max_labels_count=50)\n\n//========================\n// Inputs\n//========================\ntfHTF = input.timeframe("D",   "TF Base (Daily)")\ntfLTF = input.timeframe("240", "TF Ajuste (H4)")\n\nlen            = input.int(20,     "Lookback bars", minval=10, maxval=200)\npivotLen       = input.int(3,      "Pivot length (HH/HL)", minval=2,  maxval=10)\nextremePct     = input.float(0.25, "Close near extreme (%)", minval=0.05, maxval=0.45, step=0.05)\n\noverlapTrendMax = input.float(0.50, "Max avg overlap for Trend",   minval=0.05, maxval=0.95, step=0.05)\noverlapBalMin   = input.float(0.65, "Min avg overlap for Balance", minval=0.05, maxval=0.95, step=0.05)\n\nimpulseFactor   = input.float(1.20, "Impulse factor (Trend)", minval=1.05, maxval=2.0, step=0.05)\nimbalanceBalMax = input.float(0.20, "Max imbalance for Balance", minval=0.05, maxval=0.5, step=0.05)\n\nholdBars     = input.int(3,    "Break acceptance (bars)", minval=2, maxval=10)\nminStrength  = input.int(60,   "Marca \'débil\' si < (%)",  minval=40, maxval=90)\n\n// Daily manda; H4 solo ajusta el % del Daily (no cambia el estado)\nh4Influence  = input.float(0.30, "H4 influence (0..1)", minval=0.0, maxval=1.0, step=0.05)\n\nshowTable = input.bool(true,  "Show table")\nshowBg    = input.bool(false, "Background tint (según COMBO)")\nshowLabel = input.bool(true,  "Show combo label")\n\n//========================\n// Alerts\n//========================\nenableComboAlert = input.bool(true,  "Enable alert: COMBO %")\ncomboAlertPct    = input.float(70.0, "COMBO alert threshold (%)", minval=0, maxval=100, step=1)\n\nenableTrendAlert = input.bool(true,  "Enable alert: TREND % (sin dirección)")\ntrendAlertPct    = input.float(80.0, "TREND alert threshold (%)", minval=0, maxval=100, step=1)\n\nalertMode = input.string("Cross Up", "Alert mode", options=["Cross Up", "Above"])\n\n// 🔒 Nueva opción anti-“repaint en alertas”\nalertsOnlyOnConfirmedTF = input.bool(true, "Alerts only on confirmed D & H4 closes")\n\n//========================\n// Helpers\n//========================\nf_bool_to_point(cond) => cond ? 1.0 : 0.0\nf_sum(_x, _len) => nz(ta.sma(_x, _len)) * _len\nf_count_true(_cond, _len) => nz(ta.sma(_cond ? 1.0 : 0.0, _len)) * _len\nf_clamp(x, lo, hi) => math.max(lo, math.min(hi, x))\n\n// Winner state (dir: +1 bull, -1 bear, 0 balance)\nf_winner(_bull, _bear, _bal) =>\n    if _bull >= _bear and _bull >= _bal\n        ["TENDENCIA ALCISTA", _bull,  1]\n    else if _bear >= _bull and _bear >= _bal\n        ["TENDENCIA BAJISTA", _bear, -1]\n    else\n        ["EQUILIBRIO", _bal, 0]\n\n//========================\n// Regime scoring per-TF\n//========================\nf_regime_scores(_len, _pivotLen, _extremePct, _overlapTrendMax, _overlapBalMin, _impulseFactor, _imbalanceBalMax, _holdBars) =>\n    ph = ta.pivothigh(high, _pivotLen, _pivotLen)\n    pl = ta.pivotlow(low,  _pivotLen, _pivotLen)\n\n    ph1 = ta.valuewhen(not na(ph), ph, 0)\n    ph2 = ta.valuewhen(not na(ph), ph, 1)\n    pl1 = ta.valuewhen(not na(pl), pl, 0)\n    pl2 = ta.valuewhen(not na(pl), pl, 1)\n\n    havePivots = not na(ph2) and not na(pl2)\n\n    structureBull = havePivots and ph1 > ph2 and pl1 > pl2\n    structureBear = havePivots and ph1 < ph2 and pl1 < pl2\n    noStructure   = havePivots and not structureBull and not structureBear\n\n    rng = math.max(high - low, syminfo.mintick)\n    closeTop = close >= high - rng * _extremePct\n    closeBot = close <= low  + rng * _extremePct\n\n    closesTopOk = f_count_true(closeTop, _len) >= 2\n    closesBotOk = f_count_true(closeBot, _len) >= 2\n\n    midBand = 0.35\n    closeMid = close > low + rng * midBand and close < high - rng * midBand\n    closesMidOk = f_count_true(closeMid, _len) >= math.round(_len * 0.5)\n\n    prevRng = math.max(high[1] - low[1], syminfo.mintick)\n    overlap = math.max(0.0, math.min(high, high[1]) - math.max(low, low[1]))\n    overlapRatio = overlap / prevRng\n    avgOverlap = nz(ta.sma(overlapRatio, _len))\n\n    lowOverlapOk  = avgOverlap <= _overlapTrendMax\n    highOverlapOk = avgOverlap >= _overlapBalMin\n\n    upStep = math.max(close - close[1], 0.0)\n    dnStep = math.max(close[1] - close, 0.0)\n\n    upMove = f_sum(upStep, _len)\n    dnMove = f_sum(dnStep, _len)\n\n    impulseBullOk = upMove > dnMove * _impulseFactor\n    impulseBearOk = dnMove > upMove * _impulseFactor\n\n    denom = upMove + dnMove\n    imbalance = denom > 0 ? math.abs(upMove - dnMove) / denom : 0.0\n    impulseBalOk = imbalance <= _imbalanceBalMax\n\n    lowestCloseHold  = ta.lowest(close, _holdBars)\n    highestCloseHold = ta.highest(close, _holdBars)\n\n    breakBullOk = havePivots and close > ph1 and lowestCloseHold > ph1\n    breakBearOk = havePivots and close < pl1 and highestCloseHold < pl1\n\n    failBreak = havePivots and ((high > ph1 and close < ph1) or (low < pl1 and close > pl1))\n    failBreakOk = f_count_true(failBreak, _len) >= 1\n\n    bullPts = f_bool_to_point(structureBull) + f_bool_to_point(closesTopOk) + f_bool_to_point(lowOverlapOk)  + f_bool_to_point(impulseBullOk) + f_bool_to_point(breakBullOk)\n    bearPts = f_bool_to_point(structureBear) + f_bool_to_point(closesBotOk) + f_bool_to_point(lowOverlapOk)  + f_bool_to_point(impulseBearOk) + f_bool_to_point(breakBearOk)\n    balPts  = f_bool_to_point(noStructure)   + f_bool_to_point(closesMidOk) + f_bool_to_point(highOverlapOk) + f_bool_to_point(impulseBalOk)  + f_bool_to_point(failBreakOk)\n\n    bullScore = bullPts / 5.0 * 100.0\n    bearScore = bearPts / 5.0 * 100.0\n    balScore  = balPts  / 5.0 * 100.0\n\n    [bullScore, bearScore, balScore]\n\n//========================\n// Pull scores from TFs\n//========================\n[bD, sD, balD] = request.security(syminfo.tickerid, tfHTF,\n    f_regime_scores(len, pivotLen, extremePct, overlapTrendMax, overlapBalMin, impulseFactor, imbalanceBalMax, holdBars),\n    barmerge.gaps_off, barmerge.lookahead_off)\n\n[b4, s4, bal4] = request.security(syminfo.tickerid, tfLTF,\n    f_regime_scores(len, pivotLen, extremePct, overlapTrendMax, overlapBalMin, impulseFactor, imbalanceBalMax, holdBars),\n    barmerge.gaps_off, barmerge.lookahead_off)\n\n// Confirm flags INSIDE each TF (para alertas seguras)\ndConfirmed  = request.security(syminfo.tickerid, tfHTF, barstate.isconfirmed, barmerge.gaps_off, barmerge.lookahead_off)\nh4Confirmed = request.security(syminfo.tickerid, tfLTF, barstate.isconfirmed, barmerge.gaps_off, barmerge.lookahead_off)\nalertsOK = not alertsOnlyOnConfirmedTF or (dConfirmed and h4Confirmed)\n\n//========================\n// Winners per TF\n//========================\n[stateD, strengthD, dirD] = f_winner(bD, sD, balD)\n[state4, strength4, dir4] = f_winner(b4, s4, bal4)\n\nstateD_txt = stateD + (strengthD < minStrength ? " (débil)" : "")\nstate4_txt = state4 + (strength4 < minStrength ? " (débil)" : "")\n\n//========================\n// COMBO (Daily manda)\n// H4 solo ajusta % del Daily\n//========================\nstring stateC = stateD\nint dirC = dirD\n\nfloat support = na\nfloat oppose  = na\n\nif stateD == "EQUILIBRIO"\n    support := bal4\n    oppose  := math.max(b4, s4)\nelse if stateD == "TENDENCIA ALCISTA"\n    support := b4\n    oppose  := math.max(s4, bal4)\nelse\n    support := s4\n    oppose  := math.max(b4, bal4)\n\nadj = h4Influence * (support - oppose)\nstrengthC = f_clamp(strengthD + adj, 0, 100)\n\n// Strong conflict warning\nconflict = (dirD != 0 and dir4 != 0 and dirD != dir4 and strength4 >= minStrength)\n\n//========================\n// Background (global scope)\n//========================\nbg = (stateC == "TENDENCIA ALCISTA") ? color.new(color.green, 90) :\n     (stateC == "TENDENCIA BAJISTA") ? color.new(color.red, 90) :\n     color.new(color.gray, 90)\n\nbgcolor(showBg ? bg : na)\n\n//========================\n// Table\n//========================\nvar table t = table.new(position.top_right, 3, 4, border_width=1)\n\nif showTable and barstate.islast\n    table.cell(t, 0, 0, "TF",     text_color=color.white, bgcolor=color.new(color.black, 0))\n    table.cell(t, 1, 0, "Estado", text_color=color.white, bgcolor=color.new(color.black, 0))\n    table.cell(t, 2, 0, "%",      text_color=color.white, bgcolor=color.new(color.black, 0))\n\n    table.cell(t, 0, 1, tfHTF)\n    table.cell(t, 1, 1, stateD_txt)\n    table.cell(t, 2, 1, str.tostring(math.round(strengthD)) + "%")\n\n    table.cell(t, 0, 2, tfLTF)\n    table.cell(t, 1, 2, state4_txt)\n    table.cell(t, 2, 2, str.tostring(math.round(strength4)) + "%")\n\n    table.cell(t, 0, 3, "COMBO")\n    table.cell(t, 1, 3, conflict ? (stateC + " ⚠️") : stateC)\n    table.cell(t, 2, 3, str.tostring(math.round(strengthC)) + "%")\n\n//========================\n// Combo label\n//========================\nvar label lbl = na\nif showLabel and barstate.islast\n    label.delete(lbl)\n    txt = "COMBO: " + (conflict ? (stateC + " ⚠️") : stateC) + "  " + str.tostring(math.round(strengthC)) + "%"\n    lbl := label.new(bar_index, high, txt, style=label.style_label_down, textcolor=color.white, color=color.new(color.black, 0))\n\n//========================\n// ALERT CONDITIONS\n// 1) COMBO reaches X% (any regime)\n// 2) TREND reaches X% (no direction: bull/bear both count)\n//========================\ncomboAbove   = strengthC >= comboAlertPct\ncomboCrossUp = comboAbove and strengthC[1] < comboAlertPct\n\ncomboAlertCond = enableComboAlert and (alertMode == "Cross Up" ? comboCrossUp : comboAbove) and alertsOK\n\ncomboIsTrend = (dirC != 0)  // Daily regime is trend (bull OR bear)\ntrendPct     = comboIsTrend ? strengthC : 0.0\n\ntrendAbove   = comboIsTrend and trendPct >= trendAlertPct\nprevTrendOk  = (comboIsTrend[1] and strengthC[1] >= trendAlertPct)\ntrendCrossUp = trendAbove and not prevTrendOk\n\ntrendAlertCond = enableTrendAlert and (alertMode == "Cross Up" ? trendCrossUp : trendAbove) and alertsOK\n\nalertcondition(comboAlertCond, title="COMBO reached threshold", message="COMBO reached your threshold.")\nalertcondition(trendAlertCond, title="TREND reached threshold (no direction)", message="TREND (bull/bear) reached your threshold.")\n'
+[CAPTURE 2] '//@version=6\nindicator("Trend vs Balance + Alerts ", overlay=true, max_labels_count=50)\n\n//========================\n// Inputs\n//========================\ntfHTF = input.timeframe("D",   "TF Base (Daily)")\ntfLTF = input.timeframe("240", "TF Ajuste (H4)")\n\nlen            = input.int(20,     "Lookback bars", minval=10, maxval=200)\npivotLen       = input.int(3,      "Pivot length (HH/HL)", minval=2,  maxval=10)\nextremePct     = input.float(0.25, "Close near extreme (%)", minval=0.05, maxval=0.45, step=0.05)\n\noverlapTrendMax = input.float(0.50, "Max avg overlap for Trend",   minval=0.05, maxval=0.95, step=0.05)\noverlapBalMin   = input.float(0.65, "Min avg overlap for Balance", minval=0.05, maxval=0.95, step=0.05)\n\nimpulseFactor   = input.float(1.20, "Impulse factor (Trend)", minval=1.05, maxval=2.0, step=0.05)\nimbalanceBalMax = input.float(0.20, "Max imbalance for Balance", minval=0.05, maxval=0.5, step=0.05)\n\nholdBars     = input.int(3,    "Break acceptance (bars)", minval=2, maxval=10)\nminStrength  = input.int(60,   "Marca \'débil\' si < (%)",  minval=40, maxval=90)\n\n// Daily manda; H4 solo ajusta el % del Daily (no cambia el estado)\nh4Influence  = input.float(0.30, "H4 influence (0..1)", minval=0.0, maxval=1.0, step=0.05)\n\nshowTable = input.bool(true,  "Show table")\nshowBg    = input.bool(false, "Background tint (según COMBO)")\nshowLabel = input.bool(true,  "Show combo label")\n\n//========================\n// Alerts\n//========================\nenableComboAlert = input.bool(true,  "Enable alert: COMBO %")\ncomboAlertPct    = input.float(70.0, "COMBO alert threshold (%)", minval=0, maxval=100, step=1)\n\nenableTrendAlert = input.bool(true,  "Enable alert: TREND % (sin dirección)")\ntrendAlertPct    = input.float(80.0, "TREND alert threshold (%)", minval=0, maxval=100, step=1)\n\nalertMode = input.string("Cross Up", "Alert mode", options=["Cross Up", "Above"])\n\n// 🔒 Nueva opción anti-“repaint en alertas”\nalertsOnlyOnConfirmedTF = input.bool(true, "Alerts only on confirmed D & H4 closes")\n\n//========================\n// Helpers\n//========================\nf_bool_to_point(cond) => cond ? 1.0 : 0.0\nf_sum(_x, _len) => nz(ta.sma(_x, _len)) * _len\nf_count_true(_cond, _len) => nz(ta.sma(_cond ? 1.0 : 0.0, _len)) * _len\nf_clamp(x, lo, hi) => math.max(lo, math.min(hi, x))\n\n// Winner state (dir: +1 bull, -1 bear, 0 balance)\nf_winner(_bull, _bear, _bal) =>\n    if _bull >= _bear and _bull >= _bal\n        ["TENDENCIA ALCISTA", _bull,  1]\n    else if _bear >= _bull and _bear >= _bal\n        ["TENDENCIA BAJISTA", _bear, -1]\n    else\n        ["EQUILIBRIO", _bal, 0]\n\n//========================\n// Regime scoring per-TF\n//========================\nf_regime_scores(_len, _pivotLen, _extremePct, _overlapTrendMax, _overlapBalMin, _impulseFactor, _imbalanceBalMax, _holdBars) =>\n    ph = ta.pivothigh(high, _pivotLen, _pivotLen)\n    pl = ta.pivotlow(low,  _pivotLen, _pivotLen)\n\n    ph1 = ta.valuewhen(not na(ph), ph, 0)\n    ph2 = ta.valuewhen(not na(ph), ph, 1)\n    pl1 = ta.valuewhen(not na(pl), pl, 0)\n    pl2 = ta.valuewhen(not na(pl), pl, 1)\n\n    havePivots = not na(ph2) and not na(pl2)\n\n    structureBull = havePivots and ph1 > ph2 and pl1 > pl2\n    structureBear = havePivots and ph1 < ph2 and pl1 < pl2\n    noStructure   = havePivots and not structureBull and not structureBear\n\n    rng = math.max(high - low, syminfo.mintick)\n    closeTop = close >= high - rng * _extremePct\n    closeBot = close <= low  + rng * _extremePct\n\n    closesTopOk = f_count_true(closeTop, _len) >= 2\n    closesBotOk = f_count_true(closeBot, _len) >= 2\n\n    midBand = 0.35\n    closeMid = close > low + rng * midBand and close < high - rng * midBand\n    closesMidOk = f_count_true(closeMid, _len) >= math.round(_len * 0.5)\n\n    prevRng = math.max(high[1] - low[1], syminfo.mintick)\n    overlap = math.max(0.0, math.min(high, high[1]) - math.max(low, low[1]))\n    overlapRatio = overlap / prevRng\n    avgOverlap = nz(ta.sma(overlapRatio, _len))\n\n    lowOverlapOk  = avgOverlap <= _overlapTrendMax\n    highOverlapOk = avgOverlap >= _overlapBalMin\n\n    upStep = math.max(close - close[1], 0.0)\n    dnStep = math.max(close[1] - close, 0.0)\n\n    upMove = f_sum(upStep, _len)\n    dnMove = f_sum(dnStep, _len)\n\n    impulseBullOk = upMove > dnMove * _impulseFactor\n    impulseBearOk = dnMove > upMove * _impulseFactor\n\n    denom = upMove + dnMove\n    imbalance = denom > 0 ? math.abs(upMove - dnMove) / denom : 0.0\n    impulseBalOk = imbalance <= _imbalanceBalMax\n\n    lowestCloseHold  = ta.lowest(close, _holdBars)\n    highestCloseHold = ta.highest(close, _holdBars)\n\n    breakBullOk = havePivots and close > ph1 and lowestCloseHold > ph1\n    breakBearOk = havePivots and close < pl1 and highestCloseHold < pl1\n\n    failBreak = havePivots and ((high > ph1 and close < ph1) or (low < pl1 and close > pl1))\n    failBreakOk = f_count_true(failBreak, _len) >= 1\n\n    bullPts = f_bool_to_point(structureBull) + f_bool_to_point(closesTopOk) + f_bool_to_point(lowOverlapOk)  + f_bool_to_point(impulseBullOk) + f_bool_to_point(breakBullOk)\n    bearPts = f_bool_to_point(structureBear) + f_bool_to_point(closesBotOk) + f_bool_to_point(lowOverlapOk)  + f_bool_to_point(impulseBearOk) + f_bool_to_point(breakBearOk)\n    balPts  = f_bool_to_point(noStructure)   + f_bool_to_point(closesMidOk) + f_bool_to_point(highOverlapOk) + f_bool_to_point(impulseBalOk)  + f_bool_to_point(failBreakOk)\n\n    bullScore = bullPts / 5.0 * 100.0\n    bearScore = bearPts / 5.0 * 100.0\n    balScore  = balPts  / 5.0 * 100.0\n\n    [bullScore, bearScore, balScore]\n\n//========================\n// Pull scores from TFs\n//========================\n[bD, sD, balD] = request.security(syminfo.tickerid, tfHTF,\n    f_regime_scores(len, pivotLen, extremePct, overlapTrendMax, overlapBalMin, impulseFactor, imbalanceBalMax, holdBars),\n    barmerge.gaps_off, barmerge.lookahead_off)\n\n[b4, s4, bal4] = request.security(syminfo.tickerid, tfLTF,\n    f_regime_scores(len, pivotLen, extremePct, overlapTrendMax, overlapBalMin, impulseFactor, imbalanceBalMax, holdBars),\n    barmerge.gaps_off, barmerge.lookahead_off)\n\n// Confirm flags INSIDE each TF (para alertas seguras)\ndConfirmed  = request.security(syminfo.tickerid, tfHTF, barstate.isconfirmed, barmerge.gaps_off, barmerge.lookahead_off)\nh4Confirmed = request.security(syminfo.tickerid, tfLTF, barstate.isconfirmed, barmerge.gaps_off, barmerge.lookahead_off)\nalertsOK = not alertsOnlyOnConfirmedTF or (dConfirmed and h4Confirmed)\n\n//========================\n// Winners per TF\n//========================\n[stateD, strengthD, dirD] = f_winner(bD, sD, balD)\n[state4, strength4, dir4] = f_winner(b4, s4, bal4)\n\nstateD_txt = stateD + (strengthD < minStrength ? " (débil)" : "")\nstate4_txt = state4 + (strength4 < minStrength ? " (débil)" : "")\n\n//========================\n// COMBO (Daily manda)\n// H4 solo ajusta % del Daily\n//========================\nstring stateC = stateD\nint dirC = dirD\n\nfloat support = na\nfloat oppose  = na\n\nif stateD == "EQUILIBRIO"\n    support := bal4\n    oppose  := math.max(b4, s4)\nelse if stateD == "TENDENCIA ALCISTA"\n    support := b4\n    oppose  := math.max(s4, bal4)\nelse\n    support := s4\n    oppose  := math.max(b4, bal4)\n\nadj = h4Influence * (support - oppose)\nstrengthC = f_clamp(strengthD + adj, 0, 100)\n\n// Strong conflict warning\nconflict = (dirD != 0 and dir4 != 0 and dirD != dir4 and strength4 >= minStrength)\n\n//========================\n// Background (global scope)\n//========================\nbg = (stateC == "TENDENCIA ALCISTA") ? color.new(color.green, 90) :\n     (stateC == "TENDENCIA BAJISTA") ? color.new(color.red, 90) :\n     color.new(color.gray, 90)\n\nbgcolor(showBg ? bg : na)\n\n//========================\n// Table\n//========================\nvar table t = table.new(position.top_right, 3, 4, border_width=1)\n\nif showTable and barstate.islast\n    table.cell(t, 0, 0, "TF",     text_color=color.white, bgcolor=color.new(color.black, 0))\n    table.cell(t, 1, 0, "Estado", text_color=color.white, bgcolor=color.new(color.black, 0))\n    table.cell(t, 2, 0, "%",      text_color=color.white, bgcolor=color.new(color.black, 0))\n\n    table.cell(t, 0, 1, tfHTF)\n    table.cell(t, 1, 1, stateD_txt)\n    table.cell(t, 2, 1, str.tostring(math.round(strengthD)) + "%")\n\n    table.cell(t, 0, 2, tfLTF)\n    table.cell(t, 1, 2, state4_txt)\n    table.cell(t, 2, 2, str.tostring(math.round(strength4)) + "%")\n\n    table.cell(t, 0, 3, "COMBO")\n    table.cell(t, 1, 3, conflict ? (stateC + " ⚠️") : stateC)\n    table.cell(t, 2, 3, str.tostring(math.round(strengthC)) + "%")\n\n//========================\n// Combo label\n//========================\nvar label lbl = na\nif showLabel and barstate.islast\n    label.delete(lbl)\n    txt = "COMBO: " + (conflict ? (stateC + " ⚠️") : stateC) + "  " + str.tostring(math.round(strengthC)) + "%"\n    lbl := label.new(bar_index, high, txt, style=label.style_label_down, textcolor=color.white, color=color.new(color.black, 0))\n\n//========================\n// ALERT CONDITIONS\n// 1) COMBO reaches X% (any regime)\n// 2) TREND reaches X% (no direction: bull/bear both count)\n//========================\ncomboAbove   = strengthC >= comboAlertPct\ncomboCrossUp = comboAbove and strengthC[1] < comboAlertPct\n\ncomboAlertCond = enableComboAlert and (alertMode == "Cross Up" ? comboCrossUp : comboAbove) and alertsOK\n\ncomboIsTrend = (dirC != 0)  // Daily regime is trend (bull OR bear)\ntrendPct     = comboIsTrend ? strengthC : 0.0\n\ntrendAbove   = comboIsTrend and trendPct >= trendAlertPct\nprevTrendOk  = (comboIsTrend[1] and strengthC[1] >= trendAlertPct)\ntrendCrossUp = trendAbove and not prevTrendOk\n\ntrendAlertCond = enableTrendAlert and (alertMode == "Cross Up" ? trendCrossUp : trendAbove) and alertsOK\n\nalertcondition(comboAlertCond, title="COMBO reached threshold", message="COMBO reached your threshold.")\nalertcondition(trendAlertCond, title="TREND reached threshold (no direction)", message="TREND (bull/bear) reached your threshold.")\n'
+[DEBUG] save_script called: script_id=hUgchN6A title=Trend vs Balance + Alerts category=hUgchN6A force_flat=True
+[DEBUG] Writing script to: pinescript_downloads\indicators\hUgchN6A_Trend_vs_Balance_+_Alerts.pine
+[DEBUG] Marker written to: pinescript_downloads\indicators\.last_saved.txt
+[DEBUG] Also saved via save_script: pinescript_downloads\indicators\hUgchN6A_Trend_vs_Balance_+_Alerts.pine
+[INJECTED CAPTURES] []
+[INJECTED MUTATIONS] []
+[setup] Page close event detected
+
+[1/22] Downloading: https://www.tradingview.com/script/AcD0BFSj/
+   ✓ Gedownload: https://www.tradingview.com/script/AcD0BFSj/
+
+[2/22] Downloading: https://www.tradingview.com/script/HHwGQ9H4/
+   ✓ Gedownload: https://www.tradingview.com/script/HHwGQ9H4/
+
+[3/22] Downloading: https://www.tradingview.com/script/hUgchN6A/
+   ✓ Gedownload: https://www.tradingview.com/script/hUgchN6A/
+
+[4/22] Existing: https://www.tradingview.com/script/4YLrrdgv-Multi-Basis-Bollinger-Bands-Pro/  - checking remote Published date...
+   [check-updates] local=2026-02-09 10:55:27+00:00 remote=2026-02-09 10:55:27.818549+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 10:55:27+00:00 local_s=2026-02-09 10:55:27+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/4YLrrdgv-Multi-Basis-Bollinger-Bands-Pro/ (delta=+0.000000s)
+
+[5/22] Existing: https://www.tradingview.com/script/HZT7QYve-assistant/  - checking remote Published date...
+   [check-updates] local=2026-02-09 10:48:20+00:00 remote=2026-02-09 10:48:20.792597+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 10:48:20+00:00 local_s=2026-02-09 10:48:20+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/HZT7QYve-assistant/ (delta=+0.000000s)
+
+[6/22] Existing: https://www.tradingview.com/script/2FddXo6M/  - checking remote Published date...
+   [check-updates] local=2026-02-09 10:15:39+00:00 remote=2026-02-09 10:15:39.873111+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 10:15:39+00:00 local_s=2026-02-09 10:15:39+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/2FddXo6M/ (delta=+0.000000s)
+
+[7/22] Existing: https://www.tradingview.com/script/uSvr5k8p/  - checking remote Published date...
+   [check-updates] local=2026-02-09 10:11:12+00:00 remote=2026-02-09 10:11:12.402593+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 10:11:12+00:00 local_s=2026-02-09 10:11:12+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/uSvr5k8p/ (delta=+0.000000s)
+
+[8/22] Existing: https://www.tradingview.com/script/MbUMWUqy/  - checking remote Published date...
+   [check-updates] local=2026-02-09 10:08:52+00:00 remote=2026-02-09 10:08:52.982379+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 10:08:52+00:00 local_s=2026-02-09 10:08:52+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/MbUMWUqy/ (delta=+0.000000s)
+
+[9/22] Existing: https://www.tradingview.com/script/Onul3TeS-Liquidity-Depth-Indicator-BigBeluga/  - checking remote Published date...
+   [check-updates] local=2026-02-09 10:00:02+00:00 remote=2026-02-09 10:00:02.599435+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 10:00:02+00:00 local_s=2026-02-09 10:00:02+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Onul3TeS-Liquidity-Depth-Indicator-BigBeluga/ (delta=+0.000000s)
+
+[10/22] Existing: https://www.tradingview.com/script/1kbwmY5z-Double-Relative-Strength-Index-DRSI/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:56:04+00:00 remote=2026-02-09 09:56:04.198343+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:56:04+00:00 local_s=2026-02-09 09:56:04+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/1kbwmY5z-Double-Relative-Strength-Index-DRSI/ (delta=+0.000000s)
+
+[11/22] Existing: https://www.tradingview.com/script/yOpnriGr/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:32:15+00:00 remote=2026-02-09 09:32:15.439105+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:32:15+00:00 local_s=2026-02-09 09:32:15+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/yOpnriGr/ (delta=+0.000000s)
+
+[12/22] Existing: https://www.tradingview.com/script/PQxjNPlU-MTF-Table-Hariss-369/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:24:50+00:00 remote=2026-02-09 09:24:50.382730+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:24:50+00:00 local_s=2026-02-09 09:24:50+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/PQxjNPlU-MTF-Table-Hariss-369/ (delta=+0.000000s)
+
+[13/22] Existing: https://www.tradingview.com/script/xOI9mx8Y-Spread-lvls/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:22:18+00:00 remote=2026-02-09 09:22:18.764204+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:22:18+00:00 local_s=2026-02-09 09:22:18+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/xOI9mx8Y-Spread-lvls/ (delta=+0.000000s)
+
+[14/22] Existing: https://www.tradingview.com/script/YqzLYjFi-Price-Distance-from-Level/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:20:23+00:00 remote=2026-02-09 09:20:23.885439+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:20:23+00:00 local_s=2026-02-09 09:20:23+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/YqzLYjFi-Price-Distance-from-Level/ (delta=+0.000000s)
+
+[15/22] Existing: https://www.tradingview.com/script/JzWm5sps-LFWD-Watermark-Checklist/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:17:50+00:00 remote=2026-02-09 09:17:50.497496+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:17:50+00:00 local_s=2026-02-09 09:17:50+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/JzWm5sps-LFWD-Watermark-Checklist/ (delta=+0.000000s)
+
+[16/22] Existing: https://www.tradingview.com/script/vaU1qWxl-LFWD-Watermark-Checklist/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:16:21+00:00 remote=2026-02-09 09:16:21.557309+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:16:21+00:00 local_s=2026-02-09 09:16:21+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/vaU1qWxl-LFWD-Watermark-Checklist/ (delta=+0.000000s)
+
+[17/22] Existing: https://www.tradingview.com/script/8iJGhz3O-Breakout-Scanner-Crypto-Multi-Exchange/  - checking remote Published date...
+   [check-updates] local=2026-02-09 09:13:24+00:00 remote=2026-02-09 09:13:24.024087+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 09:13:24+00:00 local_s=2026-02-09 09:13:24+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/8iJGhz3O-Breakout-Scanner-Crypto-Multi-Exchange/ (delta=+0.000000s)
+
+[18/22] Existing: https://www.tradingview.com/script/MenqEH1c/  - checking remote Published date...
+   [check-updates] local=2026-02-09 08:46:30+00:00 remote=2026-02-09 08:46:30.810400+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 08:46:30+00:00 local_s=2026-02-09 08:46:30+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/MenqEH1c/ (delta=+0.000000s)
+
+[19/22] Existing: https://www.tradingview.com/script/LBSx1uIU-IMB-Mitigation-Alert-15M-by-TradeWithForbes/  - checking remote Published date...
+   [check-updates] local=2026-02-09 08:39:40+00:00 remote=2026-02-09 08:39:40.636413+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 08:39:40+00:00 local_s=2026-02-09 08:39:40+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/LBSx1uIU-IMB-Mitigation-Alert-15M-by-TradeWithForbes/ (delta=+0.000000s)
+
+[20/22] Existing: https://www.tradingview.com/script/AXdzETG6-SJ-Stoch-MFT-3/  - checking remote Published date...
+   [check-updates] local=2026-02-09 08:13:38+00:00 remote=2026-02-09 08:13:38.752133+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 08:13:38+00:00 local_s=2026-02-09 08:13:38+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/AXdzETG6-SJ-Stoch-MFT-3/ (delta=+0.000000s)
+
+[21/22] Existing: https://www.tradingview.com/script/A52n8LR2-Impulse-Candles/  - checking remote Published date...
+   [check-updates] local=2026-02-09 08:10:05+00:00 remote=2026-02-09 08:10:05.796481+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 08:10:05+00:00 local_s=2026-02-09 08:10:05+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/A52n8LR2-Impulse-Candles/ (delta=+0.000000s)
+
+[22/22] Existing: https://www.tradingview.com/script/wDeW1tXM-VJ-BO/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:46:46+00:00 remote=2026-02-09 07:46:46.009140+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:46:46+00:00 local_s=2026-02-09 07:46:46+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/wDeW1tXM-VJ-BO/ (delta=+0.000000s)
+
+Bulk run summary:
+  Succeeded: 3
+  Skipped  : 19
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/1i12MbLq-trinitycore30/  - checking remote Published date...
+   [check-updates] local=2026-02-09 08:32:20+00:00 remote=2026-02-09 08:12:38.168111+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 08:12:38+00:00 local_s=2026-02-09 08:32:20+00:00 delta_seconds=-1182.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/1i12MbLq-trinitycore30/ (delta=-1182.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/9VwS0ZXI-DafeLiquidityEngine/  - checking remote Published date...
+   [check-updates] local=2026-02-08 18:53:49+00:00 remote=2026-02-08 18:53:49.969669+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 18:53:49+00:00 local_s=2026-02-08 18:53:49+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/9VwS0ZXI-DafeLiquidityEngine/ (delta=+0.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/DTD7ZD8p-WClose/  - checking remote Published date...
+   [check-updates] local=2026-02-08 18:59:40+00:00 remote=2026-02-08 18:47:30.189971+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 18:47:30+00:00 local_s=2026-02-08 18:59:40+00:00 delta_seconds=-730.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/DTD7ZD8p-WClose/ (delta=-730.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/sGHpPSWu-funy/  - checking remote Published date...
+   [check-updates] local=2026-02-08 18:43:38+00:00 remote=2026-02-08 18:43:38.579850+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 18:43:38+00:00 local_s=2026-02-08 18:43:38+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/sGHpPSWu-funy/ (delta=+0.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/rmwwDaok-DafeVIXEngine/  - checking remote Published date...
+   [check-updates] local=2026-02-08 18:34:03+00:00 remote=2026-02-08 18:34:03.663441+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 18:34:03+00:00 local_s=2026-02-08 18:34:03+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/rmwwDaok-DafeVIXEngine/ (delta=+0.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/UevkUGHg/  - checking remote Published date...
+   [check-updates] local=2026-02-03 19:01:23+00:00 remote=2026-02-03 19:01:23.145745+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 19:01:23+00:00 local_s=2026-02-03 19:01:23+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/UevkUGHg/ (delta=+0.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/94IaCMvA-MovingAverages/  - checking remote Published date...
+   [check-updates] local=2026-02-08 16:01:37+00:00 remote=2026-02-08 15:59:54.034315+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 15:59:54+00:00 local_s=2026-02-08 16:01:37+00:00 delta_seconds=-103.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/94IaCMvA-MovingAverages/ (delta=-103.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/f7cvFJjG-blueprint-ephemeris-lib/  - checking remote Published date...
+   [check-updates] local=2026-02-08 08:31:08+00:00 remote=2026-02-08 08:31:08.963320+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 08:31:08+00:00 local_s=2026-02-08 08:31:08+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/f7cvFJjG-blueprint-ephemeris-lib/ (delta=+0.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/xaZ8g26p-DafePatternsLib/  - checking remote Published date...
+   [check-updates] local=2026-02-07 22:38:06+00:00 remote=2026-02-07 22:38:06.507531+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 22:38:06+00:00 local_s=2026-02-07 22:38:06+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/xaZ8g26p-DafePatternsLib/ (delta=+0.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/N8sTblk0-WickPressureLib/  - checking remote Published date...
+   [check-updates] local=2026-02-07 22:23:41+00:00 remote=2026-02-07 22:23:41.674566+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 22:23:41+00:00 local_s=2026-02-07 22:23:41+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/N8sTblk0-WickPressureLib/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/gZ9i5E41-Damodaran-EV-EBIT/  - checking remote Published date...
+   [check-updates] local=2026-02-07 18:04:03+00:00 remote=2026-02-07 18:04:03.287542+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 18:04:03+00:00 local_s=2026-02-07 18:04:03+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/gZ9i5E41-Damodaran-EV-EBIT/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/fvweK197-MyLibraryV1/  - checking remote Published date...
+   [check-updates] local=2026-02-07 19:07:55+00:00 remote=2026-02-07 16:40:34.666797+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 16:40:34+00:00 local_s=2026-02-07 19:07:55+00:00 delta_seconds=-8841.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/fvweK197-MyLibraryV1/ (delta=-8841.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/bwqcOb5i-DafeSPALib/  - checking remote Published date...
+   [check-updates] local=2026-02-07 15:06:49+00:00 remote=2026-02-07 15:06:49.145886+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 15:06:49+00:00 local_s=2026-02-07 15:06:49+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/bwqcOb5i-DafeSPALib/ (delta=+0.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/bYCROfeE-UkutaLabs-General-library/  - checking remote Published date...
+   [check-updates] local=2026-02-07 13:51:40+00:00 remote=2026-02-07 13:51:40.950203+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 13:51:40+00:00 local_s=2026-02-07 13:51:40+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/bYCROfeE-UkutaLabs-General-library/ (delta=+0.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/kCzMCBrT-DafeRLMLLib/  - checking remote Published date...
+   [check-updates] local=2026-02-07 02:53:34+00:00 remote=2026-02-07 02:53:34.431874+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 02:53:34+00:00 local_s=2026-02-07 02:53:34+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/kCzMCBrT-DafeRLMLLib/ (delta=+0.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/WG1TMUbE-Deep-AI/  - checking remote Published date...
+   [check-updates] local=2026-02-06 13:41:30+00:00 remote=2026-02-06 13:41:30.773371+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 13:41:30+00:00 local_s=2026-02-06 13:41:30+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/WG1TMUbE-Deep-AI/ (delta=+0.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/E2O8LIzW/  - checking remote Published date...
+   [check-updates] local=2026-02-05 07:11:12+00:00 remote=2026-02-05 07:11:12.699441+00:00
+   [check-updates] normalized_utc remote_s=2026-02-05 07:11:12+00:00 local_s=2026-02-05 07:11:12+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/E2O8LIzW/ (delta=+0.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/hDNV49KE-ATLAS-CORE/  - checking remote Published date...
+   [check-updates] local=2026-02-04 12:46:40+00:00 remote=2026-02-04 12:46:40.402222+00:00
+   [check-updates] normalized_utc remote_s=2026-02-04 12:46:40+00:00 local_s=2026-02-04 12:46:40+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/hDNV49KE-ATLAS-CORE/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/TwJL6AIB-Better-Contrast-NTSC-Optimized/  - checking remote Published date...
+   [check-updates] local=2026-02-04 11:08:26+00:00 remote=None
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/TwJL6AIB-Better-Contrast-NTSC-Optimized/
+
+[20/24] Existing: https://www.tradingview.com/script/VT8BI9jl/  - checking remote Published date...
+   [check-updates] local=2026-02-03 19:08:23+00:00 remote=2026-02-03 19:08:23.921091+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 19:08:23+00:00 local_s=2026-02-03 19:08:23+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/VT8BI9jl/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/Y77F2Ncw/  - checking remote Published date...
+   [check-updates] local=2026-02-04 21:15:18+00:00 remote=2026-02-03 19:07:10.526140+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 19:07:10+00:00 local_s=2026-02-04 21:15:18+00:00 delta_seconds=-94088.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Y77F2Ncw/ (delta=-94088.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/Sxmc9YZp/  - checking remote Published date...
+   [check-updates] local=2026-02-03 19:04:55+00:00 remote=2026-02-03 19:04:55.008724+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 19:04:55+00:00 local_s=2026-02-03 19:04:55+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Sxmc9YZp/ (delta=+0.000000s)
+
+[23/24] Existing: https://www.tradingview.com/script/efef4vVA/  - checking remote Published date...
+   [check-updates] local=2026-02-03 19:03:47+00:00 remote=2026-02-03 19:03:47.246663+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 19:03:47+00:00 local_s=2026-02-03 19:03:47+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/efef4vVA/ (delta=+0.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/4j7MLW39/  - checking remote Published date...
+   [check-updates] local=2026-02-03 19:03:12+00:00 remote=2026-02-03 19:03:12.487476+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 19:03:12+00:00 local_s=2026-02-03 19:03:12+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/4j7MLW39/ (delta=+0.000000s)
+
+Bulk run summary:
+  Succeeded: 0
+  Skipped  : 24
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/RxubvfiV-Nifty-Previous-Day-Last-15min-Liquidity-Sweep/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:50:07+00:00 remote=2026-02-09 07:50:07.056230+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:50:07+00:00 local_s=2026-02-09 07:50:07+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/RxubvfiV-Nifty-Previous-Day-Last-15min-Liquidity-Sweep/ (delta=+0.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/XeARRmC3-ICT-HARDIK/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:38:51+00:00 remote=2026-02-09 07:38:51.344684+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:38:51+00:00 local_s=2026-02-09 07:38:51+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/XeARRmC3-ICT-HARDIK/ (delta=+0.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/FRPGni5D-Stoch-RSI-RSI-Auto-Buy-Bot-XAUUSD-20-USD-SL-Break-Even-WS/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:28:57+00:00 remote=2026-02-09 07:28:57.229656+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:28:57+00:00 local_s=2026-02-09 07:28:57+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/FRPGni5D-Stoch-RSI-RSI-Auto-Buy-Bot-XAUUSD-20-USD-SL-Break-Even-WS/ (delta=+0.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/8bMOrrAB/  - checking remote Published date...
+   [check-updates] local=2026-02-09 05:25:53+00:00 remote=2026-02-09 05:25:53.101320+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 05:25:53+00:00 local_s=2026-02-09 05:25:53+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/8bMOrrAB/ (delta=+0.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/sv3TEYvW-SAl-VWAP-LITE/  - checking remote Published date...
+   [check-updates] local=2026-02-05 13:31:37+00:00 remote=2026-02-05 13:31:37.270227+00:00
+   [check-updates] normalized_utc remote_s=2026-02-05 13:31:37+00:00 local_s=2026-02-05 13:31:37+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/sv3TEYvW-SAl-VWAP-LITE/ (delta=+0.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/VfL2KrgA-ICT-Opening-Gap-Confirmed-Close-w-Breakeven/  - checking remote Published date...
+   [check-updates] local=2026-02-09 02:59:57+00:00 remote=2026-02-09 02:59:57.265828+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 02:59:57+00:00 local_s=2026-02-09 02:59:57+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/VfL2KrgA-ICT-Opening-Gap-Confirmed-Close-w-Breakeven/ (delta=+0.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/0DLK91nb-XAUUSD-1-Minute-Scalping-Strategy-Advanced-Strategy-for-Exits/  - checking remote Published date...
+   [check-updates] local=2026-02-09 01:43:48+00:00 remote=2026-02-09 01:43:48.574820+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 01:43:48+00:00 local_s=2026-02-09 01:43:48+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/0DLK91nb-XAUUSD-1-Minute-Scalping-Strategy-Advanced-Strategy-for-Exits/ (delta=+0.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/6jf55dTr-London-SR-Cleaner-WR-TP-0-20-BY-MANOLAS/  - checking remote Published date...
+   [check-updates] local=2026-02-08 23:51:55+00:00 remote=2026-02-08 23:51:55.403839+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 23:51:55+00:00 local_s=2026-02-08 23:51:55+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/6jf55dTr-London-SR-Cleaner-WR-TP-0-20-BY-MANOLAS/ (delta=+0.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/CMNxymM9-Supertrend-Elite-Trend-System/  - checking remote Published date...
+   [check-updates] local=2026-02-08 14:23:50+00:00 remote=2026-02-08 14:23:50.524805+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 14:23:50+00:00 local_s=2026-02-08 14:23:50+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/CMNxymM9-Supertrend-Elite-Trend-System/ (delta=+0.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/ZCaYuSbH-green-bull-strategy/  - checking remote Published date...
+   [check-updates] local=2026-02-08 13:15:27+00:00 remote=2026-02-08 13:15:27.137288+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 13:15:27+00:00 local_s=2026-02-08 13:15:27+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ZCaYuSbH-green-bull-strategy/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/4IL50OPg/  - checking remote Published date...
+   [check-updates] local=2026-02-08 10:22:33+00:00 remote=2026-02-08 10:22:33.871529+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 10:22:33+00:00 local_s=2026-02-08 10:22:33+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/4IL50OPg/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/tE6a5fXq-Swing-Trade-Strategy/  - checking remote Published date...
+   [check-updates] local=2026-02-08 10:06:02+00:00 remote=2026-02-08 10:06:02.603684+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 10:06:02+00:00 local_s=2026-02-08 10:06:02+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/tE6a5fXq-Swing-Trade-Strategy/ (delta=+0.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/fWehf6Wa-Manoj-1/  - checking remote Published date...
+   [check-updates] local=2026-02-08 06:25:53+00:00 remote=2026-02-08 06:25:53.305256+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 06:25:53+00:00 local_s=2026-02-08 06:25:53+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/fWehf6Wa-Manoj-1/ (delta=+0.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/wuJcx1LW-manoj-1-by-asclepius/  - checking remote Published date...
+   [check-updates] local=2026-02-08 05:05:53+00:00 remote=2026-02-08 05:05:53.906901+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 05:05:53+00:00 local_s=2026-02-08 05:05:53+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/wuJcx1LW-manoj-1-by-asclepius/ (delta=+0.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/p7ht0y24-Heston-Multi-Slot-Periodicity/  - checking remote Published date...
+   [check-updates] local=2026-02-08 03:14:23+00:00 remote=2026-02-08 03:14:23.229590+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 03:14:23+00:00 local_s=2026-02-08 03:14:23+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/p7ht0y24-Heston-Multi-Slot-Periodicity/ (delta=+0.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/iMidohXq-Squared9-Pro-v1/  - checking remote Published date...
+   [check-updates] local=2026-02-07 20:20:39+00:00 remote=2026-02-07 20:20:39.119736+00:00
+   [check-updates] normalized_utc remote_s=2026-02-07 20:20:39+00:00 local_s=2026-02-07 20:20:39+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/iMidohXq-Squared9-Pro-v1/ (delta=+0.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/dzuBSwXS-15-min-orb/  - checking remote Published date...
+   [check-updates] local=2026-02-06 22:59:52+00:00 remote=2026-02-06 22:59:52.300954+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 22:59:52+00:00 local_s=2026-02-06 22:59:52+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/dzuBSwXS-15-min-orb/ (delta=+0.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/Sh13Snca-neural-edge-ai-4-tp-trailing/  - checking remote Published date...
+   [check-updates] local=2026-02-06 21:18:05+00:00 remote=2026-02-06 21:18:05.865730+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 21:18:05+00:00 local_s=2026-02-06 21:18:05+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Sh13Snca-neural-edge-ai-4-tp-trailing/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/EsLcfh7G-mutanabby-ai-5-tp-sl-breakeven-fill-based/  - checking remote Published date...
+   [check-updates] local=2026-02-06 20:53:45+00:00 remote=2026-02-06 20:53:45.016341+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 20:53:45+00:00 local_s=2026-02-06 20:53:45+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/EsLcfh7G-mutanabby-ai-5-tp-sl-breakeven-fill-based/ (delta=+0.000000s)
+
+[20/24] Existing: https://www.tradingview.com/script/cggrdM2y-MA-Stack-Trend-Strategy-No-Lookahead-Trailing-Stop/  - checking remote Published date...
+   [check-updates] local=2026-02-06 17:40:52+00:00 remote=2026-02-06 17:40:52.695514+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 17:40:52+00:00 local_s=2026-02-06 17:40:52+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/cggrdM2y-MA-Stack-Trend-Strategy-No-Lookahead-Trailing-Stop/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/UEgggqHF/  - checking remote Published date...
+   [check-updates] local=2026-02-06 16:10:04+00:00 remote=2026-02-06 16:10:04.236262+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 16:10:04+00:00 local_s=2026-02-06 16:10:04+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/UEgggqHF/ (delta=+0.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/mUaXm2Sx-MASU-Institutional-The-Ultimate-Trading-Ecosystem/  - checking remote Published date...
+   [check-updates] local=2026-02-08 10:07:13+00:00 remote=2026-02-06 08:40:44.200867+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 08:40:44+00:00 local_s=2026-02-08 10:07:13+00:00 delta_seconds=-177989.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/mUaXm2Sx-MASU-Institutional-The-Ultimate-Trading-Ecosystem/ (delta=-177989.000000s)
+
+[23/24] Existing: https://www.tradingview.com/script/K9dwfwgg-Master-ORB-Custom-TZ-TF-5m-15m-30m-60m/  - checking remote Published date...
+   [check-updates] local=2026-02-06 08:36:34+00:00 remote=2026-02-06 08:36:34.711070+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 08:36:34+00:00 local_s=2026-02-06 08:36:34+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/K9dwfwgg-Master-ORB-Custom-TZ-TF-5m-15m-30m-60m/ (delta=+0.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/BE0VKAuz-Bollinger-Bands-EMA-Strategy/  - checking remote Published date...
+   [check-updates] local=2026-02-06 07:42:56+00:00 remote=2026-02-06 07:42:56.994455+00:00
+   [check-updates] normalized_utc remote_s=2026-02-06 07:42:56+00:00 local_s=2026-02-06 07:42:56+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/BE0VKAuz-Bollinger-Bands-EMA-Strategy/ (delta=+0.000000s)
+
+Bulk run summary:
+  Succeeded: 0
+  Skipped  : 24
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/Uk4Hf7Od-Swing-High-Low-Wick-Zones-Support-Resistance-Indicator/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:37:12+00:00 remote=2026-02-09 07:37:12.177691+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:37:12+00:00 local_s=2026-02-09 07:37:12+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Uk4Hf7Od-Swing-High-Low-Wick-Zones-Support-Resistance-Indicator/ (delta=+0.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/Td6UGZ9u-Mashrab-Momentum-X-Ray-for-Japanese-stocks/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:34:04+00:00 remote=2026-02-09 07:34:04.969242+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:34:04+00:00 local_s=2026-02-09 07:34:04+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Td6UGZ9u-Mashrab-Momentum-X-Ray-for-Japanese-stocks/ (delta=+0.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/7nOddx5N-XAU-15m-Impulse-Golden-Pocket-TP-SL/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:33:14+00:00 remote=2026-02-09 07:33:14.849434+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:33:14+00:00 local_s=2026-02-09 07:33:14+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/7nOddx5N-XAU-15m-Impulse-Golden-Pocket-TP-SL/ (delta=+0.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/oHa2Q5Lp-Smart-Dollar-Volume-for-JP-stocks/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:31:26+00:00 remote=2026-02-09 07:31:26.824287+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:31:26+00:00 local_s=2026-02-09 07:31:26+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/oHa2Q5Lp-Smart-Dollar-Volume-for-JP-stocks/ (delta=+0.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/HSkndXUq-Lil-B-s-Time-based-Liquidity-IFVG-Alerts/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:32:42+00:00 remote=2026-02-09 03:32:42.900427+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:32:42+00:00 local_s=2026-02-09 03:32:42+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/HSkndXUq-Lil-B-s-Time-based-Liquidity-IFVG-Alerts/ (delta=+0.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/bAjjuL8m-Point-of-Control-Directional-Change-Color/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:32:52+00:00 remote=2026-02-09 07:30:19.003895+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:30:19+00:00 local_s=2026-02-09 07:32:52+00:00 delta_seconds=-153.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/bAjjuL8m-Point-of-Control-Directional-Change-Color/ (delta=-153.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/Djd53BDB-M5-PRO-SCALPING-HIGH-ACCURACY-gainer-indicator/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:22:31+00:00 remote=2026-02-09 07:22:31.016973+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:22:31+00:00 local_s=2026-02-09 07:22:31+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Djd53BDB-M5-PRO-SCALPING-HIGH-ACCURACY-gainer-indicator/ (delta=+0.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/bzMJlq3h-XAU-Scalper-Conservative-EMA-9-21-200-VWAP-BOS-HTF/  - checking remote Published date...
+   [check-updates] local=2026-02-09 07:11:29+00:00 remote=2026-02-09 07:11:29.368655+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 07:11:29+00:00 local_s=2026-02-09 07:11:29+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/bzMJlq3h-XAU-Scalper-Conservative-EMA-9-21-200-VWAP-BOS-HTF/ (delta=+0.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/frTDeuJf-Chitranjan-Shastri-Fixed-Ultra-Clear-Pilot/  - checking remote Published date...
+   [check-updates] local=2026-02-09 06:45:32+00:00 remote=2026-02-09 06:45:32.672065+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 06:45:32+00:00 local_s=2026-02-09 06:45:32+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/frTDeuJf-Chitranjan-Shastri-Fixed-Ultra-Clear-Pilot/ (delta=+0.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/qgSSrerD-AMT-Institutional-Model-v2/  - checking remote Published date...
+   [check-updates] local=2026-02-09 06:38:45+00:00 remote=2026-02-09 06:38:45.900867+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 06:38:45+00:00 local_s=2026-02-09 06:38:45+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/qgSSrerD-AMT-Institutional-Model-v2/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/biGUf4YI-MACD-20-Uptrend-Candlestick-Patterns/  - checking remote Published date...
+   [check-updates] local=2026-02-09 06:36:26+00:00 remote=2026-02-09 06:36:26.437481+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 06:36:26+00:00 local_s=2026-02-09 06:36:26+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/biGUf4YI-MACD-20-Uptrend-Candlestick-Patterns/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/e9HAPhVq-Market-Structure-HH-HL-LH-LL/  - checking remote Published date...
+   [check-updates] local=2026-02-09 06:09:11+00:00 remote=2026-02-09 06:09:11.013549+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 06:09:11+00:00 local_s=2026-02-09 06:09:11+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/e9HAPhVq-Market-Structure-HH-HL-LH-LL/ (delta=+0.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/I7Wh8tGl-KSCP-Dist25/  - checking remote Published date...
+   [check-updates] local=2026-02-09 05:48:27+00:00 remote=2026-02-09 05:48:27.305520+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 05:48:27+00:00 local_s=2026-02-09 05:48:27+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/I7Wh8tGl-KSCP-Dist25/ (delta=+0.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/YB39NHms-Daily-Range-Risk-Filter-by-nq-rew1nd/  - checking remote Published date...
+   [check-updates] local=2026-02-09 05:30:09+00:00 remote=2026-02-09 05:30:09.740275+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 05:30:09+00:00 local_s=2026-02-09 05:30:09+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/YB39NHms-Daily-Range-Risk-Filter-by-nq-rew1nd/ (delta=+0.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/FBkkkUxy-Asia-Range-London-Breakouts-NY-Range/  - checking remote Published date...
+   [check-updates] local=2026-02-09 05:24:24+00:00 remote=2026-02-09 05:24:24.496529+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 05:24:24+00:00 local_s=2026-02-09 05:24:24+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/FBkkkUxy-Asia-Range-London-Breakouts-NY-Range/ (delta=+0.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/PNS8tTkY-Target-Radar/  - checking remote Published date...
+   [check-updates] local=2026-02-09 05:23:29+00:00 remote=2026-02-09 05:23:29.080505+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 05:23:29+00:00 local_s=2026-02-09 05:23:29+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/PNS8tTkY-Target-Radar/ (delta=+0.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/OeT4X3ux-Strat-Numbers-Daily-Weekly-and-Monthly-Levels-plus-50-Rule/  - checking remote Published date...
+   [check-updates] local=2026-02-09 04:53:46+00:00 remote=2026-02-09 04:53:46.351410+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 04:53:46+00:00 local_s=2026-02-09 04:53:46+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/OeT4X3ux-Strat-Numbers-Daily-Weekly-and-Monthly-Levels-plus-50-Rule/ (delta=+0.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/FzuGS5N3-Ema200-Fractals-Dynamic-ORB-Zone/  - checking remote Published date...
+   [check-updates] local=2026-02-09 04:49:00+00:00 remote=2026-02-09 04:49:00.240846+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 04:49:00+00:00 local_s=2026-02-09 04:49:00+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/FzuGS5N3-Ema200-Fractals-Dynamic-ORB-Zone/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/mQaM6RQ0-Option-Tracker/  - checking remote Published date...
+   [check-updates] local=2026-02-09 04:34:02+00:00 remote=2026-02-09 04:34:02.848254+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 04:34:02+00:00 local_s=2026-02-09 04:34:02+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/mQaM6RQ0-Option-Tracker/ (delta=+0.000000s)
+
+[20/24] Existing: https://www.tradingview.com/script/yP9VsTfe/  - checking remote Published date...
+   [check-updates] local=2026-02-09 04:32:57+00:00 remote=2026-02-09 04:32:57.104968+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 04:32:57+00:00 local_s=2026-02-09 04:32:57+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/yP9VsTfe/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/PQBNt8DJ-Auto-Lensed-MACD-Z-Score-v8-2/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:55:18+00:00 remote=2026-02-09 03:55:18.716444+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:55:18+00:00 local_s=2026-02-09 03:55:18+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/PQBNt8DJ-Auto-Lensed-MACD-Z-Score-v8-2/ (delta=+0.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/vZ62NKZ7-Dual-Super-Trend-Indicator/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:41:23+00:00 remote=2026-02-09 03:41:23.970701+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:41:23+00:00 local_s=2026-02-09 03:41:23+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/vZ62NKZ7-Dual-Super-Trend-Indicator/ (delta=+0.000000s)
+
+[23/24] Existing: https://www.tradingview.com/script/ckh4Wg4B/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:32:53+00:00 remote=2026-02-09 03:32:53.424167+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:32:53+00:00 local_s=2026-02-09 03:32:53+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ckh4Wg4B/ (delta=+0.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/dRuxhoAV-CPI-Strat-Points-Labels/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:32:52+00:00 remote=2026-02-09 03:32:52.357447+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:32:52+00:00 local_s=2026-02-09 03:32:52+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/dRuxhoAV-CPI-Strat-Points-Labels/ (delta=+0.000000s)
+
+Bulk run summary:
+  Succeeded: 0
+  Skipped  : 24
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/9fb4GIa8/  - checking remote Published date...
+   [check-updates] local=2026-02-02 19:14:31+00:00 remote=2026-02-02 11:28:12.188965+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 11:28:12+00:00 local_s=2026-02-02 19:14:31+00:00 delta_seconds=-27979.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/9fb4GIa8/ (delta=-27979.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/gQqtShU3/  - checking remote Published date...
+   [check-updates] local=2026-02-02 06:13:16+00:00 remote=2026-02-02 06:13:16.044550+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 06:13:16+00:00 local_s=2026-02-02 06:13:16+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/gQqtShU3/ (delta=+0.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/9alKFXlY-trinitycore1/  - checking remote Published date...
+   [check-updates] local=2026-01-29 14:35:00+00:00 remote=2026-01-29 14:35:00.953185+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 14:35:00+00:00 local_s=2026-01-29 14:35:00+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/9alKFXlY-trinitycore1/ (delta=+0.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/Qe1ozTEm-Jags-Lib/  - checking remote Published date...
+   [check-updates] local=2026-02-02 15:55:16+00:00 remote=2026-02-01 12:22:06.655879+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 12:22:06+00:00 local_s=2026-02-02 15:55:16+00:00 delta_seconds=-99190.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Qe1ozTEm-Jags-Lib/ (delta=-99190.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/BZwlOv97-sixpack-moon/  - checking remote Published date...
+   [check-updates] local=2026-02-01 01:56:50+00:00 remote=2026-02-01 01:56:50.478070+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 01:56:50+00:00 local_s=2026-02-01 01:56:50+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/BZwlOv97-sixpack-moon/ (delta=+0.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/Hs3SNCWB-Vantage-News/  - checking remote Published date...
+   [check-updates] local=2026-02-05 22:11:52+00:00 remote=2026-02-01 01:06:21.745056+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 01:06:21+00:00 local_s=2026-02-05 22:11:52+00:00 delta_seconds=-421531.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Hs3SNCWB-Vantage-News/ (delta=-421531.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/qH25kRij-Vantage-NewsTypes/  - checking remote Published date...
+   [check-updates] local=2026-02-05 21:56:56+00:00 remote=2026-02-01 00:32:00.230111+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 00:32:00+00:00 local_s=2026-02-05 21:56:56+00:00 delta_seconds=-422696.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/qH25kRij-Vantage-NewsTypes/ (delta=-422696.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/TRT4bDo8-HawkDoveScoreLib/  - checking remote Published date...
+   [check-updates] local=2026-01-31 23:13:25+00:00 remote=2026-01-31 22:00:52.332698+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 22:00:52+00:00 local_s=2026-01-31 23:13:25+00:00 delta_seconds=-4353.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/TRT4bDo8-HawkDoveScoreLib/ (delta=-4353.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/HnzSLnfE-pubLibCandlestickPatterns/  - checking remote Published date...
+   [check-updates] local=2026-01-31 21:15:23+00:00 remote=2026-01-31 21:15:23.929774+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 21:15:23+00:00 local_s=2026-01-31 21:15:23+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/HnzSLnfE-pubLibCandlestickPatterns/ (delta=+0.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/91p3WkfZ-NodialTreesLows2-ML-Random-Forest-Pivot-Lows-Part-2-of-2/  - checking remote Published date...
+   [check-updates] local=2026-01-30 22:42:33+00:00 remote=2026-01-30 22:42:33.950276+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 22:42:33+00:00 local_s=2026-01-30 22:42:33+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/91p3WkfZ-NodialTreesLows2-ML-Random-Forest-Pivot-Lows-Part-2-of-2/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/UdP9vs6w-NodialTreesLows1-ML-Random-Forest-Pivot-Lows-Part-1-of-2/  - checking remote Published date...
+   [check-updates] local=2026-01-30 22:39:01+00:00 remote=2026-01-30 22:39:01.689406+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 22:39:01+00:00 local_s=2026-01-30 22:39:01+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/UdP9vs6w-NodialTreesLows1-ML-Random-Forest-Pivot-Lows-Part-1-of-2/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/QBIvW5kT-NodialTreesHighs2-ML-Random-Forest-Pivot-Highs-Part-2-of-2/  - checking remote Published date...
+   [check-updates] local=2026-01-30 22:34:07+00:00 remote=2026-01-30 22:34:07.989421+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 22:34:07+00:00 local_s=2026-01-30 22:34:07+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/QBIvW5kT-NodialTreesHighs2-ML-Random-Forest-Pivot-Highs-Part-2-of-2/ (delta=+0.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/m1ZXaAO5-NodialTreesHighs1-ML-Random-Forest-Pivot-Highs-Part-1-of-2/  - checking remote Published date...
+   [check-updates] local=2026-01-30 22:27:00+00:00 remote=2026-01-30 22:27:00.129178+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 22:27:00+00:00 local_s=2026-01-30 22:27:00+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/m1ZXaAO5-NodialTreesHighs1-ML-Random-Forest-Pivot-Highs-Part-1-of-2/ (delta=+0.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/pejUsEWt/  - checking remote Published date...
+   [check-updates] local=2026-02-02 01:12:13+00:00 remote=2026-01-30 09:35:06.871195+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 09:35:06+00:00 local_s=2026-02-02 01:12:13+00:00 delta_seconds=-229027.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/pejUsEWt/ (delta=-229027.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/boe9XWq9-NormalizedVolume-HHHL/  - checking remote Published date...
+   [check-updates] local=2026-01-30 01:10:48+00:00 remote=2026-01-30 01:10:48.877319+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 01:10:48+00:00 local_s=2026-01-30 01:10:48+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/boe9XWq9-NormalizedVolume-HHHL/ (delta=+0.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/MfjW07NV-lib-w2c-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:33:32+00:00 remote=2026-01-29 18:33:32.266325+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:33:32+00:00 local_s=2026-01-29 18:33:32+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/MfjW07NV-lib-w2c-INDI/ (delta=+0.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/IpbBxogL-lib-w2b-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:32:46+00:00 remote=2026-01-29 18:32:46.563736+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:32:46+00:00 local_s=2026-01-29 18:32:46+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/IpbBxogL-lib-w2b-INDI/ (delta=+0.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/LrPAYnlh-lib-w2a-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:30:57+00:00 remote=2026-01-29 18:30:57.258130+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:30:57+00:00 local_s=2026-01-29 18:30:57+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/LrPAYnlh-lib-w2a-INDI/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/2JzH1Saj-lib-w1c-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:29:51+00:00 remote=2026-01-29 18:29:51.929090+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:29:51+00:00 local_s=2026-01-29 18:29:51+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/2JzH1Saj-lib-w1c-INDI/ (delta=+0.000000s)
+
+[20/24] Existing: https://www.tradingview.com/script/ezuo2RKB-lib-w1b-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:29:03+00:00 remote=2026-01-29 18:29:03.553531+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:29:03+00:00 local_s=2026-01-29 18:29:03+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ezuo2RKB-lib-w1b-INDI/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/nYdDqw9M-lib-w1a-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:28:07+00:00 remote=2026-01-29 18:28:07.400374+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:28:07+00:00 local_s=2026-01-29 18:28:07+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/nYdDqw9M-lib-w1a-INDI/ (delta=+0.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/FR4UG44t-lib-b2-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:26:58+00:00 remote=2026-01-29 18:26:58.686063+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:26:58+00:00 local_s=2026-01-29 18:26:58+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/FR4UG44t-lib-b2-INDI/ (delta=+0.000000s)
+
+[23/24] Existing: https://www.tradingview.com/script/Plkq74W1-lib-b1-INDI/  - checking remote Published date...
+   [check-updates] local=2026-01-29 18:25:03+00:00 remote=2026-01-29 18:25:03.702572+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 18:25:03+00:00 local_s=2026-01-29 18:25:03+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Plkq74W1-lib-b1-INDI/ (delta=+0.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/v1iaI2iv-TPOSmartMoneyLib/  - checking remote Published date...
+   [check-updates] local=2026-01-29 16:26:28+00:00 remote=2026-01-29 15:24:08.884428+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 15:24:08+00:00 local_s=2026-01-29 16:26:28+00:00 delta_seconds=-3740.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/v1iaI2iv-TPOSmartMoneyLib/ (delta=-3740.000000s)
+
+Bulk run summary:
+  Succeeded: 0
+  Skipped  : 24
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/hSAW8NxA-BP-Strategy-Malisa/  - checking remote Published date...
+   [check-updates] local=2026-02-05 09:56:26+00:00 remote=2026-02-05 09:56:26.756570+00:00
+   [check-updates] normalized_utc remote_s=2026-02-05 09:56:26+00:00 local_s=2026-02-05 09:56:26+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/hSAW8NxA-BP-Strategy-Malisa/ (delta=+0.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/Xn4yJr9F-Anh-Nga-6-0-Split-Dynamic-MACD-PC/  - checking remote Published date...
+   [check-updates] local=2026-02-05 08:49:11+00:00 remote=2026-02-05 08:49:11.829882+00:00
+   [check-updates] normalized_utc remote_s=2026-02-05 08:49:11+00:00 local_s=2026-02-05 08:49:11+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Xn4yJr9F-Anh-Nga-6-0-Split-Dynamic-MACD-PC/ (delta=+0.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/ZhJzjmAk-Crypto-Institutional-Liquidity-Sweep-Strategy/  - checking remote Published date...
+   [check-updates] local=2026-02-04 14:40:43+00:00 remote=2026-02-04 14:40:43.832090+00:00
+   [check-updates] normalized_utc remote_s=2026-02-04 14:40:43+00:00 local_s=2026-02-04 14:40:43+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ZhJzjmAk-Crypto-Institutional-Liquidity-Sweep-Strategy/ (delta=+0.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/sBCX6f7A-KAPISH-Weekly-Open-Trailing-SL/  - checking remote Published date...
+   [check-updates] local=2026-02-04 11:27:24+00:00 remote=2026-02-04 11:27:24.219533+00:00
+   [check-updates] normalized_utc remote_s=2026-02-04 11:27:24+00:00 local_s=2026-02-04 11:27:24+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/sBCX6f7A-KAPISH-Weekly-Open-Trailing-SL/ (delta=+0.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/lFDe2OHE-Takashi-Kotegawa-Dip-Reversal-Strategy/  - checking remote Published date...
+   [check-updates] local=2026-02-01 23:52:39+00:00 remote=2026-02-01 23:52:39.081945+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 23:52:39+00:00 local_s=2026-02-01 23:52:39+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/lFDe2OHE-Takashi-Kotegawa-Dip-Reversal-Strategy/ (delta=+0.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/DGHszjT7-March-May-Oct-Dec-bank-stocks-strategy/  - checking remote Published date...
+   [check-updates] local=2026-02-04 08:02:14+00:00 remote=2026-02-04 07:09:31.291911+00:00
+   [check-updates] normalized_utc remote_s=2026-02-04 07:09:31+00:00 local_s=2026-02-04 08:02:14+00:00 delta_seconds=-3163.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/DGHszjT7-March-May-Oct-Dec-bank-stocks-strategy/ (delta=-3163.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/ot1dU5ak-Vishall-ForcePRO-display/  - checking remote Published date...
+   [check-updates] local=2026-02-03 22:53:42+00:00 remote=2026-02-03 22:53:42.152711+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 22:53:42+00:00 local_s=2026-02-03 22:53:42+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ot1dU5ak-Vishall-ForcePRO-display/ (delta=+0.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/Vkg2L9rD-Optimized-Range-RSI-MACD-Fibonacci-Risk-Mgmt/  - checking remote Published date...
+   [check-updates] local=2026-02-03 22:39:15+00:00 remote=2026-02-03 22:39:15.417283+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 22:39:15+00:00 local_s=2026-02-03 22:39:15+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Vkg2L9rD-Optimized-Range-RSI-MACD-Fibonacci-Risk-Mgmt/ (delta=+0.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/pJ78II2w-Double-Bollinger-Bands-Strategy-investalot/  - checking remote Published date...
+   [check-updates] local=2026-02-03 14:33:41+00:00 remote=2026-02-03 14:33:41.984619+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 14:33:41+00:00 local_s=2026-02-03 14:33:41+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/pJ78II2w-Double-Bollinger-Bands-Strategy-investalot/ (delta=+0.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/DV83PYxg-Advanced-Strategy-Template/  - checking remote Published date...
+   [check-updates] local=2026-02-03 13:31:11+00:00 remote=2026-02-03 13:31:11.520152+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 13:31:11+00:00 local_s=2026-02-03 13:31:11+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/DV83PYxg-Advanced-Strategy-Template/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/uouG11CT/  - checking remote Published date...
+   [check-updates] local=2026-02-03 11:33:37+00:00 remote=2026-02-03 11:33:37.589898+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 11:33:37+00:00 local_s=2026-02-03 11:33:37+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/uouG11CT/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/1TrYDAvk-BN-90-Institutional-Alpha-Live/  - checking remote Published date...
+   [check-updates] local=2026-02-03 08:29:48+00:00 remote=2026-02-03 08:29:48.571553+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 08:29:48+00:00 local_s=2026-02-03 08:29:48+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/1TrYDAvk-BN-90-Institutional-Alpha-Live/ (delta=+0.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/jEK3yzzN/  - checking remote Published date...
+   [check-updates] local=2026-02-03 07:59:40+00:00 remote=2026-02-03 07:59:40.021758+00:00
+   [check-updates] normalized_utc remote_s=2026-02-03 07:59:40+00:00 local_s=2026-02-03 07:59:40+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/jEK3yzzN/ (delta=+0.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/RnSXTJaz-LinReg-Slope-Momentum/  - checking remote Published date...
+   [check-updates] local=2026-02-02 21:30:01+00:00 remote=2026-02-02 21:30:01.541932+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 21:30:01+00:00 local_s=2026-02-02 21:30:01+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/RnSXTJaz-LinReg-Slope-Momentum/ (delta=+0.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/XhztV83u-LinReg-Slope-Acceleration-Filter/  - checking remote Published date...
+   [check-updates] local=2026-02-02 21:24:00+00:00 remote=2026-02-02 21:24:00.540766+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 21:24:00+00:00 local_s=2026-02-02 21:24:00+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/XhztV83u-LinReg-Slope-Acceleration-Filter/ (delta=+0.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/p0ym48jw-Martingale-Grid-Bot/  - checking remote Published date...
+   [check-updates] local=2026-02-02 17:02:18+00:00 remote=2026-02-02 17:02:18.727506+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 17:02:18+00:00 local_s=2026-02-02 17:02:18+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/p0ym48jw-Martingale-Grid-Bot/ (delta=+0.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/re15NYVP-Ross-GPT-Momentum-Scalp-1m/  - checking remote Published date...
+   [check-updates] local=2026-02-05 00:08:39+00:00 remote=2026-02-02 16:52:29.403730+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 16:52:29+00:00 local_s=2026-02-05 00:08:39+00:00 delta_seconds=-198970.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/re15NYVP-Ross-GPT-Momentum-Scalp-1m/ (delta=-198970.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/qzhV1Uxt-High-Breakout-PRO-Huy-Hoang-Trader/  - checking remote Published date...
+   [check-updates] local=2026-02-02 14:47:29+00:00 remote=2026-02-02 14:47:29.602563+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 14:47:29+00:00 local_s=2026-02-02 14:47:29+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/qzhV1Uxt-High-Breakout-PRO-Huy-Hoang-Trader/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/BLd7ZZYd/  - checking remote Published date...
+   [check-updates] local=2026-02-02 12:34:28+00:00 remote=2026-02-02 12:26:39.802892+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 12:26:39+00:00 local_s=2026-02-02 12:34:28+00:00 delta_seconds=-469.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/BLd7ZZYd/ (delta=-469.000000s)
+
+[20/24] Existing: https://www.tradingview.com/script/SVAJ7jxW-JAMS-Intraday-Forex-EMA-Trend-Strategy-MTF-Sessions-DD/  - checking remote Published date...
+   [check-updates] local=2026-02-02 11:45:42+00:00 remote=2026-02-02 11:45:42.020715+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 11:45:42+00:00 local_s=2026-02-02 11:45:42+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/SVAJ7jxW-JAMS-Intraday-Forex-EMA-Trend-Strategy-MTF-Sessions-DD/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/UPU53NQj/  - checking remote Published date...
+   [check-updates] local=2026-02-02 10:26:37+00:00 remote=2026-02-02 10:26:37.465343+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 10:26:37+00:00 local_s=2026-02-02 10:26:37+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/UPU53NQj/ (delta=+0.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/gsqiBuDh-JB-Trader-Scenario-B-Visual-Pro-Nifty-50/  - checking remote Published date...
+   [check-updates] local=2026-02-02 05:58:41+00:00 remote=2026-02-02 05:58:41.878197+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 05:58:41+00:00 local_s=2026-02-02 05:58:41+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/gsqiBuDh-JB-Trader-Scenario-B-Visual-Pro-Nifty-50/ (delta=+0.000000s)
+
+[23/24] Existing: https://www.tradingview.com/script/VnPYqCoF-Dstroy-V-1/  - checking remote Published date...
+   [check-updates] local=2026-02-02 00:19:12+00:00 remote=2026-02-02 00:19:12.957499+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 00:19:12+00:00 local_s=2026-02-02 00:19:12+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/VnPYqCoF-Dstroy-V-1/ (delta=+0.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/cbUgg7hl-SPY-200SMA-4-Entry-3-Exit-TQQQ-QLD-GLDM-THREE-PHASE-STRATEGY/  - checking remote Published date...
+   [check-updates] local=2026-02-02 00:13:13+00:00 remote=2026-02-02 00:13:13.330489+00:00
+   [check-updates] normalized_utc remote_s=2026-02-02 00:13:13+00:00 local_s=2026-02-02 00:13:13+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/cbUgg7hl-SPY-200SMA-4-Entry-3-Exit-TQQQ-QLD-GLDM-THREE-PHASE-STRATEGY/ (delta=+0.000000s)
+
+Bulk run summary:
+  Succeeded: 0
+  Skipped  : 24
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/oAYoTjuD-2-Bar-Strategy-Fib-Entry/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:13:52+00:00 remote=2026-02-09 03:13:52.190241+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:13:52+00:00 local_s=2026-02-09 03:13:52+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/oAYoTjuD-2-Bar-Strategy-Fib-Entry/ (delta=+0.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/win6rVhs/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:05:25+00:00 remote=2026-02-09 03:01:54.429633+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:01:54+00:00 local_s=2026-02-09 03:05:25+00:00 delta_seconds=-211.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/win6rVhs/ (delta=-211.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/jXqbVDxO-15m-BOS-OTE-FVG-OB-Prop-Firm/  - checking remote Published date...
+   [check-updates] local=2026-02-09 03:00:00+00:00 remote=2026-02-09 03:00:00.431688+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 03:00:00+00:00 local_s=2026-02-09 03:00:00+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/jXqbVDxO-15m-BOS-OTE-FVG-OB-Prop-Firm/ (delta=+0.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/ihVmRHsZ/  - checking remote Published date...
+   [check-updates] local=2026-02-09 02:57:38+00:00 remote=2026-02-09 02:57:38.349208+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 02:57:38+00:00 local_s=2026-02-09 02:57:38+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ihVmRHsZ/ (delta=+0.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/7bfbrEMT-TL5-Volume-Profile-Market-Structure-Volume-Distribution/  - checking remote Published date...
+   [check-updates] local=2026-02-09 02:57:17+00:00 remote=2026-02-09 02:57:17.776617+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 02:57:17+00:00 local_s=2026-02-09 02:57:17+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/7bfbrEMT-TL5-Volume-Profile-Market-Structure-Volume-Distribution/ (delta=+0.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/dPce50Ra-0DTE-Strategy/  - checking remote Published date...
+   [check-updates] local=2026-02-08 23:36:25+00:00 remote=2026-02-08 21:40:18.913099+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 21:40:18+00:00 local_s=2026-02-08 23:36:25+00:00 delta_seconds=-6967.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/dPce50Ra-0DTE-Strategy/ (delta=-6967.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/LHtZc9og-Previous-Day-Levels-H-L-O-C/  - checking remote Published date...
+   [check-updates] local=2026-02-09 02:49:32+00:00 remote=2026-02-09 02:49:32.499911+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 02:49:32+00:00 local_s=2026-02-09 02:49:32+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/LHtZc9og-Previous-Day-Levels-H-L-O-C/ (delta=+0.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/NIRVQjNO-15m-BOS-OTE-FVG-OB-Prop-Firm/  - checking remote Published date...
+   [check-updates] local=2026-02-09 02:44:31+00:00 remote=2026-02-09 02:44:31.720483+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 02:44:31+00:00 local_s=2026-02-09 02:44:31+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/NIRVQjNO-15m-BOS-OTE-FVG-OB-Prop-Firm/ (delta=+0.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/LSlKIAnd-Sector-Divergence-Dashboard/  - checking remote Published date...
+   [check-updates] local=2026-02-09 02:15:23+00:00 remote=2026-02-09 02:15:23.853129+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 02:15:23+00:00 local_s=2026-02-09 02:15:23+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/LSlKIAnd-Sector-Divergence-Dashboard/ (delta=+0.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/UWH1xgpI-Volume-Range-Anomaly-Breakout-AlgoPoint/  - checking remote Published date...
+   [check-updates] local=2026-02-09 01:50:52+00:00 remote=2026-02-09 01:50:52.361849+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 01:50:52+00:00 local_s=2026-02-09 01:50:52+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/UWH1xgpI-Volume-Range-Anomaly-Breakout-AlgoPoint/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/i3PggCBW-BTC-vs-M2-Global-Index-MIT/  - checking remote Published date...
+   [check-updates] local=2026-02-09 01:28:29+00:00 remote=2026-02-09 01:28:29.058108+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 01:28:29+00:00 local_s=2026-02-09 01:28:29+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/i3PggCBW-BTC-vs-M2-Global-Index-MIT/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/izjSolIv-Stabilized-EFI-HMA-alejandromasari/  - checking remote Published date...
+   [check-updates] local=2026-02-09 01:20:05+00:00 remote=2026-02-09 01:20:05.930194+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 01:20:05+00:00 local_s=2026-02-09 01:20:05+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/izjSolIv-Stabilized-EFI-HMA-alejandromasari/ (delta=+0.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/IwMWEik2-ahDirtCuhzzz-15m-NY-ORB/  - checking remote Published date...
+   [check-updates] local=2026-02-09 01:17:50+00:00 remote=2026-02-09 01:13:14.533219+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 01:13:14+00:00 local_s=2026-02-09 01:17:50+00:00 delta_seconds=-276.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/IwMWEik2-ahDirtCuhzzz-15m-NY-ORB/ (delta=-276.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/66mGO32j-Expectancy-Reality-Check/  - checking remote Published date...
+   [check-updates] local=2026-02-09 00:24:53+00:00 remote=2026-02-09 00:24:53.127590+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 00:24:53+00:00 local_s=2026-02-09 00:24:53+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/66mGO32j-Expectancy-Reality-Check/ (delta=+0.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/yf10v9sf-rsi-divergence-v6/  - checking remote Published date...
+   [check-updates] local=2026-02-09 00:12:32+00:00 remote=2026-02-09 00:12:32.240371+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 00:12:32+00:00 local_s=2026-02-09 00:12:32+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/yf10v9sf-rsi-divergence-v6/ (delta=+0.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/jg9avsL7-Elliot-wave-labeling-layers/  - checking remote Published date...
+   [check-updates] local=2026-02-09 00:06:10+00:00 remote=2026-02-09 00:06:10.753294+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 00:06:10+00:00 local_s=2026-02-09 00:06:10+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/jg9avsL7-Elliot-wave-labeling-layers/ (delta=+0.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/q6qYB7ZB-Bookmap-Footprint-Imbalance-Bubbles/  - checking remote Published date...
+   [check-updates] local=2026-02-09 00:50:13+00:00 remote=2026-02-09 00:02:57.759623+00:00
+   [check-updates] normalized_utc remote_s=2026-02-09 00:02:57+00:00 local_s=2026-02-09 00:50:13+00:00 delta_seconds=-2836.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/q6qYB7ZB-Bookmap-Footprint-Imbalance-Bubbles/ (delta=-2836.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/eeIraeIq-MA-Labels-v8/  - checking remote Published date...
+   [check-updates] local=2026-02-08 23:57:57+00:00 remote=2026-02-08 23:57:57.852080+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 23:57:57+00:00 local_s=2026-02-08 23:57:57+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/eeIraeIq-MA-Labels-v8/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/E3KHrN52/  - checking remote Published date...
+   [check-updates] local=2026-02-08 23:14:43+00:00 remote=2026-02-08 23:14:43.350271+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 23:14:43+00:00 local_s=2026-02-08 23:14:43+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/E3KHrN52/ (delta=+0.000000s)
+
+[20/24] Existing: https://www.tradingview.com/script/WQkwVici-All-in-one-Dynamic-Trade-Sessions/  - checking remote Published date...
+   [check-updates] local=2026-02-08 22:58:35+00:00 remote=2026-02-08 22:58:35.368657+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 22:58:35+00:00 local_s=2026-02-08 22:58:35+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/WQkwVici-All-in-one-Dynamic-Trade-Sessions/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/jwRpAgI4-mtf-structure-table-smart-money/  - checking remote Published date...
+   [check-updates] local=2026-02-08 22:36:24+00:00 remote=2026-02-08 22:36:24.731194+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 22:36:24+00:00 local_s=2026-02-08 22:36:24+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/jwRpAgI4-mtf-structure-table-smart-money/ (delta=+0.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/r6MsEBET-stratbynick/  - checking remote Published date...
+   [check-updates] local=2026-02-08 22:34:24+00:00 remote=2026-02-08 22:34:24.188457+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 22:34:24+00:00 local_s=2026-02-08 22:34:24+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/r6MsEBET-stratbynick/ (delta=+0.000000s)
+
+[23/24] Existing: https://www.tradingview.com/script/vlMD9hnc-Capital-Options-Gate/  - checking remote Published date...
+   [check-updates] local=2026-02-08 22:05:46+00:00 remote=2026-02-08 22:05:46.137738+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 22:05:46+00:00 local_s=2026-02-08 22:05:46+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/vlMD9hnc-Capital-Options-Gate/ (delta=+0.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/I2nP7fQE-XAUUSD-Breakout-SL-Points-15-Minute-Strategy-By-Nitin-Soni/  - checking remote Published date...
+   [check-updates] local=2026-02-08 22:04:41+00:00 remote=2026-02-08 22:04:41.732054+00:00
+   [check-updates] normalized_utc remote_s=2026-02-08 22:04:41+00:00 local_s=2026-02-08 22:04:41+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/I2nP7fQE-XAUUSD-Breakout-SL-Points-15-Minute-Strategy-By-Nitin-Soni/ (delta=+0.000000s)
+
+Bulk run summary:
+  Succeeded: 0
+  Skipped  : 24
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/9fBJuou0-RSMPatternLib/  - checking remote Published date...
+   [check-updates] local=2026-02-04 18:35:36+00:00 remote=2026-01-28 20:53:05.098943+00:00
+   [check-updates] normalized_utc remote_s=2026-01-28 20:53:05+00:00 local_s=2026-02-04 18:35:36+00:00 delta_seconds=-596551.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/9fBJuou0-RSMPatternLib/ (delta=-596551.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/bT29oQwi-NateraCore/  - checking remote Published date...
+   [check-updates] local=2026-01-27 21:20:42+00:00 remote=2026-01-27 21:20:42.312359+00:00
+   [check-updates] normalized_utc remote_s=2026-01-27 21:20:42+00:00 local_s=2026-01-27 21:20:42+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/bT29oQwi-NateraCore/ (delta=+0.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/7SosYXSJ-OverfittingMetrics/  - checking remote Published date...
+   [check-updates] local=2026-01-27 13:47:08+00:00 remote=2026-01-27 13:47:08.103503+00:00
+   [check-updates] normalized_utc remote_s=2026-01-27 13:47:08+00:00 local_s=2026-01-27 13:47:08+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/7SosYXSJ-OverfittingMetrics/ (delta=+0.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/Y54e3jZk-libhs-td6/  - checking remote Published date...
+   [check-updates] local=2026-01-20 18:43:55+00:00 remote=2026-01-20 18:43:55.590469+00:00
+   [check-updates] normalized_utc remote_s=2026-01-20 18:43:55+00:00 local_s=2026-01-20 18:43:55+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Y54e3jZk-libhs-td6/ (delta=+0.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/iRuzhB6y-trinitycore/  - checking remote Published date...
+   [check-updates] local=2026-01-28 14:24:12+00:00 remote=2026-01-26 19:41:31.561196+00:00
+   [check-updates] normalized_utc remote_s=2026-01-26 19:41:31+00:00 local_s=2026-01-28 14:24:12+00:00 delta_seconds=-153761.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/iRuzhB6y-trinitycore/ (delta=-153761.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/LntmXNJu-PineStats/  - checking remote Published date...
+   [check-updates] local=2026-01-26 05:49:11+00:00 remote=2026-01-26 05:49:11.026782+00:00
+   [check-updates] normalized_utc remote_s=2026-01-26 05:49:11+00:00 local_s=2026-01-26 05:49:11+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/LntmXNJu-PineStats/ (delta=+0.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/L4Yf5sOC-colors-library/  - checking remote Published date...
+   [check-updates] local=2026-01-25 22:50:58+00:00 remote=2026-01-25 21:22:19.647663+00:00
+   [check-updates] normalized_utc remote_s=2026-01-25 21:22:19+00:00 local_s=2026-01-25 22:50:58+00:00 delta_seconds=-5319.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/L4Yf5sOC-colors-library/ (delta=-5319.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/aua4BLgo-moving-averages/  - checking remote Published date...
+   [check-updates] local=2026-01-25 21:20:44+00:00 remote=2026-01-25 21:20:44.060250+00:00
+   [check-updates] normalized_utc remote_s=2026-01-25 21:20:44+00:00 local_s=2026-01-25 21:20:44+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/aua4BLgo-moving-averages/ (delta=+0.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/v2ROKn9K-Table-Utils/  - checking remote Published date...
+   [check-updates] local=2026-01-25 19:16:21+00:00 remote=2026-01-25 18:02:40.310590+00:00
+   [check-updates] normalized_utc remote_s=2026-01-25 18:02:40+00:00 local_s=2026-01-25 19:16:21+00:00 delta_seconds=-4421.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/v2ROKn9K-Table-Utils/ (delta=-4421.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/bNF3KSAt-LibProf/  - checking remote Published date...
+   [check-updates] local=2026-01-25 14:40:20+00:00 remote=2026-01-25 14:40:20.338759+00:00
+   [check-updates] normalized_utc remote_s=2026-01-25 14:40:20+00:00 local_s=2026-01-25 14:40:20+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/bNF3KSAt-LibProf/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/UTtCYmnN-SimpleTable/  - checking remote Published date...
+   [check-updates] local=2026-01-24 18:47:51+00:00 remote=2026-01-24 18:47:51.919048+00:00
+   [check-updates] normalized_utc remote_s=2026-01-24 18:47:51+00:00 local_s=2026-01-24 18:47:51+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/UTtCYmnN-SimpleTable/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/ALFrhbRH-LO1-News2023H2/  - checking remote Published date...
+   [check-updates] local=2026-02-01 00:37:55+00:00 remote=2026-01-24 17:53:38.509404+00:00
+   [check-updates] normalized_utc remote_s=2026-01-24 17:53:38+00:00 local_s=2026-02-01 00:37:55+00:00 delta_seconds=-629057.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ALFrhbRH-LO1-News2023H2/ (delta=-629057.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/naIuMoi1-LO1-News2023H1/  - checking remote Published date...
+   [check-updates] local=2026-02-01 00:35:45+00:00 remote=2026-01-24 17:53:05.030857+00:00
+   [check-updates] normalized_utc remote_s=2026-01-24 17:53:05+00:00 local_s=2026-02-01 00:35:45+00:00 delta_seconds=-628960.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/naIuMoi1-LO1-News2023H1/ (delta=-628960.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/5yvQy6az-AssetCorrelationUtils/  - checking remote Published date...
+   [check-updates] local=2026-02-04 19:30:51+00:00 remote=2026-01-24 16:29:20.614546+00:00
+   [check-updates] normalized_utc remote_s=2026-01-24 16:29:20+00:00 local_s=2026-02-04 19:30:51+00:00 delta_seconds=-961291.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/5yvQy6az-AssetCorrelationUtils/ (delta=-961291.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/pHfTJlS9/  - checking remote Published date...
+   [check-updates] local=2026-01-24 05:23:44+00:00 remote=2026-01-23 22:31:33.639874+00:00
+   [check-updates] normalized_utc remote_s=2026-01-23 22:31:33+00:00 local_s=2026-01-24 05:23:44+00:00 delta_seconds=-24731.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/pHfTJlS9/ (delta=-24731.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/2OpKPJs7/  - checking remote Published date...
+   [check-updates] local=2026-01-24 05:21:52+00:00 remote=2026-01-23 21:48:10.031152+00:00
+   [check-updates] normalized_utc remote_s=2026-01-23 21:48:10+00:00 local_s=2026-01-24 05:21:52+00:00 delta_seconds=-27222.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/2OpKPJs7/ (delta=-27222.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/16mOsaOu/  - checking remote Published date...
+   [check-updates] local=2026-01-23 04:03:31+00:00 remote=2026-01-23 04:03:31.320956+00:00
+   [check-updates] normalized_utc remote_s=2026-01-23 04:03:31+00:00 local_s=2026-01-23 04:03:31+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/16mOsaOu/ (delta=+0.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/9Z2mnDzl/  - checking remote Published date...
+   [check-updates] local=2026-01-23 04:02:42+00:00 remote=2026-01-23 04:02:42.203356+00:00
+   [check-updates] normalized_utc remote_s=2026-01-23 04:02:42+00:00 local_s=2026-01-23 04:02:42+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/9Z2mnDzl/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/AdGgwfvQ/  - checking remote Published date...
+   [check-updates] local=2026-01-23 01:38:26+00:00 remote=2026-01-23 01:38:26.784539+00:00
+   [check-updates] normalized_utc remote_s=2026-01-23 01:38:26+00:00 local_s=2026-01-23 01:38:26+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/AdGgwfvQ/ (delta=+0.000000s)
+
+[20/24] Existing: https://www.tradingview.com/script/0G6Lh0bK/  - checking remote Published date...
+   [check-updates] local=2026-01-23 00:51:26+00:00 remote=2026-01-23 00:51:26.941164+00:00
+   [check-updates] normalized_utc remote_s=2026-01-23 00:51:26+00:00 local_s=2026-01-23 00:51:26+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/0G6Lh0bK/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/LsTKbLVJ/  - checking remote Published date...
+   [check-updates] local=2026-01-22 23:54:48+00:00 remote=2026-01-22 23:54:48.318078+00:00
+   [check-updates] normalized_utc remote_s=2026-01-22 23:54:48+00:00 local_s=2026-01-22 23:54:48+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/LsTKbLVJ/ (delta=+0.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/zicMaocX/  - checking remote Published date...
+   [check-updates] local=2026-01-22 22:16:01+00:00 remote=2026-01-22 22:16:01.352714+00:00
+   [check-updates] normalized_utc remote_s=2026-01-22 22:16:01+00:00 local_s=2026-01-22 22:16:01+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/zicMaocX/ (delta=+0.000000s)
+
+[23/24] Existing: https://www.tradingview.com/script/S3UZT5Y6-QTCore/  - checking remote Published date...
+   [check-updates] local=2026-01-26 23:46:13+00:00 remote=2026-01-22 13:51:58.766777+00:00
+   [check-updates] normalized_utc remote_s=2026-01-22 13:51:58+00:00 local_s=2026-01-26 23:46:13+00:00 delta_seconds=-381255.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/S3UZT5Y6-QTCore/ (delta=-381255.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/xkdcApSJ/  - checking remote Published date...
+   [check-updates] local=2026-01-22 14:52:28+00:00 remote=2026-01-22 08:30:48.613788+00:00
+   [check-updates] normalized_utc remote_s=2026-01-22 08:30:48+00:00 local_s=2026-01-22 14:52:28+00:00 delta_seconds=-22900.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/xkdcApSJ/ (delta=-22900.000000s)
+
+Bulk run summary:
+  Succeeded: 0
+  Skipped  : 24
+  Failed   : 0
+
+[1/24] Existing: https://www.tradingview.com/script/VDvzVm3B-SPY-Quant-ML-Session-Filter-Strategy-CocoChoco/  - checking remote Published date...
+   [check-updates] local=2026-02-01 18:33:25+00:00 remote=2026-02-01 18:33:25.024224+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 18:33:25+00:00 local_s=2026-02-01 18:33:25+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/VDvzVm3B-SPY-Quant-ML-Session-Filter-Strategy-CocoChoco/ (delta=+0.000000s)
+
+[2/24] Existing: https://www.tradingview.com/script/wG6NyOfe-US30-AsianRange-1900-0000-LIMIT-OCO-1pct-risk-120-fib-30-150/  - checking remote Published date...
+   [check-updates] local=2026-02-01 18:00:18+00:00 remote=2026-02-01 18:00:18.470594+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 18:00:18+00:00 local_s=2026-02-01 18:00:18+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/wG6NyOfe-US30-AsianRange-1900-0000-LIMIT-OCO-1pct-risk-120-fib-30-150/ (delta=+0.000000s)
+
+[3/24] Existing: https://www.tradingview.com/script/pau3Zzpz-ICT-Gap-Strategy-Swing-SL-Sessions/  - checking remote Published date...
+   [check-updates] local=2026-01-29 03:29:07+00:00 remote=2026-01-29 03:29:07.933404+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 03:29:07+00:00 local_s=2026-01-29 03:29:07+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/pau3Zzpz-ICT-Gap-Strategy-Swing-SL-Sessions/ (delta=+0.000000s)
+
+[4/24] Existing: https://www.tradingview.com/script/VvmyM9ec-High-Breakout-PRO-Huy-Hoang-Trader/  - checking remote Published date...
+   [check-updates] local=2026-02-01 15:48:26+00:00 remote=2026-02-01 15:48:26.090953+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 15:48:26+00:00 local_s=2026-02-01 15:48:26+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/VvmyM9ec-High-Breakout-PRO-Huy-Hoang-Trader/ (delta=+0.000000s)
+
+[5/24] Existing: https://www.tradingview.com/script/ygvB0qZv-EMA50-for-Gold-strategy-TF-15M/  - checking remote Published date...
+   [check-updates] local=2026-02-01 13:00:31+00:00 remote=2026-02-01 13:00:31.390416+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 13:00:31+00:00 local_s=2026-02-01 13:00:31+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/ygvB0qZv-EMA50-for-Gold-strategy-TF-15M/ (delta=+0.000000s)
+
+[6/24] Existing: https://www.tradingview.com/script/TMZZLypc-Shock-Gap-Bot-Enhanced/  - checking remote Published date...
+   [check-updates] local=2026-02-01 13:25:04+00:00 remote=2026-02-01 12:23:13.620824+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 12:23:13+00:00 local_s=2026-02-01 13:25:04+00:00 delta_seconds=-3711.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/TMZZLypc-Shock-Gap-Bot-Enhanced/ (delta=-3711.000000s)
+
+[7/24] Existing: https://www.tradingview.com/script/Zs8f29gZ/  - checking remote Published date...
+   [check-updates] local=2026-02-01 09:26:16+00:00 remote=2026-02-01 09:26:16.669917+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 09:26:16+00:00 local_s=2026-02-01 09:26:16+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/Zs8f29gZ/ (delta=+0.000000s)
+
+[8/24] Existing: https://www.tradingview.com/script/uHN2BQiV-Session-Liquidity-Reversion-Strategy-Asia-Range-False-Breakout/  - checking remote Published date...
+   [check-updates] local=2026-02-01 04:43:50+00:00 remote=2026-02-01 04:43:50.129351+00:00
+   [check-updates] normalized_utc remote_s=2026-02-01 04:43:50+00:00 local_s=2026-02-01 04:43:50+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/uHN2BQiV-Session-Liquidity-Reversion-Strategy-Asia-Range-False-Breakout/ (delta=+0.000000s)
+
+[9/24] Existing: https://www.tradingview.com/script/w9SHOgic-Money-Machine/  - checking remote Published date...
+   [check-updates] local=2026-01-31 16:23:12+00:00 remote=2026-01-31 16:23:12.057811+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 16:23:12+00:00 local_s=2026-01-31 16:23:12+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/w9SHOgic-Money-Machine/ (delta=+0.000000s)
+
+[10/24] Existing: https://www.tradingview.com/script/4u46vHxV-KELTNER-BREAKOUT-STRATEGY-FOR-CRYPTO-ASSETS/  - checking remote Published date...
+   [check-updates] local=2026-01-31 12:13:07+00:00 remote=2026-01-31 12:13:07.795708+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 12:13:07+00:00 local_s=2026-01-31 12:13:07+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/4u46vHxV-KELTNER-BREAKOUT-STRATEGY-FOR-CRYPTO-ASSETS/ (delta=+0.000000s)
+
+[11/24] Existing: https://www.tradingview.com/script/eppl0abL/  - checking remote Published date...
+   [check-updates] local=2026-01-31 09:27:31+00:00 remote=2026-01-31 09:27:31.610338+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 09:27:31+00:00 local_s=2026-01-31 09:27:31+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/eppl0abL/ (delta=+0.000000s)
+
+[12/24] Existing: https://www.tradingview.com/script/QQcgQT51-Bullish-Divergent-Bar-DCA-Strategy-Skyrexio/  - checking remote Published date...
+   [check-updates] local=2026-01-31 09:21:33+00:00 remote=2026-01-31 09:21:33.787372+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 09:21:33+00:00 local_s=2026-01-31 09:21:33+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/QQcgQT51-Bullish-Divergent-Bar-DCA-Strategy-Skyrexio/ (delta=+0.000000s)
+
+[13/24] Existing: https://www.tradingview.com/script/2AHCi8vx-GOLD-SILVER-FARMING/  - checking remote Published date...
+   [check-updates] local=2026-01-31 08:18:02+00:00 remote=2026-01-31 08:18:02.738541+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 08:18:02+00:00 local_s=2026-01-31 08:18:02+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/2AHCi8vx-GOLD-SILVER-FARMING/ (delta=+0.000000s)
+
+[14/24] Existing: https://www.tradingview.com/script/x2KAvERJ-Buy-Sell-Signal-Strategy/  - checking remote Published date...
+   [check-updates] local=2026-01-31 04:28:03+00:00 remote=2026-01-31 04:28:03.928900+00:00
+   [check-updates] normalized_utc remote_s=2026-01-31 04:28:03+00:00 local_s=2026-01-31 04:28:03+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/x2KAvERJ-Buy-Sell-Signal-Strategy/ (delta=+0.000000s)
+
+[15/24] Existing: https://www.tradingview.com/script/KQlCorH0-DANI-MTF-Pullback-Strategy/  - checking remote Published date...
+   [check-updates] local=2026-01-30 14:37:03+00:00 remote=2026-01-30 14:37:03.232230+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 14:37:03+00:00 local_s=2026-01-30 14:37:03+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/KQlCorH0-DANI-MTF-Pullback-Strategy/ (delta=+0.000000s)
+
+[16/24] Existing: https://www.tradingview.com/script/lkrcAZxN-Empyrean-Strat-1min/  - checking remote Published date...
+   [check-updates] local=2026-01-30 11:24:39+00:00 remote=2026-01-30 11:24:39.491008+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 11:24:39+00:00 local_s=2026-01-30 11:24:39+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/lkrcAZxN-Empyrean-Strat-1min/ (delta=+0.000000s)
+
+[17/24] Existing: https://www.tradingview.com/script/remy4Tvq-Fractal-Breakout-with-3-Point-Trend/  - checking remote Published date...
+   [check-updates] local=2026-01-30 08:17:42+00:00 remote=2026-01-30 08:17:42.355075+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 08:17:42+00:00 local_s=2026-01-30 08:17:42+00:00 delta_seconds=+0.000000[cleanup] Removed diagnostic artifacts from: pinescript_downloads\strategies
+[setup] launching browser; headless=False user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0
+[setup] browser launched
+[DEBUG] Raw pubtext extracted: 'Jan 29'
+[DEBUG] Could not parse 'Jan 29', returning original text
+[DEBUG] Exact published date for header: Jan 29
+   [debug] Injected copy-capture init script
+Diagnostics: visiting https://www.tradingview.com/script/KYmvNwbY-Bank-Nifty-RSI-Dynamic-v6/
+   [debug] Clicked Source code tab for diagnostics
+[BUTTON] [class*="copy"] idx=0 text= nearby_sample=1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+//@version=6strategy("Bank Nifty RS
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=1 text=English
+
+Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 F nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[BUTTON] [class*="copy"] idx=2 text=Select market data provided by ICE Data Services.
+Select reference data provided by FactSet. Copyright © 2026 FactSet Re nearby_sample=
+  [STRUCTURE SAMPLE]
+    - DIV : Main content
+    - SCRIPT : (()=>{"use strict";window.initData=window.initData||{},window.initData.block_widgetbar=function(i,t,n,a){function w(n){const w={resizerBridge:new t(window).allocate({areaName:"right"}),affectsLayout:(
+    - SCRIPT : (()=>{"use strict";function n(){const n=parseFloat(document.body.style.paddingRight||"0");document.body.classList.toggle("is-widgetbar-expanded",n>45)}n(),function(n){let t=null;function e(){null===t&
+    - DIV : Search
+	
+	
+							
+
+
+		
+			Products
+					
+				
+			
+				
+			Community
+					
+				
+			
+				
+			Markets
+					
+				
+			
+				
+			Brokers
+					
+				
+			
+				
+			More
+					
+				
+			
+		
+
+							
+											
+
+
+
+    - SCRIPT : window.fbAppId = "155037361239837";
+    - SCRIPT : window.BLOG_LOCALIZED_URL = "https://www.tradingview.com/blog/en/";
+
+
+			initData.idc_exchanges_list = ["nzx","bme","bme_stocks","shfe","szse","nag","tfx","twse","bcba","bvc","bvcv","bmv","bvmt","bvl"
+    - LINK : 
+    - LINK : 
+[CAPTURE 0] '//@version=6\nstrategy("Bank Nifty RSI Dynamic v6", \n     overlay=true, \n     initial_capital=500000, \n     pyramiding=0, \n     margin_long=0, \n     margin_short=0)\n\n// --- Inputs ---\nint rsiLength      = input.int(14, "RSI Length")\nint rsiUpperEntry  = input.int(68, "RSI Put Entry (>68)")\nint rsiLowerEntry  = input.int(30, "RSI Call Entry (<30)")\nint rsiPutExit     = input.int(56, "RSI Put Exit (<56)")\nint rsiCallExit    = input.int(45, "RSI Call Exit (>45)")\n\n// --- Math for 3 Lots (90 Units) ---\nint totalUnits     = 90 \n\n// --- Indicators ---\nfloat rsiValue = ta.rsi(close, rsiLength)\n\n// --- Strategy Logic ---\n// 1. ENTRY CONDITIONS (On Candle Close)\nbool buyCall = ta.crossunder(rsiValue, rsiLowerEntry) \nbool buyPut  = ta.crossover(rsiValue, rsiUpperEntry)\n\n// 2. EXIT CONDITIONS (On Candle Close)\n// If we hold a Call, exit when RSI rises above 45\nbool exitCall = strategy.position_size > 0 and rsiValue > rsiCallExit\n// If we hold a Put, exit when RSI drops below 56\nbool exitPut  = strategy.position_size < 0 and rsiValue < rsiPutExit\n\n// --- Execution ---\n\n// Enter Trades\nif buyCall\n    strategy.entry("Call", strategy.long, qty=totalUnits, comment="RSI < 30")\n\nif buyPut\n    strategy.entry("Put", strategy.short, qty=totalUnits, comment="RSI > 68")\n\n// Exit Trades based on your RSI levels\nif exitCall\n    strategy.close("Call", comment="RSI > 45 Exit")\n\nif exitPut\n    strategy.close("Put", comment="RSI < 56 Exit")\n\n// --- Visuals ---\nplot(rsiValue, "RSI", color=color.purple, display=display.none)\nhline(rsiUpperEntry, "Put Entry", color=color.red)\nhline(rsiPutExit, "Put Exit", color=color.orange, linestyle=hline.style_dotted)\nhline(rsiCallExit, "Call Exit", color=color.blue, linestyle=hline.style_dotted)\nhline(rsiLowerEntry, "Call Entry", color=color.green)\n\n// Mark entries/exits on chart\nplotshape(buyCall, "Call Buy", shape.triangleup, location.belowbar, color.green, size=size.small)\nplotshape(buyPut, "Put Buy", shape.triangledown, location.abovebar, color.red, size=size.small)'
+[CAPTURE 1] '//@version=6\nstrategy("Bank Nifty RSI Dynamic v6", \n     overlay=true, \n     initial_capital=500000, \n     pyramiding=0, \n     margin_long=0, \n     margin_short=0)\n\n// --- Inputs ---\nint rsiLength      = input.int(14, "RSI Length")\nint rsiUpperEntry  = input.int(68, "RSI Put Entry (>68)")\nint rsiLowerEntry  = input.int(30, "RSI Call Entry (<30)")\nint rsiPutExit     = input.int(56, "RSI Put Exit (<56)")\nint rsiCallExit    = input.int(45, "RSI Call Exit (>45)")\n\n// --- Math for 3 Lots (90 Units) ---\nint totalUnits     = 90 \n\n// --- Indicators ---\nfloat rsiValue = ta.rsi(close, rsiLength)\n\n// --- Strategy Logic ---\n// 1. ENTRY CONDITIONS (On Candle Close)\nbool buyCall = ta.crossunder(rsiValue, rsiLowerEntry) \nbool buyPut  = ta.crossover(rsiValue, rsiUpperEntry)\n\n// 2. EXIT CONDITIONS (On Candle Close)\n// If we hold a Call, exit when RSI rises above 45\nbool exitCall = strategy.position_size > 0 and rsiValue > rsiCallExit\n// If we hold a Put, exit when RSI drops below 56\nbool exitPut  = strategy.position_size < 0 and rsiValue < rsiPutExit\n\n// --- Execution ---\n\n// Enter Trades\nif buyCall\n    strategy.entry("Call", strategy.long, qty=totalUnits, comment="RSI < 30")\n\nif buyPut\n    strategy.entry("Put", strategy.short, qty=totalUnits, comment="RSI > 68")\n\n// Exit Trades based on your RSI levels\nif exitCall\n    strategy.close("Call", comment="RSI > 45 Exit")\n\nif exitPut\n    strategy.close("Put", comment="RSI < 56 Exit")\n\n// --- Visuals ---\nplot(rsiValue, "RSI", color=color.purple, display=display.none)\nhline(rsiUpperEntry, "Put Entry", color=color.red)\nhline(rsiPutExit, "Put Exit", color=color.orange, linestyle=hline.style_dotted)\nhline(rsiCallExit, "Call Exit", color=color.blue, linestyle=hline.style_dotted)\nhline(rsiLowerEntry, "Call Entry", color=color.green)\n\n// Mark entries/exits on chart\nplotshape(buyCall, "Call Buy", shape.triangleup, location.belowbar, color.green, size=size.small)\nplotshape(buyPut, "Put Buy", shape.triangledown, location.abovebar, color.red, size=size.small)'
+[CAPTURE 2] '//@version=6\nstrategy("Bank Nifty RSI Dynamic v6", \n     overlay=true, \n     initial_capital=500000, \n     pyramiding=0, \n     margin_long=0, \n     margin_short=0)\n\n// --- Inputs ---\nint rsiLength      = input.int(14, "RSI Length")\nint rsiUpperEntry  = input.int(68, "RSI Put Entry (>68)")\nint rsiLowerEntry  = input.int(30, "RSI Call Entry (<30)")\nint rsiPutExit     = input.int(56, "RSI Put Exit (<56)")\nint rsiCallExit    = input.int(45, "RSI Call Exit (>45)")\n\n// --- Math for 3 Lots (90 Units) ---\nint totalUnits     = 90 \n\n// --- Indicators ---\nfloat rsiValue = ta.rsi(close, rsiLength)\n\n// --- Strategy Logic ---\n// 1. ENTRY CONDITIONS (On Candle Close)\nbool buyCall = ta.crossunder(rsiValue, rsiLowerEntry) \nbool buyPut  = ta.crossover(rsiValue, rsiUpperEntry)\n\n// 2. EXIT CONDITIONS (On Candle Close)\n// If we hold a Call, exit when RSI rises above 45\nbool exitCall = strategy.position_size > 0 and rsiValue > rsiCallExit\n// If we hold a Put, exit when RSI drops below 56\nbool exitPut  = strategy.position_size < 0 and rsiValue < rsiPutExit\n\n// --- Execution ---\n\n// Enter Trades\nif buyCall\n    strategy.entry("Call", strategy.long, qty=totalUnits, comment="RSI < 30")\n\nif buyPut\n    strategy.entry("Put", strategy.short, qty=totalUnits, comment="RSI > 68")\n\n// Exit Trades based on your RSI levels\nif exitCall\n    strategy.close("Call", comment="RSI > 45 Exit")\n\nif exitPut\n    strategy.close("Put", comment="RSI < 56 Exit")\n\n// --- Visuals ---\nplot(rsiValue, "RSI", color=color.purple, display=display.none)\nhline(rsiUpperEntry, "Put Entry", color=color.red)\nhline(rsiPutExit, "Put Exit", color=color.orange, linestyle=hline.style_dotted)\nhline(rsiCallExit, "Call Exit", color=color.blue, linestyle=hline.style_dotted)\nhline(rsiLowerEntry, "Call Entry", color=color.green)\n\n// Mark entries/exits on chart\nplotshape(buyCall, "Call Buy", shape.triangleup, location.belowbar, color.green, size=size.small)\nplotshape(buyPut, "Put Buy", shape.triangledown, location.abovebar, color.red, size=size.small)'
+[DEBUG] save_script called: script_id=KYmvNwbY title=Bank Nifty RSI Dynamic v6 category=KYmvNwbY force_flat=True
+[DEBUG] Writing script to: pinescript_downloads\strategies\KYmvNwbY_Bank_Nifty_RSI_Dynamic_v6.pine
+[DEBUG] Marker written to: pinescript_downloads\strategies\.last_saved.txt
+[DEBUG] Also saved via save_script: pinescript_downloads\strategies\KYmvNwbY_Bank_Nifty_RSI_Dynamic_v6.pine
+[INJECTED CAPTURES] []
+[INJECTED MUTATIONS] []
+[setup] Page close event detected
+
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/remy4Tvq-Fractal-Breakout-with-3-Point-Trend/ (delta=+0.000000s)
+
+[18/24] Existing: https://www.tradingview.com/script/mSykaf87-HA-EMA50-Trend-Filter-No-Chop-Daily-Trade-Limits/  - checking remote Published date...
+   [check-updates] local=2026-01-30 05:51:36+00:00 remote=2026-01-30 05:51:36.156786+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 05:51:36+00:00 local_s=2026-01-30 05:51:36+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/mSykaf87-HA-EMA50-Trend-Filter-No-Chop-Daily-Trade-Limits/ (delta=+0.000000s)
+
+[19/24] Existing: https://www.tradingview.com/script/pnG40L3w-TSM-RSI-Supertrend-ATR-SL-Partial-Booking-302026/  - checking remote Published date...
+   [check-updates] local=2026-01-30 03:33:17+00:00 remote=2026-01-30 03:33:17.818483+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 03:33:17+00:00 local_s=2026-01-30 03:33:17+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/pnG40L3w-TSM-RSI-Supertrend-ATR-SL-Partial-Booking-302026/ (delta=+0.000000s)
+
+[20/24] Existing: https://www.tradingview.com/script/CxY7cvCw-TSM-RSI-Supertrend-Fixed-SL-1-2-RR-302026/  - checking remote Published date...
+   [check-updates] local=2026-01-30 03:26:33+00:00 remote=2026-01-30 03:26:33.587187+00:00
+   [check-updates] normalized_utc remote_s=2026-01-30 03:26:33+00:00 local_s=2026-01-30 03:26:33+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/CxY7cvCw-TSM-RSI-Supertrend-Fixed-SL-1-2-RR-302026/ (delta=+0.000000s)
+
+[21/24] Existing: https://www.tradingview.com/script/QxHxXvgA-House-Rules-SuperTrend-Strategy-ATR-Based-Non-Repainting/  - checking remote Published date...
+   [check-updates] local=2026-01-29 17:42:35+00:00 remote=2026-01-29 17:42:35.268589+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 17:42:35+00:00 local_s=2026-01-29 17:42:35+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/QxHxXvgA-House-Rules-SuperTrend-Strategy-ATR-Based-Non-Repainting/ (delta=+0.000000s)
+
+[22/24] Existing: https://www.tradingview.com/script/KYmvNwbY-Bank-Nifty-RSI-Dynamic-v6/  - checking remote Published date...
+   [check-updates] local=None remote=2026-01-29 10:20:05.152498+00:00
+   [check-updates] Update detected: re-downloading https://www.tradingview.com/script/KYmvNwbY-Bank-Nifty-RSI-Dynamic-v6/ (remote=2026-01-29 17:42:35+00:00, local=2026-01-29 17:42:35+00:00, delta=+0.000000s)
+
+[22/24] Downloading: https://www.tradingview.com/script/KYmvNwbY-Bank-Nifty-RSI-Dynamic-v6/
+   ✓ Gedownload: https://www.tradingview.com/script/KYmvNwbY-Bank-Nifty-RSI-Dynamic-v6/
+
+[23/24] Existing: https://www.tradingview.com/script/vTqLuiZn-ICT-Opening-Gap-Strategy-Momentum1/  - checking remote Published date...
+   [check-updates] local=2026-01-29 03:51:55+00:00 remote=2026-01-29 03:51:55.178831+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 03:51:55+00:00 local_s=2026-01-29 03:51:55+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/vTqLuiZn-ICT-Opening-Gap-Strategy-Momentum1/ (delta=+0.000000s)
+
+[24/24] Existing: https://www.tradingview.com/script/wyWbZMrL-ICT-Gap-Retest-Strategy-Custom-Exits/  - checking remote Published date...
+   [check-updates] local=2026-01-29 03:35:42+00:00 remote=2026-01-29 03:35:42.099257+00:00
+   [check-updates] normalized_utc remote_s=2026-01-29 03:35:42+00:00 local_s=2026-01-29 03:35:42+00:00 delta_seconds=+0.000000
+   [check-updates] No update detected; skipping https://www.tradingview.com/script/wyWbZMrL-ICT-Gap-Retest-Strategy-Custom-Exits/ (delta=+0.000000s)
+
+Bulk run summary:
+  Succeeded: 1
+  Skipped  : 23
+  Failed   : 0
+
+[01] Processing: pinescript_downloads\indicators\page-01-urls.json
+
+[01] Processing: pinescript_downloads\libraries\page-01-urls.json
+
+[01] Processing: pinescript_downloads\strategies\page-01-urls.json
+
+[02] Processing: pinescript_downloads\indicators\page-02-urls.json
+
+[02] Processing: pinescript_downloads\libraries\page-02-urls.json
+
+[02] Processing: pinescript_downloads\strategies\page-02-urls.json
+
+[03] Processing: pinescript_downloads\indicators\page-03-urls.json
+
+[03] Processing: pinescript_downloads\libraries\page-03-urls.json
+
+[03] Processing: pinescript_downloads\strategies\page-03-urls.json
+
+Batch pages summary:
+  Processed (succeeded): 9 -> indicators, libraries, strategies, indicators, libraries, strategies, indicators, libraries, strategies
+  Missing: 0 -> -
+  Failed: 0 -> -

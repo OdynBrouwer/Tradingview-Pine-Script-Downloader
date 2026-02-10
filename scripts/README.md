@@ -9,7 +9,7 @@ Current files and status
 - `simulate_timeout.ps1` — testscript om timeout/kill flow te valideren (diagnostisch).
 - `update_task_settings.ps1` — helper voor Task Scheduler instellingen (operational).
 - `tv-collection.xml` — Task Scheduler export (referentie).
-- `check_strategies.py` & `check_types.py` — kleine analysis helpers voor sanity checks van `.pine` headers; kunnen worden ge-archiveerd als ze niet meer nodig zijn.
+- (moved) `check_strategies.py` & `check_types.py` — kleine analysis helpers voor sanity checks van `.pine` headers; deze zijn verplaatst naar `analyze/archived/` voor traceerbaarheid.
 - `logs/` — contains timestamped run logs (opgeruimd door `cleanup_logs.ps1`).
 
 Aanbeveling

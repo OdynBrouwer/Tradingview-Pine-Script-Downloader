@@ -1,0 +1,1562 @@
+// WOP + Pivot Hybrid Indicator - ZigZag Style (Complete with WOP-based BOS)
+// Combines Weighted Oscillator Percentile with Real-time Pivot Detection
+// © 2024 - Integrates WOP percentile levels with ZigZag-style pivot analysis
+
+import Mupsje/Casa_Utils/5 as UTILS 
+// Optional time library integration for enhanced formatting
+import jason5480/chrono_utils/8 as CHR
+
+//@version=6
+indicator('WOP + Pivot Hybrid V3 [CT] - Complete', 'WOP+PivotV2', overlay=false, max_bars_back=5000, max_lines_count=500, max_labels_count=500)
+
+
+color donkergroen = #0D3C3F
+color lichtgroen = #227E79   //Overbought
+color blauw = #2144A7
+color rood = #5F2A31
+color geel = #9F6F3E
+color rood_osc = #A72E15
+color rood_shapes = #EF4E4F
+color groen_shapes = #52b35f
+color grijs_shapes = #6e717c
+color geel_shapes = #E88B03
+
+//Theme Cockpit
+// https://www.cybermodeler.com/color/cockpit.shtml
+
+
+// ============================================================================
+// INPUT PARAMETERS - WOP SETTINGS
+// ============================================================================
+gr_1 = "_____________WOP Settings_______________"
+gr_2 = "________________________________________"
+
+sourcePrice = input.source(close, "Price Source", group=gr_1, tooltip="Kies de prijsbron voor de WOP-berekening.")
+wopLength = input.int(14, 'WOP Length', minval=6, maxval=100, group=gr_1, tooltip="Aantal bars voor de WOP-berekening (window).")
+
+percentileLow = input.float(10.0, 'Low %', minval=0.0, maxval=100.0, step=1.0, inline="pct1", group=gr_1, tooltip="Ondergrens van het WOP-percentiel (laagste zone).")
+percentileMid = input.float(50.0, 'Mid %', minval=0.0, maxval=100.0, step=1.0, inline="pct1", group=gr_1, tooltip="Middenwaarde van het WOP-percentiel (neutrale zone).")
+percentileHigh = input.float(90.0, 'High %', minval=0.0, maxval=100.0, step=1.0, inline="pct1", group=gr_1, tooltip="Bovengrens van het WOP-percentiel (hoogste zone).")
+
+colorZero   = input.color(color.new(#ef5350, 20), "0%      |", inline="p1",    group=gr_1, tooltip="Kleur voor de 0% WOP-lijn.")
+colorLow    = input.color(color.new(#ff9800, 80), "Low",       inline="p1",    group=gr_1, tooltip="Kleur voor de Low WOP-lijn.")
+colorMean   = input.color(color.new(#ae81ff, 50), "50%",       inline="p1",    group=gr_1, tooltip="Kleur voor de 50% (mean) WOP-lijn.")
+colorHigh   = input.color(color.new(#4db6ac, 80), "High",      inline="p1",    group=gr_1, tooltip="Kleur voor de High WOP-lijn.")
+colorTop    = input.color(color.new(#4caf50, 20), "100%",      inline="p1",    group=gr_1, tooltip="Kleur voor de 100% WOP-lijn.")
+
+useTimeWeighting = input.bool(true, 'Time Weighting', inline='weight', group=gr_1, tooltip="Weg WOP-berekening zwaarder voor recentere bars.")
+useVolumeWeighting = input.bool(true, 'Volume Weighting', inline='weight', group=gr_1, tooltip="Weg WOP-berekening op basis van volume (range per bar).")
+
+// ============================================================================
+// INPUT PARAMETERS - SIGMOID SMOOTHING
+// ============================================================================
+useSigmoid = input.bool(true, "Enable Adaptive Smoothing (Stage 1)", group="Sigmoid Smoothing", tooltip="Schakel adaptieve sigmoid-smoothing in voor de eerste verwerkingsstap.")
+sensitivityFactor = input.float(0.1, "Sensitivity", minval=0.01, maxval=1.0, step=0.01, inline="sig", group="Sigmoid Smoothing", tooltip="Gevoeligheid van de sigmoid-smoothing (hoe sneller de aanpassing).")
+multiplierFactor = input.float(0.01, "Multiplier", minval=0.01, maxval=1.0, step=0.01, inline="sig", group="Sigmoid Smoothing", tooltip="Vermenigvuldigingsfactor voor de sigmoid-smoothing.")
+
+useUltimateSmoother = input.bool(true, "Enable Ultimate Smoother (Stage 2)", group="Sigmoid Smoothing", tooltip="Schakel de Ultimate Smoother in voor extra filtering (tweede stap).")
+smoothLength = input.int(3, "US Length", minval=1, maxval=100, inline="us", group="Sigmoid Smoothing", tooltip="Lengte (window) voor de Ultimate Smoother.")
+
+// ============================================================================
+// INPUT PARAMETERS - PIVOT DETECTION
+// ============================================================================
+enablePivots = input.bool(true, "Enable Pivot Detection", group="Pivot Detection", tooltip="Schakel het detecteren van pivots (draai-/keerpunten) in.")
+showPivotLines = input.bool(false, "Show Pivot Lines", group="Pivot Detection", tooltip="Toon horizontale lijnen bij gevonden pivots.")
+showHH = input.bool(true, "Show Higher Highs (HH)", inline="h1", group="Pivot Detection", tooltip="Toon labels voor Higher High pivots.")
+showLH = input.bool(true, "Show Lower Highs (LH)", inline="h1", group="Pivot Detection", tooltip="Toon labels voor Lower High pivots.")
+showHL = input.bool(true, "Show Higher Lows (HL)", inline="h2", group="Pivot Detection", tooltip="Toon labels voor Higher Low pivots.")
+showLL = input.bool(true, "Show Lower Lows (LL)", inline="h2", group="Pivot Detection", tooltip="Toon labels voor Lower Low pivots.")
+
+// ============================================================================
+// INPUT PARAMETERS - TRADING SIGNALS
+// ============================================================================
+enableLevelTouches = input.bool(false, "Pivot @ WOP Level", group="Trading Signals", tooltip="Activeer signalen wanneer een pivot samenvalt met een WOP-level.")
+showLivePercent = input.bool(false, "Show Live %", inline="display", group="Trading Signals", tooltip="Toon het actuele WOP-percentage bij elke bar.")
+atrLength = input.int(14, "ATR Length", minval=1, inline="atr", group="Trading Signals", tooltip="Lengte voor ATR-berekening (volatiliteit).")
+atrMultiplier = input.float(0.3, "ATR Multiplier", minval=0.1, maxval=2.0, step=0.1, inline="atr", group="Trading Signals", tooltip="Vermenigvuldigingsfactor voor ATR bij signalen.")
+meanAtrMultiplier = input.float(0.1, "Mean ATR Mult", minval=0.01, maxval=1.0, step=0.01, inline="atr2", group="Trading Signals", tooltip="ATR-multiplier voor de neutrale zone rond de 50% lijn.")
+showMeanAlerts = input.bool(false, "Show Alerts", inline="atr2", group="Trading Signals", tooltip="Toon alert signalen op de grafiek bij mean-crossings.")
+
+// ============================================================================
+// INPUT PARAMETERS - PIVOT BREACH
+// ============================================================================
+enableBOS = input.bool(true, "Show Pivot Breach", group="Pivot Breach", tooltip="Schakel het tonen van BOS (Break of Structure) lijnen in.")
+maxBreachLines = input.int(50, "Max Breach Lines", minval=1, maxval=500, group="Pivot Breach", tooltip="Maximaal aantal actieve breach-lijnen op de grafiek.")
+breachLabelOffset = input.float(0.0, "Label Offset", minval=-10.0, maxval=10.0, step=0.1, group="Pivot Breach", tooltip="Horizontale offset voor breach-labels.")
+colorBOSBullish = input.color(color.new(color.green, 80), "Bullish Breach", inline="bos1", group="Pivot Breach", tooltip="Kleur voor bullish breach-lijnen.")
+colorBOSBearish = input.color(color.new(color.red, 80), "Bearish Breach", inline="bos1", group="Pivot Breach", tooltip="Kleur voor bearish breach-lijnen.")
+bosLineWidth = input.int(2, "Line Width", minval=1, maxval=5, inline="bos2", group="Pivot Breach", tooltip="Dikte van de breach-lijnen.")
+bosLineStyle = input.string("Solid", "Line Style", ["Solid", "Dashed", "Dotted"], inline="bos2", group="Pivot Breach", tooltip="Stijl van de breach-lijnen.")
+transparencyBOSLabel = input.int(100, "Label", inline="bostrans", minval=0, maxval=100, step=5, group="Pivot Breach", tooltip="Transparantie van breach-labels.")
+transparencyBOSText = input.int(0, "Text", inline="bostrans", minval=0, maxval=100, step=5, group="Pivot Breach", tooltip="Transparantie van breach-label tekst.")
+breachLabelTextColor = input.color(color.new(#ff5d00, 0), "Breach Label Text Color", group="Pivot Breach", tooltip="Kleur van de breach-label tekst (alpha wordt geregeld door 'Text' transparantie).")
+transparencyBOSLine = input.int(0, "Line", inline="bostrans", minval=0, maxval=100, step=5, group="Pivot Breach", tooltip="Transparantie van breach-lijnen.")
+
+// Mean intersection signal (Ultimate Smoother vs Mean)
+enableMeanIntersection = input.bool(true, "Mean Intersection Signal (US vs Mean)", group="Pivot Breach", tooltip="Toon signalen wanneer de Ultimate Smoothed lijn de Mean (50%) kruist.")
+meanIntersectionLineWidth = input.int(1, "Mean Line Width", minval=1, maxval=5, group="Pivot Breach", tooltip="Lijndikte voor mean intersection lijn.")
+meanIntersectionLineTransparency = input.int(50, "Mean Line Transparency", minval=0, maxval=100, group="Pivot Breach", tooltip="Transparantie voor de mean intersection lijn (0=opaque, 100=fully transparent).")
+meanIntersectionLineStyle = input.string("Solid", "Mean Line Style", options=["Solid", "Dashed", "Dotted"], group="Pivot Breach", tooltip="Stijl van de mean intersection lijn (Solid, Dashed, Dotted).")
+// Precompute mean line style so it is available to functions defined earlier (drawIntersection uses it)
+string meanLnStyle = meanIntersectionLineStyle == "Dashed" ? line.style_dashed : meanIntersectionLineStyle == "Dotted" ? line.style_dotted : line.style_solid
+
+meanIntersectionLabelTransparency = input.int(100, "Mean Label Background", minval=0, maxval=100, group="Pivot Breach", tooltip="Transparantie voor de mean intersection label achtergrond.")
+meanIntersectionLabelTextTransparency = input.int(0, "Mean Label Text", minval=0, maxval=100, group="Pivot Breach", tooltip="Transparantie voor de mean intersection label tekst (alpha).")
+// Colors for directional mean cross lines (match Intersection Value Functions defaults)
+meanCrossUpColor = input.color(#2962ff, "Mean Cross Up Color", group="Pivot Breach")
+meanCrossUpArea = input.color(color.new(#2962ff, 90), "Mean Cross Up Area", group="Pivot Breach")
+meanCrossDownColor = input.color(#ff5d00, "Mean Cross Down Color", group="Pivot Breach")
+meanCrossDownArea = input.color(color.new(#ff5d00, 90), "Mean Cross Down Area", group="Pivot Breach")
+extendMeanIntersection = input.bool(true, "Extend Mean Intersection", group="Pivot Breach", tooltip="Verleng de mean intersection lijn zolang de Ultimate Smoothed buiten de Mean blijft.")
+// Immediate intrabar alerts: when enabled, the script will send an alert on the tick that a cross occurs (may alert before bar close)
+immediateMeanAlerts = input.bool(true, "Immediate Intrabar Mean Alerts", group="Pivot Breach", tooltip="Trigger an immediate intrabar alert when the smoothed line crosses the mean (may alert before bar close). Set false to only alert at bar close.")
+// Time-based throttling for intrabar alerts (seconds). 0 disables the throttle
+minSecondsBullAlerts = input.int(30, "Min seconds between Bull intrabar alerts", minval=0, group="Pivot Breach", tooltip="Minimum seconds between intrabar Bull alerts. 0 disables time throttle.")
+minSecondsBearAlerts = input.int(30, "Min seconds between Bear intrabar alerts", minval=0, group="Pivot Breach", tooltip="Minimum seconds between intrabar Bear alerts. 0 disables time throttle.")
+useTimeLibraryFormatting = input.bool(false, "Use Time Library formatting (if available)", group="Pivot Breach", tooltip="When enabled and if you have a local time library (e.g., chrono_utils) available, the script will format timestamps using the selected timezone (includes seconds and zone). Otherwise the script will show HH:MM:SS without zone.")
+// Timezone selection (uses chrono_utils.Timezone enum when available)
+timezoneSelection = input.enum(defval = CHR.Timezone.Exchange, title = "Time Zone", group = "Pivot Breach", tooltip = "Select timezone used for formatted timestamps. Defaults to chart timezone when set to 'Exchange'.")
+onlyMeanCrossLines = input.bool(false, "Only show Mean Cross Lines", group="Pivot Breach", tooltip="When enabled (experimental), hide the main Mean line and helper threshold lines; show only one horizontal line per mean crossover/crossunder and its label. This does not change intersection creation/extension logic.")
+
+// Helper lines for Mean ± ATR
+showMeanThresholdLines = input.bool(true, "Show Mean ATR Threshold Lines", group="Pivot Breach", tooltip="Draw helper lines at Mean ± ATR * meanAtrMultiplier.")
+meanThresholdLineColor = input.color(color.new(#ffeb3b, 60), "Mean Threshold Color", group="Pivot Breach")
+meanThresholdLineWidth = input.int(1, "Mean Threshold Line Width", minval=1, maxval=5, group="Pivot Breach")
+meanThresholdLineStyle = input.string("Dashed", "Mean Threshold Style", options=["Solid", "Dashed", "Dotted"], group="Pivot Breach")
+meanThresholdLineTransparency = input.int(70, "Mean Threshold Line Transparency", minval=0, maxval=100, group="Pivot Breach")
+
+// ============================================================================
+// INPUT PARAMETERS - PIVOT COLORS & PLOTS
+// ============================================================================
+colorBullish = input.color(color.new(color.green, 80), "Bullish", inline="col1", group="Pivot Colors")
+colorBearish = input.color(color.new(color.red, 80), "Bearish", inline="col1", group="Pivot Colors", tooltip="Kleur voor bearish pivots.")
+colorNeutral = input.color(color.new(color.yellow, 80), "Neutral", inline="col1", group="Pivot Colors", tooltip="Kleur voor neutrale pivots.")
+
+transparencyLabel = input.int(100, "Label", inline="trans", minval=0, maxval=100, step=5, group="Pivot transparency", tooltip="Transparantie van pivot-labels.")
+transparencyText = input.int(15, "Text", inline="trans", minval=0, maxval=100, step=5, group="Pivot transparency", tooltip="Transparantie van label-tekst.")
+transparencyLine = input.int(50, "Line", inline="trans", minval=0, maxval=100, step=5, group="Pivot transparency", tooltip="Transparantie van pivot-lijnen.")
+labelSize = input.string(size.small, "Label Size", [size.tiny, size.small, size.normal, size.large], group="Pivot Colors", tooltip="Grootte van de pivot-labels.")
+
+colorStage1 = input.color(color.new(#f57f17, 60), "Stage 1", inline="p3", group="Plot Colors", tooltip="Kleur voor de Stage 1 (adaptive smoothing) lijn.")
+colorStage2 = input.color(color.new(#b8b8b8, 60), "Stage 2", inline="p3", group="Plot Colors", tooltip="Kleur voor de Stage 2 (ultimate smoother) lijn.")
+colorBgHigh = input.color(color.new(color.green, 80), "BG High", inline="p5", group="Plot Colors", tooltip="Achtergrondkleur voor hoge WOP-zones.")
+colorBgLow = input.color(color.new(color.red, 80), "BG Low", inline="p5", group="Plot Colors", tooltip="Achtergrondkleur voor lage WOP-zones.")
+
+// Extreme Zone Transparency Settings
+earlyWarningPercent = input.float(1.0, "Early Warning %", minval=0.1, maxval=5.0, step=0.1, inline="ez1", group="Extreme Zones", tooltip="Start extreme zone gradient X% before High/Low boundaries")
+showExtremeZones = input.bool(false, "Show Zones", inline="ez1", group="Extreme Zones", tooltip="Toon extreme zones als achtergrond gradiënt wanneer de Stage-lijn buiten de WOP-banden komt.")
+transEarlyWarning = input.int(95, "Early", inline="trans1", minval=0, maxval=100, step=5, group="Extreme Zones", tooltip="Transparantie voor vroege waarschuwing zone.")
+transExtremeZone = input.int(77, "Extreme", inline="trans1", minval=0, maxval=100, step=5, group="Extreme Zones", tooltip="Transparantie voor extreme zone.")
+transStrongOverext = input.int(58, "Strong", inline="trans1", minval=0, maxval=100, step=5, group="Extreme Zones", tooltip="Transparantie voor sterke overextensie zone.")
+transMaxWarning = input.int(40, "Max", inline="trans1", minval=0, maxval=100, step=5, group="Extreme Zones", tooltip="Transparantie voor maximale waarschuwing zone.")
+
+// ============================================================================
+// INPUT PARAMETERS - PATTERN DETECTION
+// ============================================================================
+enablePatterns = input.bool(true, "Enable Pattern Detection", group="Pattern Detection", tooltip="Schakel patroonherkenning in of uit voor alle patronen.")
+showPatternLabels = input.bool(true, "Show Pattern Labels", inline="pat1", group="Pattern Detection", tooltip="Toon labels op de grafiek bij gedetecteerde patronen.")
+showPatternShapes = input.bool(false, "Show Pattern Shapes", inline="pat1alert", group="Pattern Detection", tooltip="Toon vormen (shapes) op de grafiek bij patroon-detectie.")
+
+// Simple Patterns (Order: Oldest → Newest)
+enableSimplePatterns = input.bool(true, "Enable Simple Patterns", group="Pattern Detection", tooltip="Schakel eenvoudige (2-3 pivots) patroonherkenning in.")
+pattern1Bull = input.string("HL,HH", "Bull Pattern 1", inline="p1", group="Pattern Detection", tooltip="Definieer het patroon voor Bull Pattern 1. OUDSTE → NIEUWSTE pivot.")
+pattern1BullText = input.string("⌃", "", inline="p1", group="Pattern Detection", tooltip="Labeltekst voor Bull Pattern 1.")
+alertSimplePattern1Bull = input.bool(false, "Alert", inline="p1", group="Pattern Detection", tooltip="Activeer alert voor Bull Pattern 1.")
+pattern2Bull = input.string("HH,HL,LH", "Bull Pattern 2", inline="p2", group="Pattern Detection", tooltip="Definieer het patroon voor Bull Pattern 2. OUDSTE → NIEUWSTE pivot.")
+pattern2BullText = input.string("⌃🢃", "", inline="p2", group="Pattern Detection", tooltip="Labeltekst voor Bull Pattern 2.")
+alertSimplePattern2Bull = input.bool(false, "Alert", inline="p2", group="Pattern Detection", tooltip="Activeer alert voor Bull Pattern 2.")
+
+pattern1Bear = input.string("LH,LL", "Bear Pattern 1", inline="p3", group="Pattern Detection", tooltip="Definieer het patroon voor Bear Pattern 1. OUDSTE → NIEUWSTE pivot.")
+pattern1BearText = input.string("⌄", "", inline="p3", group="Pattern Detection", tooltip="Labeltekst voor Bear Pattern 1.")
+alertSimplePattern1Bear = input.bool(false, "Alert", inline="p3", group="Pattern Detection", tooltip="Activeer alert voor Bear Pattern 1.")
+pattern2Bear = input.string("LL,LH,HL", "Bear Pattern 2", inline="p4", group="Pattern Detection", tooltip="Definieer het patroon voor Bear Pattern 2. OUDSTE → NIEUWSTE pivot.")
+pattern2BearText = input.string("⌄🢁", "", inline="p4", group="Pattern Detection", tooltip="Labeltekst voor Bear Pattern 2.")
+alertSimplePattern2Bear = input.bool(false, "Alert", inline="p4", group="Pattern Detection", tooltip="Activeer alert voor Bear Pattern 2.")
+
+// Advanced Patterns (Order: Oldest → Newest)
+enableAdvancedPatterns = input.bool(true, "Enable Advanced Patterns", group="Pattern Detection", tooltip="Schakel geavanceerde (4 pivots) patroonherkenning in.")
+advPattern1Bull = input.string("LL,LH,LL,HH", "Advanced Bull 1", inline="a1", group="Pattern Detection", tooltip="Definieer het patroon voor Advanced Bull 1. OUDSTE → NIEUWSTE pivot.")
+advPattern1BullText = input.string("🢅", "", inline="a1", group="Pattern Detection", tooltip="Labeltekst voor Advanced Bull 1.")
+alertAdvPattern1Bull = input.bool(false, "Alert", inline="a1", group="Pattern Detection", tooltip="Activeer alert voor Advanced Bull 1.")
+advPattern2Bull = input.string("HL,LH,LL,HH", "Advanced Bull 2", inline="a2", group="Pattern Detection", tooltip="Definieer het patroon voor Advanced Bull 2. OUDSTE → NIEUWSTE pivot.")
+advPattern2BullText = input.string("🢁", "", inline="a2", group="Pattern Detection", tooltip="Labeltekst voor Advanced Bull 2.")
+alertAdvPattern2Bull = input.bool(false, "Alert", inline="a2", group="Pattern Detection", tooltip="Activeer alert voor Advanced Bull 2.")
+
+advPattern1Bear = input.string("HH,HL,HH,LL", "Advanced Bear 1", inline="a3", group="Pattern Detection", tooltip="Definieer het patroon voor Advanced Bear 1. OUDSTE → NIEUWSTE pivot.")
+advPattern1BearText = input.string("🢆", "", inline="a3", group="Pattern Detection", tooltip="Labeltekst voor Advanced Bear 1.")
+alertAdvPattern1Bear = input.bool(false, "Alert", inline="a3", group="Pattern Detection", tooltip="Activeer alert voor Advanced Bear 1.")
+advPattern2Bear = input.string("LH,HL,HH,LL", "Advanced Bear 2", inline="a4", group="Pattern Detection", tooltip="Definieer het patroon voor Advanced Bear 2. OUDSTE → NIEUWSTE pivot.")
+advPattern2BearText = input.string("🢃", "", inline="a4", group="Pattern Detection", tooltip="Labeltekst voor Advanced Bear 2.")
+alertAdvPattern2Bear = input.bool(false, "Alert", inline="a4", group="Pattern Detection", tooltip="Activeer alert voor Advanced Bear 2.")
+
+patternLabelSize = input.string(size.normal, "Pattern Label Size", [size.tiny, size.small, size.normal, size.large, size.huge], group="Pattern Detection", tooltip="Kies de grootte van de patroon-labels op de grafiek.")
+colorPatternBull = input.color(color.new(color.lime, 80), "Bullish Pattern", inline="pc1", group="Pattern Detection", tooltip="Kleur voor bullish patroon signalen.")
+colorPatternBear = input.color(color.new(color.orange, 80), "Bearish Pattern", inline="pc1", group="Pattern Detection", tooltip="Kleur voor bearish patroon signalen.")
+transparencyPatternLabel = input.int(100, "Label", inline="pattrans", minval=0, maxval=100, step=5, group="Pattern Detection", tooltip="Transparantie van patroon-labels.")
+transparencyPatternText = input.int(50, "Text", inline="pattrans", minval=0, maxval=100, step=5, group="Pattern Detection", tooltip="Transparantie van label-tekst.")
+transparencyPatternShape = input.int(80, "Shape", inline="pattrans", minval=0, maxval=100, step=5, group="Pattern Detection", tooltip="Transparantie van patroon-shapes.")
+
+// ============================================================================
+// INPUT PARAMETERS - INFO TABLE
+// ============================================================================
+
+showTable = input.bool(true, "Show Info Table", group="Info Table", tooltip="Toon een informatietabel met kernwaarden.")
+tablePosition = input.string(position.top_right, "Position", 
+    [position.top_left, position.top_center, position.top_right, 
+     position.middle_left, position.middle_center, position.middle_right, 
+     position.bottom_left, position.bottom_center, position.bottom_right], 
+    group="Info Table", tooltip="Positie van de info-tabel op de grafiek.")
+tableBgColor = input.color(color.new(color.black, 80), "Background", inline="tbl", group="Info Table", tooltip="Achtergrondkleur van de info-tabel.")
+tableTextColor = input.color(color.new(color.white, 80), "Text", inline="tbl", group="Info Table", tooltip="Tekstkleur van de info-tabel.")
+
+// ============================================================================ 
+// LIVE PIVOT TABLE 
+// ============================================================================
+
+showPivotTable = input.bool(true, "Show Pivot Table", group="Info Table", tooltip="Toon een tabel met recente pivots.")
+pivotTablePosition = input.string(position.bottom_right, "Pivot Table Position", 
+    [position.top_left, position.top_center, position.top_right, 
+     position.middle_left, position.middle_center, position.middle_right, 
+     position.bottom_left, position.bottom_center, position.bottom_right], 
+    group="Info Table", tooltip="Positie van de pivot-tabel op de grafiek.")
+pivotTableRows = input.int(5, "Pivot Table Rows", minval=1, maxval=10, group="Info Table", tooltip="Aantal rijen (laatste pivots) in de tabel.")
+pivotTableHeaderBg = input.color(color.new(color.rgb(30, 30, 60), 80), "Pivot Table Header BG", group="Info Table", tooltip="Achtergrondkleur van de header van de pivot-tabel.")
+pivotTableBg = input.color(color.rgb(20, 20, 40, 80), "Pivot Table BG", group="Info Table", tooltip="Achtergrondkleur van de pivot-tabel.")
+pivotTableTextSize = input.string(size.small, "Pivot Table Text Size", [size.auto, size.tiny, size.small, size.normal, size.large, size.huge], group="Info Table", tooltip="Tekstgrootte in de pivot-tabel.")
+
+// DEBUG - quick testing helpers
+debugMode = input.bool(false, "Enable Debug Mode", group="Debug", tooltip="Show debug shapes/labels and logs for testing (Replay).")
+debugVerbose = input.bool(true, "Verbose Logs", group="Debug", tooltip="Log detailed debug messages via log.info() when enabled.")
+
+// Debug log table inputs (moved here so they are available for intrabar debug use)
+debugLogEnable = input.bool(true, "Enable Debug Log Table", group="Debug", tooltip="Show a compact debug log table with recent events.")
+debugLogRows = input.int(8, "Debug Log Rows", minval=1, maxval=20, group="Debug", tooltip="Max number of rows shown in the debug log table.")
+debugLogPosition = input.string(position.middle_right, "Debug Log Position",
+    [position.top_left, position.top_center, position.top_right, position.middle_left, position.middle_center, position.middle_right, position.bottom_left, position.bottom_center, position.bottom_right], group="Debug")
+debugShowSmoothed = input.bool(true, "Show Smoothed", group="Debug", tooltip="Include Smoothed value in the log table.")
+debugShowMean = input.bool(true, "Show Mean", group="Debug", tooltip="Include Mean value in the log table.")
+
+// Internal arrays for debug log (newest at index 0)
+var array<string> dbg_events = array.new_string(0)
+var array<string> dbg_times = array.new_string(0)
+var array<string> dbg_sm = array.new_string(0)
+var array<string> dbg_mean = array.new_string(0)
+var array<string> dbg_pct = array.new_string(0)
+var array<string> dbg_note = array.new_string(0)
+
+// Simple debug wrapper (defined early so it can be used anywhere above)
+info_debug(string tag, string msg) =>
+    if debugMode and debugVerbose
+        log.info(str.format("{0}: {1}", tag, msg))
+
+// Helper to add a row to the persistent debug log (keeps newest at top)
+addDebugRow(string ev, string t, string sm, string mean, string pct, string note) =>
+    array.insert(dbg_events, 0, ev)
+    array.insert(dbg_times, 0, t)
+    array.insert(dbg_sm, 0, sm)
+    array.insert(dbg_mean, 0, mean)
+    array.insert(dbg_pct, 0, pct)
+    array.insert(dbg_note, 0, note)
+
+    // Trim to configured rows
+    while array.size(dbg_events) > debugLogRows
+        array.pop(dbg_events)
+        array.pop(dbg_times)
+        array.pop(dbg_sm)
+        array.pop(dbg_mean)
+        array.pop(dbg_pct)
+        array.pop(dbg_note)
+
+// Small helper: format unix timestamp into HH:MM:SS (fallback formatter when no external time lib is linked)
+formatUnixTime(int tm) =>
+    if na(tm)
+        "-"
+    else
+        str.tostring(hour(tm), "00") + ":" + str.tostring(minute(tm), "00") + ":" + str.tostring(second(tm), "00")
+
+// Helper: compute UTC offset string (e.g. "UTC+01:00") for a given timestamp and the selected timezone
+getUtcOffsetStr(int tm) =>
+    if na(tm)
+        "UTC+00:00"
+    else
+        // Represent local and UTC times as HH:mm and compute minute difference
+        string tz = timezoneSelection.to_string()
+        string local = str.format_time(tm, "HH:mm", tz)
+        string utc = str.format_time(tm, "HH:mm", "UTC+0")
+        int lh = int(str.tonumber(str.substring(local, 0, 2)))
+        int lm = int(str.tonumber(str.substring(local, 3, 5)))
+        int uh = int(str.tonumber(str.substring(utc, 0, 2)))
+        int um = int(str.tonumber(str.substring(utc, 3, 5)))
+        int diff = (lh * 60 + lm) - (uh * 60 + um)
+        // Normalize to range -12h..+12h
+        if diff <= -720
+            diff := diff + 1440
+        if diff > 720
+            diff := diff - 1440
+        bool negative = diff < 0
+        int absMin = math.abs(diff)
+        int oh = absMin / 60
+        int om = absMin % 60
+        string sign = negative ? "-" : "+"
+        "UTC" + sign + str.tostring(oh, "00") + ":" + str.tostring(om, "00")
+
+// Helper: format time with UTC offset appended. Uses chrono/timezone selection when available.
+formatTimeWithOffset(int tm) =>
+    if na(tm)
+        "-"
+    else
+        string base = useTimeLibraryFormatting ? str.format_time(tm, "HH:mm:ss", timezoneSelection.to_string()) : formatUnixTime(tm)
+        base + " (" + getUtcOffsetStr(tm) + ")"
+
+// debug arrays declared earlier (moved above)
+
+// ============================================================================
+// WOP HELPER FUNCTIONS
+
+
+// ============================================================================
+// WOP HELPER FUNCTIONS
+// ============================================================================
+sigmoid(float val) =>
+    1.0 / (1.0 + math.exp(-val))
+
+adaptiveSmoothingFactor(float gradient, float k) =>
+    sigmoid(k * gradient)
+
+// Helper: compute scaling factor for linear intersection estimation
+// Returns `na` when slopes are equal to avoid division by zero
+commonScalingFactor(float source1, float source2, float m1, float m2) =>
+    m1 == m2 ? na : (source1 - source2) / (m1 - m2)
+
+// Strict intersection helper functions (ported from Intersection Value Functions)
+// getSlopes(): returns slopes m1 (source1 change) and m2 (source2 change)
+getSlopes(float source1, float source2) =>
+    float m1 = ta.change(source1)
+    float m2 = ta.change(source2)
+    [m1, m2]
+
+// crossValue(): returns intersection value if any cross occurs; otherwise na
+crossValue(float source1, float source2) =>
+    float insct = na
+    [m1, m2] = getSlopes(source1, source2)
+    if ta.cross(source1, source2) and m1 != m2
+        float sf = commonScalingFactor(source1, source2, m1, m2)
+        if not na(sf)
+            insct := source1 - sf * m1
+    insct
+
+// crossoverValue(): returns intersection value only for crossover events
+crossoverValue(float source1, float source2) =>
+    float insct = na
+    [m1, m2] = getSlopes(source1, source2)
+    if ta.crossover(source1, source2) and m1 != m2
+        float sf = commonScalingFactor(source1, source2, m1, m2)
+        if not na(sf)
+            insct := source1 - sf * m1
+    insct
+
+// crossunderValue(): returns intersection value only for crossunder events
+crossunderValue(float source1, float source2) =>
+    float insct = na
+    [m1, m2] = getSlopes(source1, source2)
+    if ta.crossunder(source1, source2) and m1 != m2
+        float sf = commonScalingFactor(source1, source2, m1, m2)
+        if not na(sf)
+            insct := source1 - sf * m1
+    insct
+
+// drawIntersection(): draw horizontal intersection line, label and small box (uses chart.point.from_index like reference)
+// returns [line, label, box]
+drawIntersection(float intersection_val, float scaling_factor, float maxVal, float minVal, bool crossover, color css, color css_area) =>
+    n = bar_index
+    line ln = line.new(chart.point.from_index(n - 1, intersection_val), chart.point.from_index(n, intersection_val), color = css, width = meanIntersectionLineWidth, style = meanLnStyle)
+    label lb = label.new(chart.point.from_index(n, crossover ? minVal : maxVal), color = color(na), textcolor = css, text = str.tostring(math.round_to_mintick(intersection_val)), style = crossover ? label.style_label_up : label.style_label_down, size = size.small, tooltip = str.tostring(1 - scaling_factor, '#.##'))
+    box bx = box.new(chart.point.from_index(n - 1, maxVal), chart.point.from_index(n, minVal), na, bgcolor = css_area)
+    [ln, lb, bx]
+
+UltimateSmoother(float src, int period) =>
+    float a1 = math.exp(-1.414 * math.pi / period)
+    float c2 = 2.0 * a1 * math.cos(1.414 * math.pi / period)
+    float c3 = -a1 * a1
+    float c1 = (1.0 + c2 - c3) / 4.0
+    float us = src
+    if bar_index >= 4
+        us := (1.0 - c1) * src + 
+              (2.0 * c1 - c2) * src[1] - 
+              (c1 + c3) * src[2] + 
+              c2 * nz(us[1]) + c3 * nz(us[2])
+    us
+
+wopMulti(float src, int len, array<float> percentiles, bool useTime, bool useVolume) =>
+    var array<float> data = array.new_float(0)
+    var array<float> weights = array.new_float(0)
+    array.clear(data)
+    array.clear(weights)
+    
+    for i = 0 to len - 1
+        float timeWeight = useTime ? (len - i) : 1.0
+        float volumeWeight = useVolume ? math.abs(close[i] - open[i]) : 1.0
+        float combinedWeight = timeWeight * volumeWeight
+        array.push(data, src[i])
+        array.push(weights, combinedWeight)
+    
+    array<int> sortedIndices = array.sort_indices(data, order.ascending)
+    
+    var array<float> sortedWeights = array.new_float(0)
+    array.clear(sortedWeights)
+    for i = 0 to len - 1
+        int idx = array.get(sortedIndices, i)
+        array.push(sortedWeights, array.get(weights, idx))
+    
+    var array<float> cumulativeWeights = array.new_float(0)
+    array.clear(cumulativeWeights)
+    float cumSum = 0.0
+    for i = 0 to len - 1
+        cumSum += array.get(sortedWeights, i)
+        array.push(cumulativeWeights, cumSum)
+    
+    float totalWeight = array.sum(sortedWeights)
+    
+    var array<float> results = array.new_float(0)
+    array.clear(results)
+    int numPercentiles = array.size(percentiles)
+    for p = 0 to numPercentiles - 1
+        float percentile = array.get(percentiles, p)
+        float threshold = totalWeight * percentile / 100.0
+        float wopValue = na
+        for i = 0 to len - 1
+            if array.get(cumulativeWeights, i) >= threshold
+                int dataIdx = array.get(sortedIndices, i)
+                wopValue := array.get(data, dataIdx)
+                break
+        array.push(results, wopValue)
+    results
+
+// ============================================================================
+// WOP CALCULATION - ADAPTIVE SMOOTHING (ANTI-REPAINT)
+// ============================================================================
+// Stage 1: Adaptive Smoothing
+var float dynamicOutput = na
+
+if useSigmoid
+    var float confirmedGradient = na
+    float currentGradient = barstate.isconfirmed ? math.abs(sourcePrice - sourcePrice[1]) : confirmedGradient
+    if barstate.isconfirmed
+        confirmedGradient := currentGradient
+    float smoothFactor = adaptiveSmoothingFactor(currentGradient, sensitivityFactor * multiplierFactor)
+    dynamicOutput := na(dynamicOutput[1]) ? sourcePrice : 
+                     smoothFactor * sourcePrice + (1.0 - smoothFactor) * dynamicOutput[1]
+else
+    dynamicOutput := sourcePrice
+
+// Stage 2: Ultimate Smoother (ANTI-REPAINT)
+var float dynamicOutputMa = na
+
+if useUltimateSmoother
+    var float confirmedGradientMa = na
+    float smoothedPrice = UltimateSmoother(dynamicOutput, smoothLength)
+    float currentGradientMa = barstate.isconfirmed ? math.abs(smoothedPrice - smoothedPrice[1]) : confirmedGradientMa
+    if barstate.isconfirmed
+        confirmedGradientMa := currentGradientMa
+    float smoothFactorMa = adaptiveSmoothingFactor(currentGradientMa, sensitivityFactor * multiplierFactor)
+    dynamicOutputMa := na(dynamicOutputMa[1]) ? smoothedPrice :
+                       smoothFactorMa * smoothedPrice + (1.0 - smoothFactorMa) * dynamicOutputMa[1]
+else
+    dynamicOutputMa := dynamicOutput
+
+float smoothedPrice = dynamicOutputMa
+
+// Select pivot source based on active smoothing stages
+float pivotSource = useUltimateSmoother ? dynamicOutputMa : 
+                     useSigmoid ? dynamicOutput : 
+                     sourcePrice
+
+// ============================================================================
+// WOP CALCULATION
+// ============================================================================
+var array<float> allPercentiles = array.from(0.0, percentileLow, percentileMid, percentileHigh, 100.0)
+array<float> wopResults = wopMulti(pivotSource, wopLength, allPercentiles, useTimeWeighting, useVolumeWeighting)
+
+float wopZero = array.get(wopResults, 0)
+float wopLow = array.get(wopResults, 1)
+float wopMean = array.get(wopResults, 2)
+float wopHigh = array.get(wopResults, 3)
+float wopTop = array.get(wopResults, 4)
+
+// ============================================================================
+// PIVOT DETECTION TYPE DEFINITIONS
+// ============================================================================
+type PivotPoint
+    int barIndex
+    float price
+    bool isHigh
+    bool isHigher
+    string pivotType
+    string atLevel
+    float livePercent
+    line ln
+    label lb
+
+type PivotState
+    array<PivotPoint> pivots
+    PivotPoint lastPivot
+
+// ============================================================================
+// PIVOT DETECTION LOGIC - ZIGZAG STYLE
+// ============================================================================
+var PivotState state = PivotState.new(array.new<PivotPoint>(), na)
+
+float atr = ta.atr(atrLength)
+
+// Pre-calc colors
+color colorBullishLabel = color.new(colorBullish, transparencyLabel)
+color colorBullishText = color.new(colorBullish, transparencyText)
+color colorBullishLine = color.new(colorBullish, transparencyLine)
+color colorBearishLabel = color.new(colorBearish, transparencyLabel)
+color colorBearishText = color.new(colorBearish, transparencyText)
+color colorBearishLine = color.new(colorBearish, transparencyLine)
+color colorNeutralLabel = color.new(colorNeutral, transparencyLabel)
+color colorNeutralText = color.new(colorNeutral, transparencyText)
+color colorNeutralLine = color.new(colorNeutral, transparencyLine)
+
+// Helper functions
+getLivePercentage(float price) =>
+    if na(wopTop) or na(wopZero) or wopTop == wopZero
+        na
+    else
+        math.max(0.0, math.min(100.0, (price - wopZero) / (wopTop - wopZero) * 100.0))
+
+getWopLevel(float price) =>
+    string wopPercent = ""
+    if enableLevelTouches
+        if not na(wopZero) and math.abs(price - wopZero) <= atr * atrMultiplier
+            wopPercent := wopPercent + "@0%"
+        if not na(wopLow) and math.abs(price - wopLow) <= atr * atrMultiplier
+            wopPercent := wopPercent + (wopPercent != "" ? "\n" : "") + "@" + str.tostring(percentileLow, "#") + "%"
+        if not na(wopMean) and math.abs(price - wopMean) <= atr * atrMultiplier
+            wopPercent := wopPercent + (wopPercent != "" ? "\n" : "") + "@50%"
+        if not na(wopHigh) and math.abs(price - wopHigh) <= atr * atrMultiplier
+            wopPercent := wopPercent + (wopPercent != "" ? "\n" : "") + "@" + str.tostring(percentileHigh, "#") + "%"
+        if not na(wopTop) and math.abs(price - wopTop) <= atr * atrMultiplier
+            wopPercent := wopPercent + (wopPercent != "" ? "\n" : "") + "@100%"
+    wopPercent
+
+// Update existing pivot
+updatePivot(PivotPoint pivot) =>
+    pivot.barIndex := bar_index
+    pivot.price := pivotSource
+
+    if not na(pivot.ln)
+        pivot.ln.set_xy2(bar_index, pivotSource)
+    if not na(pivot.lb)
+        pivot.lb.set_xy(bar_index, pivotSource)
+
+    PivotPoint prevPivot = na
+    if state.pivots.size() > 1
+        for i = state.pivots.size() - 2 to 0
+            PivotPoint p = state.pivots.get(i)
+            if p.isHigh == pivot.isHigh
+                prevPivot := p
+                break
+
+    bool isHigher = na(prevPivot) ? false : pivotSource > prevPivot.price
+    pivot.isHigher := isHigher
+
+    string pivotType = na(prevPivot) ? (pivot.isHigh ? "H" : "L") : 
+                      (pivot.isHigh ? (isHigher ? "HH" : "LH") : (isHigher ? "HL" : "LL"))
+    pivot.pivotType := pivotType
+    pivot.atLevel := getWopLevel(pivotSource)
+    pivot.livePercent := getLivePercentage(pivotSource)
+
+    bool isBullish = pivotType == "HH" or pivotType == "HL"
+    bool isBearish = pivotType == "LH" or pivotType == "LL"
+    color lblColor = isBullish ? colorBullishLabel : isBearish ? colorBearishLabel : colorNeutralLabel
+    color txtColor = isBullish ? colorBullishText : isBearish ? colorBearishText : colorNeutralText
+    color lnColor = isBullish ? colorBullishLine : isBearish ? colorBearishLine : colorNeutralLine
+
+    string labelText = pivotType
+    if showLivePercent
+        string percentText = na(pivot.livePercent) ? "" : str.tostring(pivot.livePercent, "#.#") + "%"
+        labelText := labelText + "\n" + percentText
+    else
+        if pivot.atLevel != ""
+            labelText := labelText + "\n" + pivot.atLevel
+
+    bool shouldShow = (pivotType == "HH" and showHH) or 
+                     (pivotType == "HL" and showHL) or 
+                     (pivotType == "LH" and showLH) or 
+                     (pivotType == "LL" and showLL)
+
+    if shouldShow and enablePivots
+        pivot.lb.set_text(labelText)
+        pivot.lb.set_textcolor(txtColor)
+        pivot.lb.set_color(lblColor)
+        if not na(pivot.ln)
+            pivot.ln.set_color(lnColor)
+    else
+        pivot.lb.set_text("")
+        pivot.lb.set_color(na)
+        pivot.lb.set_textcolor(na)
+        if not na(pivot.ln)
+            pivot.ln.set_color(na)
+
+// Add new pivot
+addPivot(bool isHigh) =>
+    PivotPoint lastPivot = state.lastPivot
+
+    PivotPoint prevPivot = na
+    if state.pivots.size() > 0
+        for i = state.pivots.size() - 1 to 0
+            PivotPoint p = state.pivots.get(i)
+            if p.isHigh == isHigh
+                prevPivot := p
+                break
+
+    bool isHigher = na(prevPivot) ? false : pivotSource > prevPivot.price
+    string pivotType = na(prevPivot) ? (isHigh ? "H" : "L") : 
+                      (isHigh ? (isHigher ? "HH" : "LH") : (isHigher ? "HL" : "LL"))
+    string atLevel = getWopLevel(pivotSource)
+    float livePercent = getLivePercentage(pivotSource)
+
+    bool isBullish = pivotType == "HH" or pivotType == "HL"
+    bool isBearish = pivotType == "LH" or pivotType == "LL"
+    color lblColor = isBullish ? colorBullishLabel : isBearish ? colorBearishLabel : colorNeutralLabel
+    color txtColor = isBullish ? colorBullishText : isBearish ? colorBearishText : colorNeutralText
+    color lnColor = isBullish ? colorBullishLine : isBearish ? colorBearishLine : colorNeutralLine
+
+    bool shouldShow = (pivotType == "HH" and showHH) or 
+                     (pivotType == "HL" and showHL) or 
+                     (pivotType == "LH" and showLH) or 
+                     (pivotType == "LL" and showLL)
+
+    line ln = na
+    if not na(lastPivot) and shouldShow and showPivotLines and enablePivots
+        ln := line.new(lastPivot.barIndex, lastPivot.price, bar_index, pivotSource, 
+                      xloc=xloc.bar_index, color=lnColor, width=1)
+
+    label lb = na
+    if shouldShow and enablePivots
+        string labelText = pivotType
+        if showLivePercent
+            string percentText = na(livePercent) ? "" : str.tostring(livePercent, "#.#") + "%"
+            labelText := labelText + "\n" + percentText
+        else
+            if atLevel != ""
+                labelText := labelText + "\n" + atLevel
+        lb := label.new(bar_index, pivotSource, labelText, yloc=yloc.price,
+                         color=lblColor, textcolor=txtColor,
+                         style=isHigh ? label.style_label_down : label.style_label_up,
+                         size=labelSize)
+    else
+        lb := label.new(bar_index, pivotSource, "", yloc=yloc.price,
+                         color=na, textcolor=na,
+                         style=isHigh ? label.style_label_down : label.style_label_up,
+                         size=labelSize)
+
+    PivotPoint newPivot = PivotPoint.new(bar_index, pivotSource, isHigh, isHigher, pivotType, atLevel, livePercent, ln, lb)
+    state.pivots.push(newPivot)
+    state.lastPivot := newPivot
+
+    if state.pivots.size() > 100
+        state.pivots.shift()
+
+// Scan helper
+scan(bool isHigh) =>
+    PivotPoint lastPivot = state.lastPivot
+    if not na(lastPivot)
+        if lastPivot.isHigh
+            if pivotSource > lastPivot.price
+                updatePivot(lastPivot)
+            if not isHigh
+                addPivot(isHigh)
+        else
+            if pivotSource < lastPivot.price
+                updatePivot(lastPivot)
+            if isHigh
+                addPivot(isHigh)
+    else
+        addPivot(isHigh)
+
+// Main ZigZag scan logic (always runs for breach detection)
+if pivotSource > pivotSource[1]
+    scan(true)
+if pivotSource < pivotSource[1]
+    scan(false)
+
+// ============================================================================
+// PATTERN DETECTION
+// - Detects predefined patterns in pivot sequence
+// - Generates visual signals and alerts
+// ============================================================================
+
+// @function Checks if current sequence matches pattern
+// Pattern string format: "OLDEST,OLDER,NEWER,NEWEST" (chronological order)
+matchesPattern(string patternInput) =>
+    bool matches = false
+    if patternInput != ""
+        array<string> patternParts = str.split(patternInput, ",")
+        int patternLength = patternParts.size()
+        
+        if state.pivots.size() >= patternLength
+            matches := true
+            // Read pattern from oldest to newest (chronological)
+            for i = 0 to patternLength - 1
+                // Get pivot from oldest to newest: patternLength-1-i positions back from last pivot
+                PivotPoint p = state.pivots.get(state.pivots.size() - patternLength + i)
+                string expected = str.trim(patternParts.get(i))
+                if p.pivotType != expected
+                    matches := false
+                    break
+    matches
+
+// Pattern detection logic
+// Pattern detection flags for each pattern
+bool simplePattern1BullDetected = enablePatterns and enableSimplePatterns and matchesPattern(pattern1Bull)
+bool simplePattern2BullDetected = enablePatterns and enableSimplePatterns and matchesPattern(pattern2Bull)
+bool simplePattern1BearDetected = enablePatterns and enableSimplePatterns and matchesPattern(pattern1Bear)
+bool simplePattern2BearDetected = enablePatterns and enableSimplePatterns and matchesPattern(pattern2Bear)
+
+bool advPattern1BullDetected = enablePatterns and enableAdvancedPatterns and matchesPattern(advPattern1Bull)
+bool advPattern2BullDetected = enablePatterns and enableAdvancedPatterns and matchesPattern(advPattern2Bull)
+bool advPattern1BearDetected = enablePatterns and enableAdvancedPatterns and matchesPattern(advPattern1Bear)
+bool advPattern2BearDetected = enablePatterns and enableAdvancedPatterns and matchesPattern(advPattern2Bear)
+
+// Draw pattern label for any detected pattern
+if state.pivots.size() >= 2 and showPatternLabels
+    string labelText = na
+    color labelColor = na
+    string labelStyle = na
+    if simplePattern1BullDetected
+        labelText := pattern1BullText
+        labelColor := colorPatternBull
+        labelStyle := label.style_label_down
+    else if simplePattern2BullDetected
+        labelText := pattern2BullText
+        labelColor := colorPatternBull
+        labelStyle := label.style_label_down
+    else if simplePattern1BearDetected
+        labelText := pattern1BearText
+        labelColor := colorPatternBear
+        labelStyle := label.style_label_up
+    else if simplePattern2BearDetected
+        labelText := pattern2BearText
+        labelColor := colorPatternBear
+        labelStyle := label.style_label_up
+    else if advPattern1BullDetected
+        labelText := advPattern1BullText
+        labelColor := colorPatternBull
+        labelStyle := label.style_label_down
+    else if advPattern2BullDetected
+        labelText := advPattern2BullText
+        labelColor := colorPatternBull
+        labelStyle := label.style_label_down
+    else if advPattern1BearDetected
+        labelText := advPattern1BearText
+        labelColor := colorPatternBear
+        labelStyle := label.style_label_up
+    else if advPattern2BearDetected
+        labelText := advPattern2BearText
+        labelColor := colorPatternBear
+        labelStyle := label.style_label_up
+    if not na(labelText)
+        label.new(
+            bar_index,
+            labelColor == colorPatternBull ? wopTop + (wopTop - wopZero) * 0.1 : wopZero - (wopTop - wopZero) * 0.1,
+            labelText,
+            color=color.new(labelColor, transparencyPatternLabel),
+            textcolor=color.new(labelColor, transparencyPatternText),
+            style=labelStyle,
+            size=patternLabelSize)
+
+// Plot signals for strategy use
+plotshape(showPatternShapes and simplePattern1BullDetected, "Bull Pattern 1", shape.triangleup, location.bottom, color.new(colorPatternBull, transparencyPatternShape), size=size.small)
+plotshape(showPatternShapes and simplePattern2BullDetected, "Bull Pattern 2", shape.triangleup, location.bottom, color.new(colorPatternBull, transparencyPatternShape), size=size.small)
+plotshape(showPatternShapes and simplePattern1BearDetected, "Bear Pattern 1", shape.triangledown, location.top, color.new(colorPatternBear, transparencyPatternShape), size=size.small)
+plotshape(showPatternShapes and simplePattern2BearDetected, "Bear Pattern 2", shape.triangledown, location.top, color.new(colorPatternBear, transparencyPatternShape), size=size.small)
+
+plotshape(showPatternShapes and advPattern1BullDetected, "Adv Bull Pattern 1", shape.triangleup, location.bottom, color.new(colorPatternBull, transparencyPatternShape), size=size.small)
+plotshape(showPatternShapes and advPattern2BullDetected, "Adv Bull Pattern 2", shape.triangleup, location.bottom, color.new(colorPatternBull, transparencyPatternShape), size=size.small)
+plotshape(showPatternShapes and advPattern1BearDetected, "Adv Bear Pattern 1", shape.triangledown, location.top, color.new(colorPatternBear, transparencyPatternShape), size=size.small)
+plotshape(showPatternShapes and advPattern2BearDetected, "Adv Bear Pattern 2", shape.triangledown, location.top, color.new(colorPatternBear, transparencyPatternShape), size=size.small)
+
+// Alertconditions for each pattern
+alertcondition(alertSimplePattern1Bull and simplePattern1BullDetected, title="Bull Pattern 1", message="Bull Pattern 1 detected!")
+alertcondition(alertSimplePattern2Bull and simplePattern2BullDetected, title="Bull Pattern 2", message="Bull Pattern 2 detected!")
+alertcondition(alertSimplePattern1Bear and simplePattern1BearDetected, title="Bear Pattern 1", message="Bear Pattern 1 detected!")
+alertcondition(alertSimplePattern2Bear and simplePattern2BearDetected, title="Bear Pattern 2", message="Bear Pattern 2 detected!")
+
+alertcondition(alertAdvPattern1Bull and advPattern1BullDetected, title="Adv Bull Pattern 1", message="Advanced Bull Pattern 1 detected!")
+alertcondition(alertAdvPattern2Bull and advPattern2BullDetected, title="Adv Bull Pattern 2", message="Advanced Bull Pattern 2 detected!")
+alertcondition(alertAdvPattern1Bear and advPattern1BearDetected, title="Adv Bear Pattern 1", message="Advanced Bear Pattern 1 detected!")
+alertcondition(alertAdvPattern2Bear and advPattern2BearDetected, title="Adv Bear Pattern 2", message="Advanced Bear Pattern 2 detected!")
+
+// ============================================================================
+// PIVOT BREACH DETECTION
+// - Detects when price breaks above/below pivot levels
+// - Draws horizontal line from pivot until breach occurs
+// ============================================================================
+
+// Breach tracking type
+type BreachInfo
+    line ln
+    label lb
+    int pivotBar
+    string breachType
+    bool active
+
+// Mean intersection state (US vs Mean)
+type MeanIntersection
+    line ln
+    label lb
+    box bx
+    int barIndex
+    bool isAbove
+    bool active
+
+// BOS state holders - array based for multiple breaches
+var array<BreachInfo> breachHistory = array.new<BreachInfo>()
+
+// Global flags for BOS alerts
+var bool bosBullishBreach = false
+var bool bosBearishBreach = false
+
+// Mean intersection state holder (single active intersection)
+var MeanIntersection meanState = na
+var bool meanBullishCross = false
+var bool meanBearishCross = false
+var int lastMeanCrossBar = na
+var int lastMeanCrossDir = 0    // 1 = bull, -1 = bear
+var int lastMeanCrossSource = 0 // 1 = intrabar, 2 = bar-close
+// Time-based throttle state (timestamps in ms)
+var int lastBullAlertTime = na
+var int lastBearAlertTime = na
+
+// Queue for aggregated mean alerts (bar-close flush)
+varip array<string> meanAlertMessages = array.new_string(0)
+
+// Queue a mean alert message for later flushing at bar-close
+queueMeanAlert(string msg) =>
+    array.unshift(meanAlertMessages, msg)
+    log.info("QUEUE_MEAN_ALERT: " + msg)
+
+
+// Helper: find last pivot of given isHigh flag that is strictly earlier than current bar-1
+findLastPivot(bool wantHigh) =>
+    PivotPoint found = na
+    if state.pivots.size() > 0
+        for i = state.pivots.size() - 1 to 0
+            PivotPoint p = state.pivots.get(i)
+            if p.isHigh == wantHigh and p.barIndex < bar_index - 1
+                found := p
+                break
+    found
+
+// Precompute last pivots and crossing flags (use slope-safe crossoverValue/crossunderValue to match intersection logic)
+PivotPoint lastHighPivot = findLastPivot(true)
+PivotPoint lastLowPivot  = findLastPivot(false)
+
+float lastHighPivotPrice = na
+float lastLowPivotPrice = na
+if not na(lastHighPivot)
+    lastHighPivotPrice := lastHighPivot.price
+if not na(lastLowPivot)
+    lastLowPivotPrice := lastLowPivot.price
+
+var bool rawCrossedAbove = false
+var bool rawCrossedBelow = false
+// update raw crossing flags every bar (use intersection helpers for slope checks)
+rawCrossedAbove := not na(crossoverValue(pivotSource, lastHighPivotPrice))
+rawCrossedBelow := not na(crossunderValue(pivotSource, lastLowPivotPrice))
+
+bool crossedAbove = not na(lastHighPivotPrice) and rawCrossedAbove
+bool crossedBelow = not na(lastLowPivotPrice) and rawCrossedBelow
+bool isAbove = not na(lastHighPivotPrice) and pivotSource > lastHighPivotPrice
+bool isBelow = not na(lastLowPivotPrice) and pivotSource < lastLowPivotPrice
+
+if enableBOS
+    // Choose line style
+    string lnStyle = bosLineStyle == "Dashed" ? line.style_dashed : bosLineStyle == "Dotted" ? line.style_dotted : line.style_solid
+
+    // Check if we already have an *active* breach for this pivot
+    bool alreadyBreached = false
+    int updateIndex = -1
+    if breachHistory.size() > 0
+        for i = 0 to breachHistory.size() - 1
+            BreachInfo info = breachHistory.get(i)
+            // Bullish check (only active breaches)
+            if not na(lastHighPivot) and info.pivotBar == lastHighPivot.barIndex and info.breachType == "Bullish" and info.active
+                alreadyBreached := true
+                updateIndex := i
+                break
+            // Bearish check (only active breaches)
+            if not na(lastLowPivot) and info.pivotBar == lastLowPivot.barIndex and info.breachType == "Bearish" and info.active
+                alreadyBreached := true
+                updateIndex := i
+                break
+
+    // Reset flags at start of each bar
+    bosBullishBreach := false
+    bosBearishBreach := false
+
+    // Bullish Breach: trigger only on crossing (one alert), create box + label; extend while price stays above
+    if not na(lastHighPivot)
+        if crossedAbove
+            bosBullishBreach := true
+            bool shouldCreateNew = not alreadyBreached
+            if alreadyBreached and updateIndex >= 0 and breachHistory.size() > updateIndex
+                if breachHistory.get(updateIndex).breachType != "Bullish"
+                    shouldCreateNew := true
+
+            if shouldCreateNew
+                // Create new breach visuals (line + value label)
+                line newLine = line.new(lastHighPivot.barIndex, lastHighPivot.price, bar_index, lastHighPivot.price,
+                                        xloc=xloc.bar_index, color=color.new(colorBOSBullish, transparencyBOSLine), width=bosLineWidth, style=lnStyle)
+                label newLabel = label.new(bar_index + int(breachLabelOffset), lastHighPivot.price, str.tostring(math.round_to_mintick(lastHighPivot.price)), xloc=xloc.bar_index, yloc=yloc.price,
+                                          color=color.new(colorBOSBullish, transparencyBOSLabel), textcolor=color.new(breachLabelTextColor, transparencyBOSText),
+                                          style=label.style_label_left, size=size.small)
+
+                BreachInfo newBreach = BreachInfo.new(newLine, newLabel, lastHighPivot.barIndex, "Bullish", true)
+                breachHistory.push(newBreach)
+
+                // Remove oldest if exceeds max
+                if breachHistory.size() > maxBreachLines
+                    BreachInfo oldest = breachHistory.shift()
+                    line.delete(oldest.ln)
+                    label.delete(oldest.lb) 
+            else if updateIndex >= 0 and breachHistory.size() > updateIndex
+                // Update existing breach line endpoint
+                BreachInfo existing = breachHistory.get(updateIndex)
+                if existing.active
+                    existing.ln.set_x2(bar_index)
+                    existing.lb.set_x(bar_index + int(breachLabelOffset))
+        else if isAbove and updateIndex >= 0 and breachHistory.size() > updateIndex
+            // Keep extending existing breach line while price remains beyond the pivot
+            BreachInfo existing = breachHistory.get(updateIndex)
+            if existing.active
+                existing.ln.set_x2(bar_index)
+                existing.lb.set_x(bar_index + int(breachLabelOffset))
+        else if not isAbove and updateIndex >= 0 and breachHistory.size() > updateIndex
+            // Price returned inside — mark active breach as inactive so next intersect can trigger
+            BreachInfo existing = breachHistory.get(updateIndex)
+            if existing.active
+                existing.active := false
+
+    // Bearish Breach: trigger only on crossing (one alert), create box + label; extend while price stays below
+    if not na(lastLowPivot)
+        if crossedBelow
+            bosBearishBreach := true
+            bool shouldCreateNew = not alreadyBreached
+            if alreadyBreached and updateIndex >= 0 and breachHistory.size() > updateIndex
+                if breachHistory.get(updateIndex).breachType != "Bearish"
+                    shouldCreateNew := true
+            
+            if shouldCreateNew
+                // Create new breach visuals (line + value label)
+                line newLine = line.new(lastLowPivot.barIndex, lastLowPivot.price, bar_index, lastLowPivot.price,
+                                        xloc=xloc.bar_index, color=color.new(colorBOSBearish, transparencyBOSLine), width=bosLineWidth, style=lnStyle)
+                label newLabel = label.new(bar_index + int(breachLabelOffset), lastLowPivot.price, str.tostring(math.round_to_mintick(lastLowPivot.price)), xloc=xloc.bar_index, yloc=yloc.price,
+                                          color=color.new(colorBOSBearish, transparencyBOSLabel), textcolor=color.new(breachLabelTextColor, transparencyBOSText),
+                                          style=label.style_label_left, size=size.small)
+
+                BreachInfo newBreach = BreachInfo.new(newLine, newLabel, lastLowPivot.barIndex, "Bearish", true)
+                breachHistory.push(newBreach)
+
+                // Remove oldest if exceeds max
+                if breachHistory.size() > maxBreachLines
+                    BreachInfo oldest = breachHistory.shift()
+                    line.delete(oldest.ln)
+                    label.delete(oldest.lb)
+            else if updateIndex >= 0 and breachHistory.size() > updateIndex
+                // Update existing breach line endpoint and extend box
+                BreachInfo existing = breachHistory.get(updateIndex)
+                if existing.active
+                    existing.ln.set_x2(bar_index)
+                    existing.lb.set_x(bar_index + int(breachLabelOffset))
+        else if isBelow and updateIndex >= 0 and breachHistory.size() > updateIndex
+            // Keep extending existing breach line while price remains beyond the pivot
+            BreachInfo existing = breachHistory.get(updateIndex)
+            if existing.active
+                existing.ln.set_x2(bar_index)
+                existing.lb.set_x(bar_index + int(breachLabelOffset))
+        else if not isBelow and updateIndex >= 0 and breachHistory.size() > updateIndex
+            // Price returned inside — mark active breach as inactive so next crossing can trigger
+            BreachInfo existing = breachHistory.get(updateIndex)
+            if existing.active
+                existing.active := false
+
+// ============================================================================
+// MEAN INTERSECTION (Ultimate Smoothed vs Mean)
+// - Detect an exact intersection value using linear slope estimate (like Intersection Value Functions)
+// - Draw a horizontal line + price label at the intersection and provide one alert per crossing
+// ============================================================================
+
+// Reset mean cross flags each bar
+meanBullishCross := false
+meanBearishCross := false
+
+// Strict intersection functions (based on Intersection Value Functions)
+// Return intersection value only when a true crossover/crossunder event occurs
+
+
+
+
+// Compute mean conditions
+bool meanIsAbove = enableMeanIntersection and not na(wopMean) and smoothedPrice > wopMean
+bool meanIsBelow = enableMeanIntersection and not na(wopMean) and smoothedPrice < wopMean
+
+
+if enableMeanIntersection
+    // Use neutral cross detection (like the reference): any cross -> get intersection value and determine direction by sign
+    float insct = crossValue(smoothedPrice, wopMean)
+    if not na(insct)
+        // Detect intrabar crossover/crossunder (tick-level) — use slope-safe intersection helpers for immediate alerts when enabled
+        bool intrabarBull = not na(crossoverValue(smoothedPrice, wopMean))
+        bool intrabarBear = not na(crossunderValue(smoothedPrice, wopMean))
+
+        // compute scaling factor for tooltip/context (shared)
+        float m1n = smoothedPrice - smoothedPrice[1]
+        float m2n = wopMean - wopMean[1]
+        float sfn = commonScalingFactor(smoothedPrice, wopMean, m1n, m2n)
+
+        // Determine direction using current values (matches reference drawing behavior)
+        bool crossoverDir = smoothedPrice > wopMean
+
+        // Use max/min including previous values to match reference area sizing
+        float maxv = math.max(smoothedPrice, wopMean, smoothedPrice[1], wopMean[1])
+        float minv = math.min(smoothedPrice, wopMean, smoothedPrice[1], wopMean[1])
+
+        // Select colors matching reference defaults (or user inputs)
+        color cssLine = crossoverDir ? color.new(meanCrossUpColor, meanIntersectionLineTransparency) : color.new(meanCrossDownColor, meanIntersectionLineTransparency)
+        color cssArea = crossoverDir ? meanCrossUpArea : meanCrossDownArea
+
+        [ln_, lb_, bx_] = drawIntersection(insct, sfn, maxv, minv, crossoverDir, cssLine, cssArea)
+        MeanIntersection newM = MeanIntersection.new(ln_, lb_, bx_, bar_index, crossoverDir, true)
+        meanState := newM
+
+        // Immediate intrabar alert path (user-configurable) with optional time-based directional throttle
+        if immediateMeanAlerts and (intrabarBull or intrabarBear) and (na(lastMeanCrossBar) or bar_index > lastMeanCrossBar)
+            // Estimate exact intersection time between previous and current bar using linear slopes
+            float m1_i = smoothedPrice - smoothedPrice[1]
+            float m2_i = wopMean - wopMean[1]
+            float tFrac_intr = na
+            if m1_i != m2_i
+                tFrac_intr := (wopMean[1] - smoothedPrice[1]) / (m1_i - m2_i)
+                tFrac_intr := math.max(0.0, math.min(1.0, tFrac_intr))
+            int timeIns_intr = na
+            string timeInsStr_intr = "-"
+            if not na(tFrac_intr)
+                timeIns_intr := int(time[1] + tFrac_intr * (time - time[1]))
+                timeInsStr_intr := formatTimeWithOffset(timeIns_intr) // includes UTC-offset
+
+            // Throttle checks (per-direction, seconds)
+            bool allowBull = minSecondsBullAlerts == 0 or na(lastBullAlertTime) or (time - lastBullAlertTime) >= minSecondsBullAlerts * 1000
+            bool allowBear = minSecondsBearAlerts == 0 or na(lastBearAlertTime) or (time - lastBearAlertTime) >= minSecondsBearAlerts * 1000
+
+            if intrabarBull and allowBull
+                meanBullishCross := true
+                lastMeanCrossBar := bar_index
+                lastMeanCrossDir := 1
+                lastMeanCrossSource := 1
+                lastBullAlertTime := time
+                // Debug + table row includes estimated intersection time & price
+                info_debug("INTRABAR_ALERT", "Bull intrabar alert fired @ " + timeInsStr_intr + " price " + str.tostring(math.round_to_mintick(insct)))
+                if debugLogEnable
+                    addDebugRow("INTRABAR_BULL", timeInsStr_intr, str.tostring(smoothedPrice, format.mintick), str.tostring(wopMean, format.mintick), "-", "intrabar bull @ " + str.tostring(math.round_to_mintick(insct)))
+                // Always log to console for convenience
+                log.info("INTRABAR_MEAN_ALERT: BULL @ " + timeInsStr_intr + " price " + str.tostring(math.round_to_mintick(insct)))
+                alert('Mean Bullish Cross (intrabar) - ' + str.tostring(syminfo.ticker) + ' @ ' + timeInsStr_intr + ' price ' + str.tostring(math.round_to_mintick(insct)), alert.freq_once_per_bar)
+            else if intrabarBull and not allowBull
+                // Throttled - record for debugging
+                string lastBullTimeStr = formatTimeWithOffset(lastBullAlertTime) // unified UTC-offset format
+                info_debug("INTRABAR_THROTTLE", "Bull intrabar throttled, last at " + lastBullTimeStr)
+                if debugLogEnable
+                    addDebugRow("INTRABAR_THROTTLE_BULL", timeInsStr_intr, str.tostring(smoothedPrice, format.mintick), str.tostring(wopMean, format.mintick), "-", "throttled")
+
+            if intrabarBear and allowBear
+                meanBearishCross := true
+                lastMeanCrossBar := bar_index
+                lastMeanCrossDir := -1
+                lastMeanCrossSource := 1
+                lastBearAlertTime := time
+                info_debug("INTRABAR_ALERT", "Bear intrabar alert fired @ " + timeInsStr_intr + " price " + str.tostring(math.round_to_mintick(insct)))
+                if debugLogEnable
+                    addDebugRow("INTRABAR_BEAR", timeInsStr_intr, str.tostring(smoothedPrice, format.mintick), str.tostring(wopMean, format.mintick), "-", "intrabar bear @ " + str.tostring(math.round_to_mintick(insct)))
+                // Always log to console for convenience
+                log.info("INTRABAR_MEAN_ALERT: BEAR @ " + timeInsStr_intr + " price " + str.tostring(math.round_to_mintick(insct)))
+                alert('Mean Bearish Cross (intrabar) - ' + str.tostring(syminfo.ticker) + ' @ ' + timeInsStr_intr + ' price ' + str.tostring(math.round_to_mintick(insct)), alert.freq_once_per_bar)
+            else if intrabarBear and not allowBear
+                string lastBearTimeStr = formatTimeWithOffset(lastBearAlertTime) // unified UTC-offset format
+                info_debug("INTRABAR_THROTTLE", "Bear intrabar throttled, last at " + lastBearTimeStr)
+                if debugLogEnable
+                    addDebugRow("INTRABAR_THROTTLE_BEAR", timeInsStr_intr, str.tostring(smoothedPrice, format.mintick), str.tostring(wopMean, format.mintick), "-", "throttled")
+
+        // Bar-close fallback (only if intrabar path did not already trigger for this bar)
+        else if barstate.isconfirmed and (na(lastMeanCrossBar) or bar_index > lastMeanCrossBar)
+            if crossoverDir
+                meanBullishCross := true
+                lastMeanCrossBar := bar_index
+                lastMeanCrossDir := 1
+                lastMeanCrossSource := 2
+                string qmsg = 'Mean Bullish Cross - ' + str.tostring(syminfo.ticker) + ' @ ' + str.tostring(math.round_to_mintick(insct))
+                log.info("QUEUE_MEAN_ALERT: bar-close bull queued: " + qmsg)
+                if debugLogEnable
+                    addDebugRow("QUEUED_MEAN_BULL", formatTimeWithOffset(time), str.tostring(smoothedPrice, format.mintick), str.tostring(wopMean, format.mintick), "-", "queued bar-close bull")
+                queueMeanAlert(qmsg)
+            else
+                meanBearishCross := true
+                lastMeanCrossBar := bar_index
+                lastMeanCrossDir := -1
+                lastMeanCrossSource := 2
+                string qmsg = 'Mean Bearish Cross - ' + str.tostring(syminfo.ticker) + ' @ ' + str.tostring(math.round_to_mintick(insct))
+                log.info("QUEUE_MEAN_ALERT: bar-close bear queued: " + qmsg)
+                if debugLogEnable
+                    addDebugRow("QUEUED_MEAN_BEAR", formatTimeWithOffset(time), str.tostring(smoothedPrice, format.mintick), str.tostring(wopMean, format.mintick), "-", "queued bar-close bear")
+                queueMeanAlert(qmsg)
+
+    // Extension / deactivation logic preserved (based on position vs mean)
+    if meanIsAbove and not na(meanState) and meanState.active and meanState.isAbove
+        if extendMeanIntersection
+            meanState.ln.set_x2(bar_index)
+            // Position label like reference: centred between x1 and current bar
+            meanState.lb.set_x(int(math.avg(bar_index, meanState.ln.get_x1())))
+            // Extend box right endpoint
+            if not na(meanState.bx)
+                meanState.bx.set_right(bar_index)
+    if not meanIsAbove and not na(meanState) and meanState.active and meanState.isAbove
+        meanState.active := false
+        info_debug("MEAN_DEACT", "deactivated due to returning inside threshold")
+
+    if meanIsBelow and not na(meanState) and meanState.active and not meanState.isAbove
+        if extendMeanIntersection
+            meanState.ln.set_x2(bar_index)
+            // Position label like reference: centred between x1 and current bar
+            meanState.lb.set_x(int(math.avg(bar_index, meanState.ln.get_x1())))
+            // Extend box right endpoint
+            if not na(meanState.bx)
+                meanState.bx.set_right(bar_index)
+    else if not meanIsBelow and not na(meanState) and meanState.active and not meanState.isAbove
+        meanState.active := false
+        info_debug("MEAN_DEACT", "deactivated due to returning inside threshold")
+
+// Plot Mean ± ATR threshold helper lines when enabled
+float meanUpper = na
+float meanLower = na
+// Compute Mean ± ATR helper lines only when user enables visibility (decoupled from strict-extension logic)
+if showMeanThresholdLines and not na(wopMean)
+    meanUpper := wopMean + (atr * meanAtrMultiplier)
+    meanLower := wopMean - (atr * meanAtrMultiplier)
+
+// Plot when the helper-lines visibility toggle is enabled; use na otherwise
+plot((showMeanThresholdLines and not onlyMeanCrossLines) ? meanUpper : na, title="Mean Upper Threshold", color=color.new(meanThresholdLineColor, meanThresholdLineTransparency), linewidth=meanThresholdLineWidth, style=plot.style_line, linestyle = meanThresholdLineStyle == "Dashed" ? plot.linestyle_dashed : meanThresholdLineStyle == "Dotted" ? plot.linestyle_dotted : plot.linestyle_solid)
+plot((showMeanThresholdLines and not onlyMeanCrossLines) ? meanLower : na, title="Mean Lower Threshold", color=color.new(meanThresholdLineColor, meanThresholdLineTransparency), linewidth=meanThresholdLineWidth, style=plot.style_line, linestyle = meanThresholdLineStyle == "Dashed" ? plot.linestyle_dashed : meanThresholdLineStyle == "Dotted" ? plot.linestyle_dotted : plot.linestyle_solid)
+
+// ============================================================================
+// PLOTTING - WOP LEVELS
+// ============================================================================
+plot(wopZero, title="0%", color=colorZero, linewidth=1, style=plot.style_line)
+// ============================================================================
+// ALERTS FOR PIVOT BREACH (BOS)
+// ============================================================================
+alertcondition(bosBullishBreach, title="Pivot Bullish Breach", message="Bullish pivot breach detected!")
+alertcondition(bosBearishBreach, title="Pivot Bearish Breach", message="Bearish pivot breach detected!")
+
+// Alerts for Mean Intersection (Ultimate Smoothed vs Mean)
+alertcondition(barstate.isconfirmed and lastMeanCrossBar == bar_index and lastMeanCrossDir == 1 and lastMeanCrossSource == 2, title="Mean Bullish Cross", message="Ultimate Smoothed crossed above Mean (50%)")
+alertcondition(barstate.isconfirmed and lastMeanCrossBar == bar_index and lastMeanCrossDir == -1 and lastMeanCrossSource == 2, title="Mean Bearish Cross", message="Ultimate Smoothed crossed below Mean (50%)")
+// plot(wopLow removed to stay under plot limit)
+plot(onlyMeanCrossLines ? na : wopMean, title="Mean (50%)", color=colorMean, linewidth=2, style=plot.style_line , linestyle = plot.linestyle_dotted)
+// plot(wopHigh removed to stay under plot limit)
+plot(wopTop, title="100%", color=colorTop, linewidth=1, style=plot.style_line)
+// plot(dynamicOutput removed (Stage 1 Adaptive) per request)
+plot(smoothedPrice, title="Stage 2: Ultimate Smoothed", color=colorStage2, linewidth=2, style=plot.style_line)
+
+// ============================================================================
+// INTELLIGENT EXTREME ZONES - Gradient based on overextension
+// ============================================================================
+// TODO: Extreme zones moeten nog worden aangepast ten opzichte van de angle stage lijn
+//       Probleem: wanneer de stage lijn "omhoog" gaat, wordt ook een extreme zone getoond
+//       Dit moet niet gebeuren - alleen tonen bij relevante marktcondities
+// ============================================================================
+// Calculate background color for extreme zones (must be at global scope)
+color extremeZoneColor = na
+
+// Only calculate if WOP levels are valid
+if not na(wopZero) and not na(wopLow) and not na(wopHigh) and not na(wopTop) and not na(pivotSource)
+    // Calculate zone sizes and thresholds
+    float totalRange = wopTop - wopZero
+    
+    // Calculate early warning boundaries (start X% before the High/Low levels)
+    float earlyWarningRange = totalRange * (earlyWarningPercent / 100.0)
+    float earlyHighThreshold = wopHigh - earlyWarningRange  // e.g., 89% with 1% early warning
+    float earlyLowThreshold = wopLow + earlyWarningRange    // e.g., 11% with 1% early warning
+    
+    // Calculate zone sizes for gradient calculation
+    float highZoneSize = wopTop - wopHigh              // 90% → 100%
+    float lowZoneSize = wopLow - wopZero               // 10% → 0%
+    float earlyHighZoneSize = wopHigh - earlyHighThreshold  // 89% → 90%
+    float earlyLowZoneSize = earlyLowThreshold - wopLow     // 10% → 11%
+    
+    // Only proceed if zones are valid
+    if totalRange > 0 and highZoneSize > 0 and lowZoneSize > 0
+        
+        // BULLISH EXTREME: Stage approaching or above wopHigh
+        if pivotSource >= earlyHighThreshold
+            float overextension = 0.0
+            
+            // Calculate position in zones
+            if pivotSource >= wopHigh
+                // In extreme zone (90% → 100%+)
+                overextension := 1.0 + ((pivotSource - wopHigh) / highZoneSize)
+            else
+                // In early warning zone (89% → 90%)
+                overextension := (pivotSource - earlyHighThreshold) / earlyHighZoneSize
+            
+            // Cap at 3.0 for extreme overextension
+            float cappedOverextension = math.min(overextension, 3.0)
+            
+            // Interpolate transparency based on overextension level
+            // 0.0 = transEarlyWarning, 1.0 = transExtremeZone, 2.0 = transStrongOverext, 3.0 = transMaxWarning
+            int transparency = transEarlyWarning
+            if cappedOverextension <= 1.0
+                // Interpolate between Early (0.0) and Extreme (1.0)
+                transparency := int(transEarlyWarning + (transExtremeZone - transEarlyWarning) * cappedOverextension)
+            else if cappedOverextension <= 2.0
+                // Interpolate between Extreme (1.0) and Strong (2.0)
+                float factor = cappedOverextension - 1.0
+                transparency := int(transExtremeZone + (transStrongOverext - transExtremeZone) * factor)
+            else
+                // Interpolate between Strong (2.0) and Max (3.0)
+                float factor = cappedOverextension - 2.0
+                transparency := int(transStrongOverext + (transMaxWarning - transStrongOverext) * factor)
+            
+            extremeZoneColor := color.new(color.green, transparency)
+        
+        // BEARISH EXTREME: Stage approaching or below wopLow
+        else if pivotSource <= earlyLowThreshold
+            float overextension = 0.0
+            
+            // Calculate position in zones
+            if pivotSource <= wopLow
+                // In extreme zone (10% → 0%-)
+                overextension := 1.0 + ((wopLow - pivotSource) / lowZoneSize)
+            else
+                // In early warning zone (11% → 10%)
+                overextension := (earlyLowThreshold - pivotSource) / earlyLowZoneSize
+            
+            // Cap at 3.0 for extreme overextension
+            float cappedOverextension = math.min(overextension, 3.0)
+            
+            // Interpolate transparency based on overextension level
+            // 0.0 = transEarlyWarning, 1.0 = transExtremeZone, 2.0 = transStrongOverext, 3.0 = transMaxWarning
+            int transparency = transEarlyWarning
+            if cappedOverextension <= 1.0
+                // Interpolate between Early (0.0) and Extreme (1.0)
+                transparency := int(transEarlyWarning + (transExtremeZone - transEarlyWarning) * cappedOverextension)
+            else if cappedOverextension <= 2.0
+                // Interpolate between Extreme (1.0) and Strong (2.0)
+                float factor = cappedOverextension - 1.0
+                transparency := int(transExtremeZone + (transStrongOverext - transExtremeZone) * factor)
+            else
+                // Interpolate between Strong (2.0) and Max (3.0)
+                float factor = cappedOverextension - 2.0
+                transparency := int(transStrongOverext + (transMaxWarning - transStrongOverext) * factor)
+            
+            extremeZoneColor := color.new(color.red, transparency)
+
+// Apply background color (must be at global scope, conditional)
+bgcolor(showExtremeZones ? extremeZoneColor : na, title="Intelligent Extreme Zones")
+
+// ============================================================================
+// ALERT SIGNALS - STAGE VS MEAN
+// ============================================================================
+// Calculate Stage vs Mean position for alerts
+bool stageAtMean = pivotSource <= wopMean + (atr * meanAtrMultiplier) and pivotSource >= wopMean - (atr * meanAtrMultiplier)
+bool stageAboveMean = pivotSource > wopMean + (atr * meanAtrMultiplier)
+bool stageBelowMean = pivotSource < wopMean - (atr * meanAtrMultiplier)
+
+// Alert Signal 1: Stage enters neutral zone (AT MEAN)
+bool alertStageAtMean = stageAtMean and not stageAtMean[1]
+
+// Alert Signal 2: Stage exits neutral zone (ABOVE or BELOW)
+bool alertStageExitMean = (stageAboveMean or stageBelowMean) and stageAtMean[1]
+bool alertStageAbove = stageAboveMean and not stageAboveMean[1]
+bool alertStageBelow = stageBelowMean and not stageBelowMean[1]
+
+// Plot alert signals for visualization (conditional)
+plotshape(showMeanAlerts and alertStageAtMean, "Alert: Stage AT Mean", shape.circle, location.bottom, color.new(color.yellow, 50), size=size.tiny)
+plotshape(showMeanAlerts and alertStageAbove, "Alert: Stage ABOVE Mean", shape.triangleup, location.bottom, color.new(color.green, 30), size=size.tiny)
+plotshape(showMeanAlerts and alertStageBelow, "Alert: Stage BELOW Mean", shape.triangledown, location.top, color.new(color.red, 30), size=size.tiny)
+
+// Alert conditions
+alertcondition(alertStageAtMean, title="Stage AT Mean", message="Stage lijn is in neutrale zone bij 50% mean line")
+alertcondition(alertStageExitMean, title="Stage EXIT Mean", message="Stage lijn verlaat neutrale zone - beweging gedetecteerd")
+alertcondition(alertStageAbove, title="Stage ABOVE Mean", message="Stage lijn breekt boven neutrale zone - bullish signal")
+alertcondition(alertStageBelow, title="Stage BELOW Mean", message="Stage lijn breekt onder neutrale zone - bearish signal")
+
+// -------------------------- DEBUG OUTPUTS & HELPERS -------------------------
+// Provides quick visual markers and a compact debug label + optional log.info() calls
+
+// persistent debug label (single on-screen label updated by events)
+var label debugLabel = na
+
+// (debug log inputs moved earlier)
+
+// debug arrays declared earlier (moved above)
+
+// Small plot markers for quick scanning in Replay
+plotshape(debugMode and alertStageAtMean, "DBG: AT MEAN", shape.circle, location.bottom, color=color.new(color.yellow, 50), size=size.tiny)
+plotshape(debugMode and alertStageExitMean, "DBG: EXIT MEAN", shape.xcross, location.top, color=color.new(color.orange, 50), size=size.tiny)
+plotshape(debugMode and alertStageAbove, "DBG: ABOVE MEAN", shape.triangleup, location.bottom, color=color.new(color.green, 50), size=size.tiny)
+plotshape(debugMode and alertStageBelow, "DBG: BELOW MEAN", shape.triangledown, location.top, color=color.new(color.red, 50), size=size.tiny)
+
+plotshape(debugMode and meanBullishCross, "DBG: Mean Bullish Cross", shape.labelup, location.top, color=color.new(colorMean, 40), size=size.tiny)
+plotshape(debugMode and meanBearishCross, "DBG: Mean Bearish Cross", shape.labeldown, location.top, color=color.new(colorMean, 40), size=size.tiny)
+// DBG: BOS Bullish shape removed per request
+// DBG: BOS Bearish shape removed per request
+
+// Compose compact debug text, log it and add rows to the persistent table
+if debugMode
+    float totRange = not na(wopTop) and not na(wopZero) ? (wopTop - wopZero) : na
+    string timeStr = formatTimeWithOffset(time) // includes UTC-offset
+    string smStr = debugShowSmoothed and not na(smoothedPrice) ? str.tostring(smoothedPrice, format.mintick) : "-"
+    string meanStr = debugShowMean and not na(wopMean) ? str.tostring(wopMean, format.mintick) : "-"
+    float pctflt = not na(totRange) and totRange != 0 and not na(smoothedPrice) and not na(wopMean) ? ((smoothedPrice - wopMean) / totRange) * 100.0 : na
+    string pctStr = na(pctflt) ? "-" : (pctflt >= 0 ? "+" : "") + str.tostring(pctflt, "#.#") + "%"
+
+    if alertStageAtMean
+        info_debug("AT_MEAN", str.tostring(pivotSource, format.mintick))
+        if debugLogEnable
+            addDebugRow("AT_MEAN", timeStr, smStr, meanStr, pctStr, "entered neutral")
+    if alertStageExitMean
+        info_debug("EXIT_MEAN", str.tostring(pivotSource, format.mintick))
+        if debugLogEnable
+            addDebugRow("EXIT_MEAN", timeStr, smStr, meanStr, pctStr, "exited neutral")
+    if alertStageAbove
+        info_debug("ABOVE_MEAN", str.tostring(pivotSource, format.mintick))
+        if debugLogEnable
+            addDebugRow("ABOVE", timeStr, smStr, meanStr, pctStr, "exited above")
+    if alertStageBelow
+        info_debug("BELOW_MEAN", str.tostring(pivotSource, format.mintick))
+        if debugLogEnable
+            addDebugRow("BELOW", timeStr, smStr, meanStr, pctStr, "exited below")
+
+    if meanBullishCross
+        // Estimate exact intersection time between previous and current bar using linear slopes
+        float m1_i = smoothedPrice - smoothedPrice[1]
+        float m2_i = wopMean - wopMean[1]
+        float tFrac = na
+        if m1_i != m2_i
+            tFrac := (wopMean[1] - smoothedPrice[1]) / (m1_i - m2_i)
+            tFrac := math.max(0.0, math.min(1.0, tFrac))
+        int timeIns = na
+        string timeInsStr = "-"
+        if not na(tFrac)
+            timeIns := int(time[1] + tFrac * (time - time[1]))
+            timeInsStr := formatTimeWithOffset(timeIns) // includes UTC-offset
+        info_debug("MEAN_CROSS_UP", str.tostring(smoothedPrice, format.mintick) + " vs " + str.tostring(wopMean, format.mintick) + " @" + timeInsStr)
+        if debugLogEnable
+            addDebugRow("MEAN_UP", timeInsStr, smStr, meanStr, pctStr, "mean cross up")
+    if meanBearishCross
+        float m1_i = smoothedPrice - smoothedPrice[1]
+        float m2_i = wopMean - wopMean[1]
+        float tFrac = na
+        if m1_i != m2_i
+            tFrac := (wopMean[1] - smoothedPrice[1]) / (m1_i - m2_i)
+            tFrac := math.max(0.0, math.min(1.0, tFrac))
+        int timeIns = na
+        string timeInsStr = "-"
+        if not na(tFrac)
+            timeIns := int(time[1] + tFrac * (time - time[1]))
+            timeInsStr := formatTimeWithOffset(timeIns) // includes UTC-offset
+        info_debug("MEAN_CROSS_DN", str.tostring(smoothedPrice, format.mintick) + " vs " + str.tostring(wopMean, format.mintick) + " @" + timeInsStr)
+        if debugLogEnable
+            addDebugRow("MEAN_DN", timeInsStr, smStr, meanStr, pctStr, "mean cross dn")
+
+    if bosBullishBreach
+        info_debug("BOS_BULL", str.tostring(lastHighPivotPrice, format.mintick))
+        if debugLogEnable
+            addDebugRow("BOS_BULL", timeStr, smStr, meanStr, pctStr, "pivot HH")
+    if bosBearishBreach
+        info_debug("BOS_BEAR", str.tostring(lastLowPivotPrice, format.mintick))
+        if debugLogEnable
+            addDebugRow("BOS_BEAR", timeStr, smStr, meanStr, pctStr, "pivot LL")
+
+    // Show latest debug event in compact label using the persistent log (avoids undefined `dbg`)
+    if debugLogEnable and array.size(dbg_events) > 0
+        string latest = array.get(dbg_events, 0)
+        string latestTime = array.get(dbg_times, 0)
+        string latestNote = array.get(dbg_note, 0)
+        string labelText = latest + " | " + latestTime + (latestNote != "" ? " | " + latestNote : "")
+        if na(debugLabel)
+            debugLabel := label.new(bar_index, high, labelText, color=color.new(color.purple, 20), textcolor=color.white, style=label.style_label_left, size=size.small, yloc=yloc.price)
+        else
+            label.set_xy(debugLabel, bar_index, high)
+            label.set_text(debugLabel, labelText)
+            label.set_color(debugLabel, color.new(color.purple, 20))
+    else
+        // If no persistent log rows, remove any existing debugLabel to avoid stale text
+        if not na(debugLabel)
+            label.delete(debugLabel)
+            debugLabel := na
+
+// Render the persistent debug log table
+var table debugTable = na
+if debugLogEnable
+    if na(debugTable)
+        debugTable := table.new(position=debugLogPosition, columns=7, rows=debugLogRows + 1, bgcolor=color.new(color.black, 85), border_width=1)
+        // Headers
+        table.cell(debugTable, 0, 0, "#", bgcolor=color.new(color.rgb(30,30,60),80), text_color=color.white, text_size=size.small)
+        table.cell(debugTable, 1, 0, "Event", bgcolor=color.new(color.rgb(30,30,60),80), text_color=color.white, text_size=size.small)
+        table.cell(debugTable, 2, 0, "Time", bgcolor=color.new(color.rgb(30,30,60),80), text_color=color.white, text_size=size.small)
+        table.cell(debugTable, 3, 0, "Smoothed", bgcolor=color.new(color.rgb(30,30,60),80), text_color=color.white, text_size=size.small)
+        table.cell(debugTable, 4, 0, "Mean", bgcolor=color.new(color.rgb(30,30,60),80), text_color=color.white, text_size=size.small)
+        table.cell(debugTable, 5, 0, "%FromMean", bgcolor=color.new(color.rgb(30,30,60),80), text_color=color.white, text_size=size.small)
+        table.cell(debugTable, 6, 0, "Note", bgcolor=color.new(color.rgb(30,30,60),80), text_color=color.white, text_size=size.small)
+
+    // Clear content rows each bar by overwriting
+    int rmax = math.min(array.size(dbg_events), debugLogRows)
+    for r = 0 to debugLogRows - 1
+        if r < rmax
+            table.cell(debugTable, 0, r + 1, str.tostring(r + 1), text_color=color.white, text_size=size.tiny)
+            table.cell(debugTable, 1, r + 1, array.get(dbg_events, r), text_color=color.white, text_size=size.tiny)
+            table.cell(debugTable, 2, r + 1, array.get(dbg_times, r), text_color=color.white, text_size=size.tiny)
+            table.cell(debugTable, 3, r + 1, array.get(dbg_sm, r), text_color=color.white, text_size=size.tiny)
+            table.cell(debugTable, 4, r + 1, array.get(dbg_mean, r), text_color=color.white, text_size=size.tiny)
+            table.cell(debugTable, 5, r + 1, array.get(dbg_pct, r), text_color=color.white, text_size=size.tiny)
+            table.cell(debugTable, 6, r + 1, array.get(dbg_note, r), text_color=color.white, text_size=size.tiny)
+        else
+            table.cell(debugTable, 0, r + 1, "", text_size=size.tiny)
+            table.cell(debugTable, 1, r + 1, "", text_size=size.tiny)
+            table.cell(debugTable, 2, r + 1, "", text_size=size.tiny)
+            table.cell(debugTable, 3, r + 1, "", text_size=size.tiny)
+            table.cell(debugTable, 4, r + 1, "", text_size=size.tiny)
+            table.cell(debugTable, 5, r + 1, "", text_size=size.tiny)
+            table.cell(debugTable, 6, r + 1, "", text_size=size.tiny)
+
+    // Flush queued mean alerts at bar-close
+    if barstate.isconfirmed and array.size(meanAlertMessages) > 0
+        string full = array.get(meanAlertMessages, 0)
+        for i = 1 to array.size(meanAlertMessages) - 1
+            full := full + "\n" + array.get(meanAlertMessages, i)
+        log.info("FLUSH_MEAN_ALERTS: sending " + str.tostring(array.size(meanAlertMessages)) + " messages")
+        alert(full, alert.freq_once_per_bar_close)
+        array.clear(meanAlertMessages)
+
+// ---------------------------------------------------------------------------
+
+// ============================================================================
+// INFO TABLE
+// ============================================================================
+var table infoTable = table.new(tablePosition, 2, 6, bgcolor=color.new(tableBgColor, 85), border_width=1)
+
+if barstate.islast and showTable
+    table.cell(infoTable, 0, 0, "WOP Zone", text_color=tableTextColor, text_size=size.small)
+    string currentZone = pivotSource > wopHigh ? "ABOVE HIGH (" + str.tostring(percentileHigh, "#") + "%)" :
+                         pivotSource < wopLow ? "BELOW LOW (" + str.tostring(percentileLow, "#") + "%)" :
+                         "RANGE (Mean Reversion)"
+    color zoneColor = pivotSource > wopHigh ? colorBullish :
+                      pivotSource < wopLow ? colorBearish : colorNeutral
+    table.cell(infoTable, 1, 0, currentZone, text_color=zoneColor, text_size=size.small)
+    
+    table.cell(infoTable, 0, 1, "Last Pivot", text_color=tableTextColor, text_size=size.small)
+    if not na(state.lastPivot)
+        string pivotInfo = state.lastPivot.pivotType + " " + state.lastPivot.atLevel
+        color pivotColor = state.lastPivot.isHigher ? colorBullish : colorBearish
+        table.cell(infoTable, 1, 1, pivotInfo, text_color=pivotColor, text_size=size.small)
+    else
+        table.cell(infoTable, 1, 1, "None", text_color=color.gray, text_size=size.small)
+    
+    table.cell(infoTable, 0, 2, "Trend", text_color=tableTextColor, text_size=size.small)
+    string trendText = "Undefined"
+    color trendColor = color.gray
+    if state.pivots.size() >= 3
+        PivotPoint p1 = state.pivots.get(state.pivots.size() - 1)
+        PivotPoint p2 = state.pivots.get(state.pivots.size() - 2)
+        PivotPoint p3 = state.pivots.get(state.pivots.size() - 3)
+        
+        // Uptrend: HH + HL pattern
+        if (p1.pivotType == "HH" or p1.pivotType == "HL") and (p2.pivotType == "HH" or p2.pivotType == "HL")
+            trendText := "UPTREND"
+            trendColor := colorBullish
+        // Downtrend: LL + LH pattern
+        else if (p1.pivotType == "LL" or p1.pivotType == "LH") and (p2.pivotType == "LL" or p2.pivotType == "LH")
+            trendText := "DOWNTREND"
+            trendColor := colorBearish
+        else
+            trendText := "RANGING"
+            trendColor := colorNeutral
+    table.cell(infoTable, 1, 2, trendText, text_color=trendColor, text_size=size.small)
+    
+    table.cell(infoTable, 0, 3, "Strategy", text_color=tableTextColor, text_size=size.small)
+    string strategyHint = pivotSource > wopHigh or pivotSource < wopLow ? "MOMENTUM" : "MEAN REVERSION"
+    color strategyColor = pivotSource > wopHigh or pivotSource < wopLow ? colorNeutral : colorBullish
+    table.cell(infoTable, 1, 3, strategyHint, text_color=strategyColor, text_size=size.small)
+    
+    table.cell(infoTable, 0, 4, "Stage vs 50%", text_color=tableTextColor, text_size=size.small)
+    string priceVsMean = "AT MEAN"
+    color meanColor = colorNeutral
+    
+    // Calculate percentage distance from mean
+    float distanceFromMean = pivotSource - wopMean
+    float totalRange = wopTop - wopZero
+    float percentFromMean = totalRange != 0 ? (math.abs(distanceFromMean) / totalRange) * 100.0 : 0.0
+    string percentText = " (" + str.tostring(percentFromMean, "#.#") + "%)"
+    
+    if pivotSource > wopMean + (atr * meanAtrMultiplier)
+        priceVsMean := "ABOVE ↑" + percentText
+        meanColor := colorBullish
+    else if pivotSource < wopMean - (atr * meanAtrMultiplier)
+        priceVsMean := "BELOW ↓" + percentText
+        meanColor := colorBearish
+    else
+        priceVsMean := "AT MEAN" + percentText
+    table.cell(infoTable, 1, 4, priceVsMean, text_color=meanColor, text_size=size.small)
+    
+    table.cell(infoTable, 0, 5, "Total Pivots", text_color=tableTextColor, text_size=size.small)
+    table.cell(infoTable, 1, 5, str.tostring(state.pivots.size()), text_color=tableTextColor, text_size=size.small)
+
+
+// ============================================================================ 
+// LIVE PIVOT TABLE (Casa ZigZag style)
+// ============================================================================ 
+
+var table pivotTable = na
+if barstate.islast and showPivotTable
+    // Init table
+    if na(pivotTable)
+        pivotTable := table.new(
+            position=pivotTablePosition,
+            columns=6,
+            rows=pivotTableRows+1,  
+            bgcolor=pivotTableBg,
+            border_width=1,
+            border_color=color.gray)
+        // Headers
+        table.cell(pivotTable, 0, 0, "#",       bgcolor=pivotTableHeaderBg, text_color=color.white, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 1, 0, "Tijd",    bgcolor=pivotTableHeaderBg, text_color=color.white, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 2, 0, "Prijs",   bgcolor=pivotTableHeaderBg, text_color=color.white, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 3, 0, "Type",    bgcolor=pivotTableHeaderBg, text_color=color.white, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 4, 0, "Trend",   bgcolor=pivotTableHeaderBg, text_color=color.white, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 5, 0, "Status",  bgcolor=pivotTableHeaderBg, text_color=color.white, text_size=pivotTableTextSize)
+    
+    // Toon laatste X pivots (inclusief huidige bar als die een pivot is)
+    for i = 0 to math.min(pivotTableRows-1, state.pivots.size()-1)
+        PivotPoint p = state.pivots.get(state.pivots.size()-1-i)
+        string pType = p.pivotType
+        string pTrend = p.isHigh ? (p.isHigher ? "▲" : "▼") : (p.isHigher ? "▲" : "▼")
+        string pStatus = p.barIndex == bar_index ? "Now" : "Confirmed"
+        
+        // Highlight huidige bar (Now) met gele kleur
+        color rowTextColor = p.barIndex == bar_index ? color.yellow : color.gray
+        
+        table.cell(pivotTable, 0, i+1, str.tostring(i+1), text_color=rowTextColor, text_size=pivotTableTextSize)
+        
+        // SAFE TIME HANDLING: Toon aantal bars geleden
+        int barsAgo = bar_index - p.barIndex
+        string tStr = barsAgo == 0 ? "Now" : str.tostring(barsAgo) + " bars ago"
+        
+        table.cell(pivotTable, 1, i+1, tStr, text_color=color.white, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 2, i+1, str.tostring(p.price, format.mintick), text_color=color.white, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 3, i+1, pType, text_color=p.isHigh ? color.new(colorBullish, 0) : color.new(colorBearish, 0), text_size=pivotTableTextSize)
+        table.cell(pivotTable, 4, i+1, pTrend, text_color=pTrend == "▲" ? color.green : color.red, text_size=pivotTableTextSize)
+        table.cell(pivotTable, 5, i+1, pStatus, text_color=rowTextColor, text_size=pivotTableTextSize)

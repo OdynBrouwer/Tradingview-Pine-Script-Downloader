@@ -12,5 +12,10 @@ Other archived scripts in this folder (kept for reference):
 - `summarize_retry2.py`
 - `test_pubdate.py` (diagnostic)
 - `update_failed_from_retry2.py`
+- `check_strategies.py` (moved from `scripts/` — small analysis helper)
+- `check_types.py` (moved from `scripts/` — header/type validation)
+
+Moved backups:
+- `backups/` → `analyze/archived/backups/` (historical `.pine` files moved here for review). Files moved: `WOP_owner.pine`, `zig_zag_indicator_ower.pine`, `zig_zag_owner.pine`.
 
 If you rely on any of these standalone helpers for a specific workflow, copy the file(s) and adapt locally; otherwise it is safe to keep them archived for traceability.

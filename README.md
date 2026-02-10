@@ -100,7 +100,7 @@ Kleine code-opmerking:
 
 ## Archivering & ongebruikte helpers ✅
 
-- `analyze/archived/` — eerder gebruikte analyse-hulpscripts zijn hierheen verplaatst. Raadpleeg `analyze/archived/README.md` voor een korte inventaris; verwijder scripts pas definitief ná review (houden voor traceerbaarheid is prima).
+- `analyze/archived/` — eerder gebruikte analyse-hulpscripts zijn hierheen verplaatst. Raadpleeg `analyze/archived/README.md` voor een korte inventaris; verwijder scripts pas definitief ná review (houden voor traceerbaarheid is prima). *Opmerking (2026-02-10): `check_strategies.py` en `check_types.py` zijn inmiddels verplaatst naar deze map.*
 - `tools/` — bevat kleine ad-hoc tools (bijvoorbeeld `tools/inspect_pub.py`) die gebruikt zijn voor debugging en inspectie. Overweeg om weinig-gebruikte tools te verplaatsen naar `analyze/archived/` of voeg een korte `tools/README.md` toe om doel en status te documenteren.
 - `scripts/` — bevat operationele runner-scripts (bijv. `run_periodic_collection.ps1`, `cleanup_logs.ps1`) en een paar hulpscripts voor analyses (`scripts/check_strategies.py`, `scripts/check_types.py`). Als je wilt kan ik archiveringsvoorstellen doen of deze helpers verplaatsen naar `analyze/archived/`.
 - `backups/` — bevat een kleine set historische `.pine` backups. Controleer en verwijder wanneer onnodig.

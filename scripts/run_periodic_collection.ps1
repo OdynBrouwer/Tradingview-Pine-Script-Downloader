@@ -48,10 +48,10 @@ try {
     if (-not $python) { $python = 'python' }
 
     $commands = @(
-        ("$python" + ' batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=strategies&sort=recent_extended&page={n}" --start 1 --end 3 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads'),
-        ("$python" + ' batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=libraries&sort=recent_extended&page={n}" --start 1 --end 3 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads'),
-        ("$python" + ' batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=indicators&sort=recent_extended&page={n}" --start 1 --end 3 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads'),
-        ("$python" + ' batch_pages.py --start 1 --end 3 --suppress-diagnostics --positional-click')
+        ("$python" + ' batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=strategies&sort=recent_extended&page={n}" --start 1 --end 1 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads'),
+        ("$python" + ' batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=libraries&sort=recent_extended&page={n}" --start 1 --end 1 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads'),
+        ("$python" + ' batch_download.py --template "https://www.tradingview.com/scripts/page-{n:02d}/?script_type=indicators&sort=recent_extended&page={n}" --start 1 --end 1 --max-pages 1 --fast --collect-urls-only --output pinescript_downloads'),
+        ("$python" + ' batch_pages.py --start 1 --end 1 --suppress-diagnostics --positional-click')
     )
 
     foreach ($cmd in $commands) {
@@ -185,12 +185,12 @@ try {
 } catch {
     "Exception: $_" | Tee-Object -FilePath $logFile -Append
 } finally {
-    # run log cleanup (remove logs older than 24 hours) and record what was removed
+    # run log cleanup (remove logs older than 4 hours) and record what was removed
     $cleanupScript = Join-Path $ScriptDir 'cleanup_logs.ps1'
     if (Test-Path $cleanupScript) {
-        "Running log cleanup (older than 24h) via $cleanupScript" | Tee-Object -FilePath $logFile -Append
+        "Running log cleanup (older than 4h) via $cleanupScript" | Tee-Object -FilePath $logFile -Append
         try {
-            $removedFiles = & $cleanupScript -LogDir $logDir -MaxAgeHours 24 2>$null
+            $removedFiles = & $cleanupScript -LogDir $logDir -MaxAgeHours 4 2>$null
             if ($removedFiles) {
                 "Cleanup removed {0} files:" -f ($removedFiles.Length) | Tee-Object -FilePath $logFile -Append
                 $removedFiles | ForEach-Object { $_ | Tee-Object -FilePath $logFile -Append }

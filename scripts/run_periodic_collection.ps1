@@ -18,10 +18,10 @@ if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir | Out
 $logFile = Join-Path $logDir ('collection_' + (Get-Date -Format 'yyyyMMdd_HHmmss') + '.log')
 $lockFile = Join-Path $logDir 'collection.lock'
 
-# Prevent overlapping runs: if lock exists and is fresh (<60 minutes) exit
+# Prevent overlapping runs: if lock exists and is fresh (<5 minutes) exit
 if (Test-Path $lockFile) {
     $age = (Get-Date) - (Get-Item $lockFile).LastWriteTime
-    if ($age.TotalMinutes -lt 60) {
+    if ($age.TotalMinutes -lt 5) {
         "[{0}] Existing run in progress (lock age {1:N1} min). Exiting." -f (Get-Date), $age.TotalMinutes | Tee-Object -FilePath $logFile -Append
         exit 0
     } else {
